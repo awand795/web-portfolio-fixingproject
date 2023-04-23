@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap';
 import './App.css'
 import '@popperjs/core';
-import Navbar from './Component/NavBar'
 import picture from './image/awanda.jpg'
 import reactLogo from './image/reactLogo.png';
 import js from './image/js.png'
@@ -15,18 +14,23 @@ import expressJs from './image/expressjs.png'
 import FadeInWhenVisible from './Component/animate/FadeInWhenVisible';
 import { motion } from 'framer-motion'
 import MyProject from './Component/MyProject';
+import NavBar from './Component/NavBar';
 
 const App = () => {
 
+    const [darkTheme, setDarkTheme] = useState(false);
+
     return (
-        <div className="portfolio">
+        <div className={darkTheme? 'bg-dark text-white' : 'bg-light text-dark' }>
 
             <div className="container-fluid">
 
                 <FadeInWhenVisible>
                     <div className="row justify-content-center pb-5">
                         <div className="col-sm-10">
-                            <Navbar />
+                            
+                        <NavBar darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>
+
                         </div>
                     </div>
                 </FadeInWhenVisible>
@@ -91,18 +95,18 @@ const App = () => {
                     <div className="row justify-content-center pt-3 text-center">
                         <div className="col-sm-10">
                             <p className="lh-lg">I've skill in web development using
-                                <motion.span className="btn rounded-pill shadow"
+                                <motion.span className={darkTheme? "text-white btn rounded-pill shadow" : "text-dark btn rounded-pill shadow"}
                                     whileHover={{ y: -10 }}
                                 >
                                     <img src={js} alt="js" height="20px" width="20px"></img>Javascript
                                 </motion.span>
                                 , i can using Framework such as
-                                <motion.span className="btn rounded-pill shadow"
+                                <motion.span className={darkTheme? "text-white btn rounded-pill shadow" : "text-dark btn rounded-pill shadow"}
                                     whileHover={{ y: -10 }}
                                 ><img src={reactLogo} alt="react" height="30px" width="30px"></img>React
                                 </motion.span>
                                 and
-                                <motion.span className="btn rounded-pill shadow"
+                                <motion.span className={darkTheme? "text-white btn rounded-pill shadow" : "text-dark btn rounded-pill shadow"}
                                     whileHover={{ y: -10 }}
                                 ><img src={expressJs} alt="expressjs" height="30px" width="30px"></img>Express JS
                                 </motion.span>
@@ -150,7 +154,7 @@ const App = () => {
                     <div className="row justify-content-center pt-3">
                         <div className="col-sm-6 mt-5 mb-5 mx-auto ml-auto">
                             <p className="h3 font-weight-bold">Get in touch</p>
-                            <a href="mailto:awand795@gmail.com" className="email"><p className="h2 font-weight-bold text-decoration-underline">awand795@gmail.com</p></a>
+                            <a href="mailto:awand795@gmail.com" className={darkTheme? "email-white" : "email"}><p className="h2 font-weight-bold text-decoration-underline">awand795@gmail.com</p></a>
                         </div>
                         <div className="col-sm-4 mt-auto mb-5">
                             <a href="https://github.com/awand795">

@@ -1,0 +1,14 @@
+.header{
+    position: relative;
+}
+
+.bgimage{
+    height: 250px;
+    width: 100%;
+    z-index: 1;
+}
+
+.profilepic{
+    position: absolute;
+    z-index: 2;
+}

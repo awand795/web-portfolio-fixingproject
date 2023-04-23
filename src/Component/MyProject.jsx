@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import FadeInWhenVisible from './animate/FadeInWhenVisible';
 
 const MyProject = () => {
+
     return (
         <div>
             <FadeInWhenVisible>
@@ -23,7 +24,7 @@ const MyProject = () => {
                     >
                         <div className="card shadow flex-fill">
                             <div className="card-body">
-                                <h5 className="card-title">MevnStack-NotesApp</h5>
+                                <h5 className="text-dark card-title">MevnStack-NotesApp</h5>
                                 <p className="card-subtitle mb-5 text-muted mt-3 text-start">Simple Notes App build on Vue JS and backend using express</p>
                             </div>
                             <div className="card-body mt-auto d-flex justify-content-between">
@@ -37,7 +38,7 @@ const MyProject = () => {
                     >
                         <div className="card shadow flex-fill">
                             <div className="card-body">
-                                <h5 className="card-title">Laravel 8 Rest API With Passport</h5>
+                                <h5 className="text-dark card-title">Laravel 8 Rest API With Passport</h5>
                                 <p className="card-subtitle mb-5 text-muted mt-3 text-start">Laravel 8 Restfull API With Passport for authentication</p>
                             </div>
                             <div className="d-flex justify-content-between card-body mt-auto">
@@ -51,7 +52,7 @@ const MyProject = () => {
                     >
                         <div className="card shadow flex-fill">
                             <div className="card-body">
-                                <h5 className="card-title">Vue JS Web App for Statistic Covid-19</h5>
+                                <h5 className="text-dark card-title">Vue JS Web App for Statistic Covid-19</h5>
                                 <p className="card-subtitle mb-5 text-muted mt-3 text-start">Simple web app for see statistic covid-19</p>
                             </div>
                             <div className="d-flex justify-content-between card-body mt-auto">
@@ -68,7 +69,7 @@ const MyProject = () => {
                     >
                         <div className="card shadow flex-fill">
                             <div className="card-body">
-                                <h5 className="card-title">RestfulAPI-NodeJS</h5>
+                                <h5 className="text-dark card-title">RestfulAPI-NodeJS</h5>
                                 <p className="card-subtitle mb-5 text-muted mt-3 text-start">Simple RestfulAPI using Express JS</p>
                             </div>
                             <div className="card-body mt-auto d-flex justify-content-between">
@@ -82,7 +83,7 @@ const MyProject = () => {
                     >
                         <div className="card shadow flex-fill">
                             <div className="card-body">
-                                <h5 className="card-title">nodejs-loginsystem</h5>
+                                <h5 className="text-dark card-title">nodejs-loginsystem</h5>
                                 <p className="card-subtitle mb-5 text-muted mt-3 text-start">Simple Login With JWT auth using Express JS and MongoDB.</p>
                             </div>
                             <div className="d-flex justify-content-between card-body mt-auto">
@@ -96,7 +97,7 @@ const MyProject = () => {
                     >
                         <div className="card shadow flex-fill">
                             <div className="card-body">
-                                <h5 className="card-title">Frontend MERN Crud</h5>
+                                <h5 className="text-dark card-title">Frontend MERN Crud</h5>
                                 <p className="card-subtitle mb-5 text-muted mt-3 text-start">Simple CRUD Website using React</p>
                             </div>
                             <div className="d-flex justify-content-between card-body mt-auto">
