@@ -1,7 +1,4 @@
 import React from "react";
-import imagebghead from '../image/bgimage.gif'
-import './socmed.css';
-import picture from '../image/awanda.jpg'
 
 const Socmed = () => {
     return(
