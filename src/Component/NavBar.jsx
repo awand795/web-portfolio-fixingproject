@@ -55,6 +55,9 @@ const NavBar = ({darkTheme, setDarkTheme}) => {
                             >Contact</Link>
                         </li>
                         <li className="nav-item ps-5">
+                            <Link className={darkTheme? "text-white nav-link" : "text-dark  nav-link"} aria-current="page" to={"/socmed"}>Socmed</Link>
+                        </li>
+                        <li className="nav-item ps-5">
                             {darkTheme ? <img src={lightIcon} className='darkmodeIcon' onClick={() => setDarkTheme(prevTheme => !prevTheme)}/>:
                                 <img src={darkIcon} className='darkmodeIcon' onClick={() => setDarkTheme(prevTheme => !prevTheme)}/>
                             }
