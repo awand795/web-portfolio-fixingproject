@@ -1,6 +1,6 @@
 import React from "react";
 import imagebghead from '../image/bgimage.gif'
-import picture from '../image/awanda.jpg'
+import picture from '../image/imgprofile.jpg'
 import './socmed.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 

@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap';
 import './App.css'
 import '@popperjs/core';
-import picture from './image/awanda.jpg'
+import picture from './image/imgprofile.jpg'
 import reactLogo from './image/reactLogo.png';
 import js from './image/js.png'
 import mongoDbLogo from './image/mongoDbLogo.png'
