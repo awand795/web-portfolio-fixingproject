@@ -36,8 +36,8 @@ const App = () => {
                 </FadeInWhenVisible>
 
                 <FadeInWhenVisible>
-                    <div className="row justify-content-center pt-5 mt-5 text-center">
-                        <div className="col-10 pt-2 pb-5">
+                    <div className="row justify-content-center pt-1 mt-1 text-center">
+                        <div className="col-10 pt-2 pb-2">
                             <img
                                 src={picture}
                                 className="rounded-circle mx-auto d-block profilePic"
