@@ -9,10 +9,10 @@ body {
   width: 4rem;
 }
 
-.profilePic{
-  width: 200px;
-  height: 200px;
+.gambarprofile{
   object-fit: cover;
+  width: 400px;
+  height: 400px;
 }
 
 .email{

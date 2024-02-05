@@ -21,51 +21,32 @@ const App = () => {
     const [darkTheme, setDarkTheme] = useState(false);
 
     return (
-        <div className={darkTheme? 'bg-dark text-white' : 'bg-light text-dark' }>
+        <div className={darkTheme ? 'bg-dark text-white' : 'bg-light text-dark'}>
 
             <div className="container-fluid">
 
                 <FadeInWhenVisible>
                     <div className="row justify-content-center pb-5">
                         <div className="col-sm-10">
-                            
-                        <NavBar darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>
+
+                            <NavBar darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
 
                         </div>
                     </div>
                 </FadeInWhenVisible>
 
                 <FadeInWhenVisible>
-                    <div className="row justify-content-center pt-1 mt-1 text-center">
-                        <div className="col-10 pt-2 pb-2">
+                    <div className="row justify-content-center pt-5 mt-1 text-center pb-2">
+                        <div className="col-sm-6">
                             <img
                                 src={picture}
-                                className="rounded-circle mx-auto d-block profilePic"
-                                alt="profile pic"
-                                width="200"
-                                height="200"
+                                className="rounded-5 mx-auto d-block gambarprofile"
+                                alt="profile picture"
                             ></img>
-                            <p className="h1 pt-2 font-weight-bold">Hello I'm Awanda</p>
-                            <p className="text pb-5">a Fullstack Javascript Developer</p>
                         </div>
-                    </div>
-                </FadeInWhenVisible>
-
-                <FadeInWhenVisible>
-                    <div id="aboutme" className="row text-center pt-5 mt-3 justify-content-center">
-                        <div className="col-10 text-center">
-                            <p className="text h2">About Me</p>
-                            <svg fill="red" height="4px" width="80px">
-                                <rect height="100%" width="100%"></rect>
-                            </svg>
-                        </div>
-                    </div>
-
-                    <div className="row pt-3 pb-3">
-                        <div className="col-sm-6 mx-auto ml-auto">
-                            <p className="text-start lh-lg">I'm a Fullstack Javascript Enthusiast focusing on MERN Stack Web Development, I exprienced for building website using React for Frontend and Express for Backend. I'm also a student in STMIK Kaputama</p>
-                        </div>
-                        <div className="col-sm-2 mx-auto ml-auto text-center">
+                        <div className='col-sm-6 pt-5 mx-auto d-block'>
+                            <p className="h1 fw-bold fs-1">Hello I'm Awanda</p>
+                            <p className="text fs-5">I'm a Fullstack Javascript Enthusiast focusing on MERN Stack Web Development, I exprienced for building website using React for Frontend and Express for Backend. I'm also a student in STMIK Kaputama</p>
                             <motion.a
                                 whileHover={{
                                     y: 10,
@@ -80,7 +61,9 @@ const App = () => {
                     </div>
                 </FadeInWhenVisible>
 
-                <MyProject />
+                <div className='pt-5'>
+                    <MyProject />
+                </div>
 
                 <FadeInWhenVisible>
                     <div id="skill" className="row text-center pt-5 justify-content-center">
@@ -95,18 +78,18 @@ const App = () => {
                     <div className="row justify-content-center pt-3 text-center">
                         <div className="col-sm-10">
                             <p className="lh-lg">I've skill in web development using
-                                <motion.span className={darkTheme? "text-white btn rounded-pill shadow" : "text-dark btn rounded-pill shadow"}
+                                <motion.span className={darkTheme ? "text-white btn rounded-pill shadow" : "text-dark btn rounded-pill shadow"}
                                     whileHover={{ y: -10 }}
                                 >
                                     <img src={js} alt="js" height="20px" width="20px"></img>Javascript
                                 </motion.span>
                                 , i can using Framework such as
-                                <motion.span className={darkTheme? "text-white btn rounded-pill shadow" : "text-dark btn rounded-pill shadow"}
+                                <motion.span className={darkTheme ? "text-white btn rounded-pill shadow" : "text-dark btn rounded-pill shadow"}
                                     whileHover={{ y: -10 }}
                                 ><img src={reactLogo} alt="react" height="30px" width="30px"></img>React
                                 </motion.span>
                                 and
-                                <motion.span className={darkTheme? "text-white btn rounded-pill shadow" : "text-dark btn rounded-pill shadow"}
+                                <motion.span className={darkTheme ? "text-white btn rounded-pill shadow" : "text-dark btn rounded-pill shadow"}
                                     whileHover={{ y: -10 }}
                                 ><img src={expressJs} alt="expressjs" height="30px" width="30px"></img>Express JS
                                 </motion.span>
@@ -154,7 +137,7 @@ const App = () => {
                     <div className="row justify-content-center pt-3">
                         <div className="col-sm-6 mt-5 mb-5 mx-auto ml-auto">
                             <p className="h3 font-weight-bold">Get in touch</p>
-                            <a href="mailto:awand795@gmail.com" className={darkTheme? "email-white" : "email"}><p className="h2 font-weight-bold text-decoration-underline">awand795@gmail.com</p></a>
+                            <a href="mailto:awand795@gmail.com" className={darkTheme ? "email-white" : "email"}><p className="h2 font-weight-bold text-decoration-underline">awand795@gmail.com</p></a>
                         </div>
                         <div className="col-sm-4 mt-auto mb-5">
                             <a href="https://github.com/awand795">

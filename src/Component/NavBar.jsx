@@ -20,15 +20,6 @@ const NavBar = ({darkTheme, setDarkTheme}) => {
                         </li>
                         <li className="nav-item ps-5">
                             <Link className={darkTheme? "text-white nav-link" : "text-dark  nav-link"} to={"/"}
-                                onClick={() => scroller.scrollTo('aboutme', {
-                                    smooth: true,
-                                    offset: -70,
-                                    duration: 500,
-                                })}
-                            >About</Link>
-                        </li>
-                        <li className="nav-item ps-5">
-                            <Link className={darkTheme? "text-white nav-link" : "text-dark  nav-link"} to={"/"}
                                 onClick={() => scroller.scrollTo('project', {
                                     smooth: true,
                                     offset: -70,
