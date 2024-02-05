@@ -36,7 +36,7 @@ const App = () => {
                 </FadeInWhenVisible>
 
                 <FadeInWhenVisible>
-                    <div className="row justify-content-center pt-5 mt-1 text-center pb-2">
+                    <div className="row justify-content-center pt-5 mt-1 text-center pb-5">
                         <div className="col-sm-6">
                             <img
                                 src={picture}
