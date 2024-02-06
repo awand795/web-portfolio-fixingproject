@@ -46,7 +46,7 @@ const App = () => {
                         </div>
                         <div className='col-sm-6 pt-5 mx-auto d-block'>
                             <p className="h1 fw-bold fs-1">Hello I'm Awanda</p>
-                            <p className="text fs-5">I'm a Fullstack Javascript Enthusiast focusing on MERN Stack Web Development, I exprienced for building website using React for Frontend and Express for Backend. I'm also a student in STMIK Kaputama</p>
+                            <p className="text fs-5 text-justify m-2">I'm a Fullstack Javascript Enthusiast focusing on MERN Stack Web Development, I exprienced for building website using React for Frontend and Express for Backend. I'm also a student in STMIK Kaputama</p>
                             <motion.a
                                 whileHover={{
                                     y: 10,

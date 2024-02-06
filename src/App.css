@@ -11,8 +11,12 @@ body {
 
 .gambarprofile{
   object-fit: cover;
-  width: 350px;
-  height: 350px;
+  width: 400px;
+  height: 400px;
+}
+
+.text-justify{
+  text-align: justify !important;
 }
 
 .email{
@@ -33,4 +37,20 @@ body {
 .icon{
   font-size: 3rem !important;
   margin-right: 3rem !important;
+}
+
+/* @media screen and (max-width:800px){
+  .gambarprofile{
+    object-fit: cover;
+    width: 250px;
+    height: 250px;
+  }
+} */
+
+@media screen and (max-width:1200px){
+  .gambarprofile{
+    object-fit: cover;
+    width: 250px;
+    height: 250px;
+  }
 }
