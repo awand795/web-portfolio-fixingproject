@@ -1,56 +1,119 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
+* {
+  box-sizing: border-box;
+}
+
 body {
-    font-family: 'Poppins';
-  }
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
 .imgLogo {
   height: 4rem;
   width: 4rem;
+  transition: transform 0.3s ease;
 }
 
-.gambarprofile{
+.gambarprofile {
   object-fit: cover;
   width: 400px;
   height: 400px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.text-justify{
+.text-justify {
   text-align: justify !important;
 }
 
-.email{
+.email {
   text-decoration: none !important;
   color: black !important;
+  transition: color 0.3s ease;
 }
 
-.darkmodeIcon{
+.email:hover {
+  color: #0d6efd !important;
+}
+
+.darkmodeIcon {
   height: 40px;
   width: 40px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
-.email-white{
+.darkmodeIcon:hover {
+  transform: scale(1.1);
+}
+
+.email-white {
   text-decoration: none !important;
   color: white !important;
+  transition: color 0.3s ease;
 }
 
-.icon{
+.email-white:hover {
+  color: #ffc107 !important;
+}
+
+.icon {
   font-size: 3rem !important;
   margin-right: 3rem !important;
+  transition: color 0.3s ease;
 }
 
-/* @media screen and (max-width:800px){
-  .gambarprofile{
+.icon:hover {
+  color: #0d6efd;
+}
+
+/* Tablet responsiveness */
+@media screen and (max-width: 1200px) {
+  .gambarprofile {
+    object-fit: cover;
+    width: 300px;
+    height: 300px;
+  }
+  
+  .icon {
+    font-size: 2.5rem !important;
+    margin-right: 2rem !important;
+  }
+}
+
+/* Mobile responsiveness */
+@media screen and (max-width: 768px) {
+  .gambarprofile {
     object-fit: cover;
     width: 250px;
     height: 250px;
   }
-} */
+  
+  .icon {
+    font-size: 2rem !important;
+    margin-right: 1.5rem !important;
+  }
+  
+  .text-justify {
+    padding: 0 1rem;
+  }
+}
 
-@media screen and (max-width:1200px){
-  .gambarprofile{
+@media screen and (max-width: 576px) {
+  .gambarprofile {
     object-fit: cover;
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
+  }
+  
+  .imgLogo {
+    height: 3rem;
+    width: 3rem;
+  }
+  
+  .icon {
+    font-size: 1.5rem !important;
+    margin-right: 1rem !important;
   }
 }
