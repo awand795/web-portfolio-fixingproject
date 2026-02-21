@@ -13,10 +13,10 @@ const projects = [
     },
     {
         id: 2,
-        title: "Laravel REST API",
-        description: "Secure RESTful API built with Laravel 8 and Passport authentication for enterprise-grade user management",
-        githubUrl: "https://github.com/awand795/Laravel-8-Rest-API-with-Passport",
-        tags: ["Laravel", "Passport", "REST API"],
+        title: "Point of Sale",
+        description: "Full-stack Point of Sale application with React frontend and Laravel backend, featuring product management, transaction processing, and sales reporting for retail businesses",
+        githubUrl: "https://github.com/awand795/point-of-sale",
+        tags: ["React", "Laravel", "Full-Stack"],
         gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
     },
     {

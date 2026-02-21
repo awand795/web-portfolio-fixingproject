@@ -2,8 +2,77 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { scroller } from 'react-scroll';
 import { motion, AnimatePresence } from 'framer-motion';
-import darkIcon from '../image/icon/dark.png';
-import lightIcon from '../image/icon/light2.png';
+
+const ThemeIcon = ({ darkTheme }) => (
+    <div style={{ width: '38px', height: '38px', position: 'relative' }}>
+        <AnimatePresence mode="wait">
+            {darkTheme ? (
+                <motion.svg
+                    key="sun"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="url(#sunGradient)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    width="38"
+                    height="38"
+                    initial={{ rotate: -90, scale: 0, opacity: 0 }}
+                    animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                    exit={{ rotate: 90, scale: 0, opacity: 0 }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                    style={{ position: 'absolute', top: 0, left: 0 }}
+                >
+                    <defs>
+                        <linearGradient id="sunGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#f6d365" />
+                            <stop offset="100%" stopColor="#fda085" />
+                        </linearGradient>
+                    </defs>
+                    <circle cx="12" cy="12" r="5" fill="url(#sunGradient)" stroke="none" />
+                    <line x1="12" y1="1" x2="12" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3" y2="12" />
+                    <line x1="21" y1="12" x2="23" y2="12" />
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                </motion.svg>
+            ) : (
+                <motion.svg
+                    key="moon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    width="38"
+                    height="38"
+                    initial={{ rotate: 90, scale: 0, opacity: 0 }}
+                    animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                    exit={{ rotate: -90, scale: 0, opacity: 0 }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                    style={{ position: 'absolute', top: 0, left: 0 }}
+                >
+                    <defs>
+                        <linearGradient id="moonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#667eea" />
+                            <stop offset="100%" stopColor="#764ba2" />
+                        </linearGradient>
+                    </defs>
+                    <path
+                        d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                        fill="url(#moonGradient)"
+                        stroke="url(#moonGradient)"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
+                </motion.svg>
+            )}
+        </AnimatePresence>
+    </div>
+);
 
 const NavBar = ({darkTheme, setDarkTheme}) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -119,27 +188,28 @@ const NavBar = ({darkTheme, setDarkTheme}) => {
                         <li className="nav-item ps-lg-4">
                             <motion.div
                                 onClick={() => setDarkTheme(prev => !prev)}
-                                whileHover={{ scale: 1.1, rotate: 15 }}
-                                whileTap={{ scale: 0.9 }}
+                                whileHover={{ scale: 1.15 }}
+                                whileTap={{ scale: 0.85 }}
                                 style={{
                                     cursor: 'pointer',
-                                    display: 'inline-block'
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    width: '44px',
+                                    height: '44px',
+                                    borderRadius: '50%',
+                                    background: darkTheme
+                                        ? 'rgba(255, 255, 255, 0.08)'
+                                        : 'rgba(102, 126, 234, 0.1)',
+                                    border: darkTheme
+                                        ? '1px solid rgba(255, 255, 255, 0.12)'
+                                        : '1px solid rgba(102, 126, 234, 0.2)',
+                                    backdropFilter: 'blur(10px)',
+                                    transition: 'background 0.3s ease, border 0.3s ease'
                                 }}
+                                title={darkTheme ? "Switch to light mode" : "Switch to dark mode"}
                             >
-                                <motion.img
-                                    src={darkTheme ? lightIcon : darkIcon}
-                                    alt={darkTheme ? "Switch to light mode" : "Switch to dark mode"}
-                                    className="darkmodeIcon"
-                                    style={{
-                                        width: '40px',
-                                        height: '40px'
-                                    }}
-                                    initial={false}
-                                    animate={{ 
-                                        rotate: darkTheme ? 0 : 0,
-                                    }}
-                                    transition={{ duration: 0.3 }}
-                                />
+                                <ThemeIcon darkTheme={darkTheme} />
                             </motion.div>
                         </li>
                     </ul>
