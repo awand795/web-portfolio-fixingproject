@@ -6,10 +6,10 @@ import { useLanguage } from '../context/LanguageContext';
 const projects = [
     {
         id: 1,
-        title: "MevnStack-NotesApp",
-        description: "Full-stack notes application built with Vue.js frontend and Express.js backend, featuring real-time updates and MongoDB storage",
-        githubUrl: "https://github.com/awand795/MevnStack-NotesApp",
-        tags: ["Vue.js", "Express.js", "MongoDB"],
+        title: "Web Absensi Online",
+        description: "Web-based online attendance system for real-time attendance tracking with employee data management and attendance reporting features",
+        githubUrl: "https://github.com/awand795/web-absensi",
+        tags: ["PHP", "MySQL", "Bootstrap"],
         gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
     },
     {
@@ -30,10 +30,10 @@ const projects = [
     },
     {
         id: 4,
-        title: "Web Absensi Online",
-        description: "Web-based online attendance system for real-time attendance tracking with employee data management and attendance reporting features",
-        githubUrl: "https://github.com/awand795/web-absensi",
-        tags: ["PHP", "MySQL", "Bootstrap"],
+        title: "MevnStack-NotesApp",
+        description: "Full-stack notes application built with Vue.js frontend and Express.js backend, featuring real-time updates and MongoDB storage",
+        githubUrl: "https://github.com/awand795/MevnStack-NotesApp",
+        tags: ["Vue.js", "Express.js", "MongoDB"],
         gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
     },
     {

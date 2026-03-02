@@ -9,7 +9,7 @@ const en = {
     // Hero
     'hero.greeting': "HELLO, I'M",
     'hero.title': 'Fullstack JavaScript Developer',
-    'hero.description': "I'm a passionate Fullstack JavaScript Developer specializing in MERN Stack. I build modern, scalable web applications with React, Express.js, and MongoDB. Currently teaching Computer Science at SMA Negeri 1 Kuala and SMA Negeri 1 Salapian, sharing my knowledge with the next generation of developers.",
+    'hero.description': "I'm a passionate Fullstack JavaScript Developer specializing in MERN Stack. I build modern, scalable web applications with React, Express.js, and MongoDB. Currently working as an IT Developer, building digital solutions and efficient systems for business needs.",
     'hero.downloadCv': 'Download CV',
     'hero.getInTouch': 'Get in Touch',
 
@@ -21,10 +21,10 @@ const en = {
     'projects.moreText': 'Check out more projects and contributions on my GitHub profile',
 
     // Project descriptions
-    'projects.desc.1': 'Full-stack notes application built with Vue.js frontend and Express.js backend, featuring real-time updates and MongoDB storage',
+    'projects.desc.1': 'Web-based online attendance system for real-time attendance tracking with employee data management and attendance reporting features',
     'projects.desc.2': 'Full-stack Point of Sale application with React frontend and Laravel backend, featuring product management, transaction processing, and sales reporting for retail businesses',
     'projects.desc.3': 'Web-based electronic voting system for secure and transparent online elections with voter authentication, real-time vote counting, and election result management',
-    'projects.desc.4': 'Web-based online attendance system for real-time attendance tracking with employee data management and attendance reporting features',
+    'projects.desc.4': 'Full-stack notes application built with Vue.js frontend and Express.js backend, featuring real-time updates and MongoDB storage',
     'projects.desc.5': 'Secure authentication system implementing JWT tokens with Express.js backend and MongoDB user storage',
     'projects.desc.6': 'Modern CRUD application showcasing React state management, responsive design, and seamless API integration',
 
