@@ -15,8 +15,11 @@ import FadeInWhenVisible from './Component/animate/FadeInWhenVisible';
 import { motion } from 'framer-motion'
 import MyProject from './Component/MyProject';
 import NavBar from './Component/NavBar';
+import { useLanguage } from './context/LanguageContext';
 
 const App = () => {
+
+    const { t } = useLanguage();
 
     // Load dark theme preference from localStorage
     const [darkTheme, setDarkTheme] = useState(() => {
@@ -74,7 +77,7 @@ const App = () => {
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.3 }}
                                 >
-                                    HELLO, I'M
+                                    {t('hero.greeting')}
                                 </motion.p>
                                 
                                 <motion.h1 
@@ -93,7 +96,7 @@ const App = () => {
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.5 }}
                                 >
-                                    Fullstack JavaScript Developer
+                                    {t('hero.title')}
                                 </motion.h2>
                                 
                                 <motion.p 
@@ -102,10 +105,7 @@ const App = () => {
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.6 }}
                                 >
-                                    I'm a passionate Fullstack JavaScript Developer specializing in MERN Stack. 
-                                    I build modern, scalable web applications with React, Express.js, and MongoDB. 
-                                    Currently teaching Computer Science at SMA Negeri 1 Kuala and SMA Negeri 1 Salapian, 
-                                    sharing my knowledge with the next generation of developers.
+                                    {t('hero.description')}
                                 </motion.p>
                                 
                                 <motion.div 
@@ -124,7 +124,7 @@ const App = () => {
                                         download
                                     >
                                         <i className="bi bi-download me-2"></i>
-                                        Download CV
+                                        {t('hero.downloadCv')}
                                     </motion.a>
                                     
                                     <motion.a
@@ -134,7 +134,7 @@ const App = () => {
                                         href='#contact'
                                     >
                                         <i className="bi bi-envelope me-2"></i>
-                                        Get in Touch
+                                        {t('hero.getInTouch')}
                                     </motion.a>
                                 </motion.div>
                             </motion.div>
@@ -152,7 +152,7 @@ const App = () => {
                     <div id="skill" className="row text-center pt-5 justify-content-center">
                         <div className="col-12">
                             <div className="section-header mx-auto">
-                                <h2 className="section-title">Skills & Expertise</h2>
+                                <h2 className="section-title">{t('skills.title')}</h2>
                                 <div className="section-underline"></div>
                             </div>
                         </div>
@@ -161,31 +161,31 @@ const App = () => {
                     <div className="row justify-content-center pt-3 text-center mb-5">
                         <div className="col-lg-8">
                             <p className="text-justify text-center" style={{ fontSize: '1.125rem', lineHeight: '1.8' }}>
-                                I specialize in modern web development with
-                                <motion.span 
+                                {t('skills.description.before')}
+                                <motion.span
                                     className="skill-tag mx-2"
                                     whileHover={{ y: -4 }}
                                 >
                                     <img src={js} alt="JavaScript" height="24px" width="24px" />
                                     JavaScript
                                 </motion.span>
-                                using frameworks like
-                                <motion.span 
+                                {t('skills.description.mid')}
+                                <motion.span
                                     className="skill-tag mx-2"
                                     whileHover={{ y: -4 }}
                                 >
                                     <img src={reactLogo} alt="React" height="24px" width="24px" />
                                     React
                                 </motion.span>
-                                and
-                                <motion.span 
+                                {t('skills.description.and')}
+                                <motion.span
                                     className="skill-tag mx-2"
                                     whileHover={{ y: -4 }}
                                 >
                                     <img src={expressJs} alt="Express.js" height="24px" width="24px" />
                                     Express.js
                                 </motion.span>
-                                to build exceptional digital experiences.
+                                {t('skills.description.after')}
                             </p>
                         </div>
                     </div>
@@ -237,7 +237,7 @@ const App = () => {
                     <div id="contact" className="row text-center pt-5 justify-content-center">
                         <div className="col-12">
                             <div className="section-header mx-auto">
-                                <h2 className="section-title">Let's Connect</h2>
+                                <h2 className="section-title">{t('contact.title')}</h2>
                                 <div className="section-underline"></div>
                             </div>
                         </div>
@@ -251,7 +251,7 @@ const App = () => {
                                 viewport={{ once: true }}
                             >
                                 <p className="h4 mb-4" style={{ color: 'var(--text-secondary)' }}>
-                                    Got a project in mind? Let's work together!
+                                    {t('contact.cta')}
                                 </p>
                                 
                                 <motion.a 
@@ -308,7 +308,7 @@ const App = () => {
                     <div className="row justify-content-center pt-5 pb-4">
                         <div className="col-12 text-center">
                             <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
-                                © {new Date().getFullYear()} Awanda. Built with React & lots of ☕
+                                © {new Date().getFullYear()} Awanda. {t('footer.builtWith')}
                             </p>
                         </div>
                     </div>

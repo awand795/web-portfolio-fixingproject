@@ -1,4 +1,5 @@
 import React from "react";
+import { useLanguage } from '../context/LanguageContext';
 import imagebghead from '../image/bgimage.gif'
 import picture from '../image/imgprofile.jpg'
 import './socmed.css'
@@ -14,6 +15,7 @@ const socialLinks = [
 ];
 
 const Socmed = () => {
+    const { t } = useLanguage();
     const currentYear = new Date().getFullYear();
 
     return(
@@ -35,7 +37,7 @@ const Socmed = () => {
             <div className="row content text-white text-center">
                 <div className="col-md-12">
                     <h1 className="fw-bold h1">Awanda</h1>
-                    <p className="colorgray fw-bold">Fullstack JavaScript Developer & UI/UX Designer</p>
+                    <p className="colorgray fw-bold">{t('social.title')}</p>
                     <a href="https://awanda.my.id" target="_blank" rel="noopener noreferrer">https://awanda.my.id</a><br/>
                     <a href="mailto:awand795@gmail.com" className="pt-2">awand795@gmail.com</a>
 
@@ -56,8 +58,8 @@ const Socmed = () => {
                     </div>
 
                     <div className="col-md-8 mt-4 mx-auto">
-                        <p>Copyright {currentYear}</p>
-                        <p>Made With ❤️ By Awanda</p>
+                        <p>{t('social.copyright')} {currentYear}</p>
+                        <p>{t('social.madeWith')}</p>
                     </div>
                 </div>
             </div>

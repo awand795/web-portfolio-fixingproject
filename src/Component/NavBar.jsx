@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { scroller } from 'react-scroll';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 const ThemeIcon = ({ darkTheme }) => (
     <div style={{ width: '38px', height: '38px', position: 'relative' }}>
@@ -76,13 +77,14 @@ const ThemeIcon = ({ darkTheme }) => (
 
 const NavBar = ({darkTheme, setDarkTheme}) => {
     const [isOpen, setIsOpen] = useState(false);
+    const { language, toggleLanguage, t } = useLanguage();
 
     const menuItems = [
-        { name: 'Home', target: '/', scrollTo: null },
-        { name: 'Projects', target: '/', scrollTo: 'project' },
-        { name: 'Skills', target: '/', scrollTo: 'skill' },
-        { name: 'Contact', target: '/', scrollTo: 'contact' },
-        { name: 'Social', target: '/socmed', scrollTo: null }
+        { name: t('nav.home'), target: '/', scrollTo: null },
+        { name: t('nav.projects'), target: '/', scrollTo: 'project' },
+        { name: t('nav.skills'), target: '/', scrollTo: 'skill' },
+        { name: t('nav.contact'), target: '/', scrollTo: 'contact' },
+        { name: t('nav.social'), target: '/socmed', scrollTo: null }
     ];
 
     const handleNavClick = (scrollTarget) => {
@@ -184,6 +186,39 @@ const NavBar = ({darkTheme, setDarkTheme}) => {
                             </motion.li>
                         ))}
 
+                        {/* Language Toggle */}
+                        <li className="nav-item ps-lg-4">
+                            <motion.div
+                                onClick={toggleLanguage}
+                                whileHover={{ scale: 1.15 }}
+                                whileTap={{ scale: 0.85 }}
+                                style={{
+                                    cursor: 'pointer',
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    width: '44px',
+                                    height: '44px',
+                                    borderRadius: '50%',
+                                    background: darkTheme
+                                        ? 'rgba(255, 255, 255, 0.08)'
+                                        : 'rgba(102, 126, 234, 0.1)',
+                                    border: darkTheme
+                                        ? '1px solid rgba(255, 255, 255, 0.12)'
+                                        : '1px solid rgba(102, 126, 234, 0.2)',
+                                    backdropFilter: 'blur(10px)',
+                                    transition: 'background 0.3s ease, border 0.3s ease',
+                                    fontWeight: '700',
+                                    fontSize: '0.8rem',
+                                    color: '#667eea',
+                                    userSelect: 'none'
+                                }}
+                                title={language === 'id' ? 'Switch to English' : 'Ganti ke Bahasa Indonesia'}
+                            >
+                                {language === 'id' ? 'EN' : 'ID'}
+                            </motion.div>
+                        </li>
+
                         {/* Theme Toggle */}
                         <li className="nav-item ps-lg-4">
                             <motion.div
@@ -207,7 +242,7 @@ const NavBar = ({darkTheme, setDarkTheme}) => {
                                     backdropFilter: 'blur(10px)',
                                     transition: 'background 0.3s ease, border 0.3s ease'
                                 }}
-                                title={darkTheme ? "Switch to light mode" : "Switch to dark mode"}
+                                title={darkTheme ? t('theme.light') : t('theme.dark')}
                             >
                                 <ThemeIcon darkTheme={darkTheme} />
                             </motion.div>

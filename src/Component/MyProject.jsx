@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import FadeInWhenVisible from './animate/FadeInWhenVisible';
+import { useLanguage } from '../context/LanguageContext';
 
 const projects = [
     {
@@ -29,10 +30,10 @@ const projects = [
     },
     {
         id: 4,
-        title: "Node.js REST API",
-        description: "Scalable RESTful API with Express.js featuring CRUD operations, authentication, and comprehensive error handling",
-        githubUrl: "https://github.com/awand795/RestfulAPI-NodeJS",
-        tags: ["Node.js", "Express.js", "REST"],
+        title: "Web Absensi Online",
+        description: "Web-based online attendance system for real-time attendance tracking with employee data management and attendance reporting features",
+        githubUrl: "https://github.com/awand795/web-absensi",
+        tags: ["PHP", "MySQL", "Bootstrap"],
         gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
     },
     {
@@ -54,6 +55,7 @@ const projects = [
 ];
 
 const ProjectCard = ({ project, index, darkTheme }) => {
+    const { t } = useLanguage();
     return (
         <motion.div 
             className="col-lg-4 col-md-6 mb-4"
@@ -109,12 +111,12 @@ const ProjectCard = ({ project, index, darkTheme }) => {
                     </h3>
 
                     {/* Description */}
-                    <p className="mb-4 flex-grow-1" style={{ 
-                        color: 'var(--text-secondary)', 
+                    <p className="mb-4 flex-grow-1" style={{
+                        color: 'var(--text-secondary)',
                         fontSize: '0.95rem',
                         lineHeight: '1.6'
                     }}>
-                        {project.description}
+                        {t(`projects.desc.${project.id}`)}
                     </p>
 
                     {/* Tags */}
@@ -157,7 +159,7 @@ const ProjectCard = ({ project, index, darkTheme }) => {
                     >
                         <span>
                             <i className="bi bi-github me-2"></i>
-                            View Project
+                            {t('projects.viewProject')}
                         </span>
                         <i className="bi bi-arrow-right"></i>
                     </motion.a>
@@ -168,13 +170,14 @@ const ProjectCard = ({ project, index, darkTheme }) => {
 };
 
 const MyProject = ({ darkTheme }) => {
+    const { t } = useLanguage();
     return (
         <div>
             <FadeInWhenVisible>
                 <div id="project" className="row text-center pt-5 justify-content-center mb-5">
                     <div className="col-12">
                         <div className="section-header mx-auto">
-                            <h2 className="section-title">Featured Projects</h2>
+                            <h2 className="section-title">{t('projects.title')}</h2>
                             <div className="section-underline"></div>
                         </div>
                         <p className="mt-4" style={{ 
@@ -183,7 +186,7 @@ const MyProject = ({ darkTheme }) => {
                             maxWidth: '600px',
                             margin: '0 auto'
                         }}>
-                            A collection of my recent work showcasing modern web development with cutting-edge technologies
+                            {t('projects.subtitle')}
                         </p>
                     </div>
                 </div>
@@ -212,11 +215,11 @@ const MyProject = ({ darkTheme }) => {
                             rel="noopener noreferrer"
                         >
                             <i className="bi bi-github me-2"></i>
-                            Explore More on GitHub
+                            {t('projects.exploreMore')}
                         </motion.a>
                         
                         <p className="mt-4" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-                            Check out more projects and contributions on my GitHub profile
+                            {t('projects.moreText')}
                         </p>
                     </div>
                 </div>
