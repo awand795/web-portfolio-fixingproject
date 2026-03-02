@@ -23,7 +23,7 @@ const id = {
     // Project descriptions
     'projects.desc.1': 'Aplikasi catatan full-stack yang dibangun dengan frontend Vue.js dan backend Express.js, dilengkapi pembaruan real-time dan penyimpanan MongoDB',
     'projects.desc.2': 'Aplikasi Point of Sale full-stack dengan frontend React dan backend Laravel, dilengkapi manajemen produk, pemrosesan transaksi, dan pelaporan penjualan untuk bisnis ritel',
-    'projects.desc.3': 'Dashboard statistik COVID-19 real-time dengan visualisasi data interaktif dan kemampuan pelacakan global',
+    'projects.desc.3': 'Sistem pemungutan suara elektronik berbasis web untuk pemilihan online yang aman dan transparan dengan autentikasi pemilih, penghitungan suara real-time, dan manajemen hasil pemilihan',
     'projects.desc.4': 'Sistem absensi online berbasis web untuk pelacakan kehadiran real-time dengan manajemen data karyawan dan fitur pelaporan kehadiran',
     'projects.desc.5': 'Sistem autentikasi aman yang mengimplementasikan token JWT dengan backend Express.js dan penyimpanan pengguna MongoDB',
     'projects.desc.6': 'Aplikasi CRUD modern yang menampilkan manajemen state React, desain responsif, dan integrasi API yang mulus',

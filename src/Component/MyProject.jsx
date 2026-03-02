@@ -22,10 +22,10 @@ const projects = [
     },
     {
         id: 3,
-        title: "COVID-19 Tracker",
-        description: "Real-time COVID-19 statistics dashboard with interactive data visualization and global tracking capabilities",
-        githubUrl: "https://github.com/awand795/VueExpress-Covid19web",
-        tags: ["Vue.js", "Express.js", "Charts"],
+        title: "Web E-Voting",
+        description: "Web-based electronic voting system for secure and transparent online elections with voter authentication, real-time vote counting, and election result management",
+        githubUrl: "https://github.com/awand795/web-evoting",
+        tags: ["PHP", "MySQL", "Bootstrap"],
         gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
     },
     {

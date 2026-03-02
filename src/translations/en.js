@@ -23,7 +23,7 @@ const en = {
     // Project descriptions
     'projects.desc.1': 'Full-stack notes application built with Vue.js frontend and Express.js backend, featuring real-time updates and MongoDB storage',
     'projects.desc.2': 'Full-stack Point of Sale application with React frontend and Laravel backend, featuring product management, transaction processing, and sales reporting for retail businesses',
-    'projects.desc.3': 'Real-time COVID-19 statistics dashboard with interactive data visualization and global tracking capabilities',
+    'projects.desc.3': 'Web-based electronic voting system for secure and transparent online elections with voter authentication, real-time vote counting, and election result management',
     'projects.desc.4': 'Web-based online attendance system for real-time attendance tracking with employee data management and attendance reporting features',
     'projects.desc.5': 'Secure authentication system implementing JWT tokens with Express.js backend and MongoDB user storage',
     'projects.desc.6': 'Modern CRUD application showcasing React state management, responsive design, and seamless API integration',
