@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { scroller } from 'react-scroll';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
 
 const ThemeIcon = ({ darkTheme }) => (
     <div style={{ width: '38px', height: '38px', position: 'relative' }}>
@@ -75,17 +76,48 @@ const ThemeIcon = ({ darkTheme }) => (
     </div>
 );
 
-const NavBar = ({darkTheme, setDarkTheme}) => {
+const NavBar = ({darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme} = {}) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [activeSection, setActiveSection] = useState('home');
     const { language, toggleLanguage, t } = useLanguage();
+    const theme = useTheme();
+    const location = useLocation();
+    const darkTheme = propDarkTheme !== undefined ? propDarkTheme : theme.darkTheme;
+    const setDarkTheme = propSetDarkTheme || theme.setDarkTheme;
+    const isSocmedPage = location.pathname === '/socmed';
 
     const menuItems = [
-        { name: t('nav.home'), target: '/', scrollTo: null },
-        { name: t('nav.projects'), target: '/', scrollTo: 'project' },
-        { name: t('nav.skills'), target: '/', scrollTo: 'skill' },
-        { name: t('nav.contact'), target: '/', scrollTo: 'contact' },
-        { name: t('nav.social'), target: '/socmed', scrollTo: null }
+        { name: t('nav.home'), target: '/', scrollTo: null, section: 'home' },
+        { name: t('nav.projects'), target: '/', scrollTo: 'project', section: 'project' },
+        { name: t('nav.skills'), target: '/', scrollTo: 'skill', section: 'skill' },
+        { name: t('nav.contact'), target: '/', scrollTo: 'contact', section: 'contact' },
+        { name: t('nav.social'), target: '/socmed', scrollTo: null, section: 'social' }
     ];
+
+    useEffect(() => {
+        if (isSocmedPage) {
+            setActiveSection('social');
+            return;
+        }
+
+        const handleScroll = () => {
+            const sections = ['contact', 'skill', 'project'];
+            const scrollY = window.scrollY + 150;
+
+            for (const id of sections) {
+                const el = document.getElementById(id);
+                if (el && scrollY >= el.offsetTop) {
+                    setActiveSection(id);
+                    return;
+                }
+            }
+            setActiveSection('home');
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        handleScroll();
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [isSocmedPage]);
 
     const handleNavClick = (scrollTarget) => {
         if (scrollTarget) {
@@ -98,8 +130,13 @@ const NavBar = ({darkTheme, setDarkTheme}) => {
         setIsOpen(false);
     };
 
+    const isActive = (item) => {
+        if (isSocmedPage) return item.section === 'social';
+        return activeSection === item.section;
+    };
+
     return (
-        <motion.nav 
+        <motion.nav
             className="navbar navbar-expand-lg py-4"
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -112,7 +149,7 @@ const NavBar = ({darkTheme, setDarkTheme}) => {
         >
             <div className="container-fluid">
                 {/* Logo */}
-                <Link 
+                <Link
                     className="navbar-brand"
                     to={"/"}
                     style={{
@@ -135,8 +172,8 @@ const NavBar = ({darkTheme, setDarkTheme}) => {
                 </Link>
 
                 {/* Mobile Toggle */}
-                <button 
-                    className="navbar-toggler border-0" 
+                <button
+                    className="navbar-toggler border-0"
                     type="button"
                     onClick={() => setIsOpen(!isOpen)}
                     aria-label="Toggle navigation"
@@ -144,8 +181,8 @@ const NavBar = ({darkTheme, setDarkTheme}) => {
                         color: '#667eea'
                     }}
                 >
-                    <i className={`bi ${isOpen ? 'bi-x-lg' : 'bi-list'}`} 
-                       style={{ 
+                    <i className={`bi ${isOpen ? 'bi-x-lg' : 'bi-list'}`}
+                       style={{
                            fontSize: '1.5rem',
                            color: '#667eea'
                        }}
@@ -156,19 +193,19 @@ const NavBar = ({darkTheme, setDarkTheme}) => {
                 <div className={`collapse navbar-collapse ${isOpen ? 'show' : ''}`} id="navbarNav">
                     <ul className="navbar-nav ms-auto align-items-lg-center">
                         {menuItems.map((item, index) => (
-                            <motion.li 
+                            <motion.li
                                 key={index}
                                 className="nav-item ps-lg-4"
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.1 }}
                             >
-                                <Link 
-                                    className="nav-link"
+                                <Link
+                                    className={`nav-link ${isActive(item) ? 'nav-active' : ''}`}
                                     to={item.target}
                                     onClick={() => handleNavClick(item.scrollTo)}
                                     style={{
-                                        color: darkTheme ? '#fff' : '#667eea',
+                                        color: isActive(item) ? '#667eea' : (darkTheme ? '#fff' : '#667eea'),
                                         fontWeight: '600',
                                         fontSize: '1rem',
                                         position: 'relative',
@@ -178,7 +215,7 @@ const NavBar = ({darkTheme, setDarkTheme}) => {
                                         e.target.style.color = '#764ba2';
                                     }}
                                     onMouseLeave={(e) => {
-                                        e.target.style.color = darkTheme ? '#fff' : '#667eea';
+                                        e.target.style.color = isActive(item) ? '#667eea' : (darkTheme ? '#fff' : '#667eea');
                                     }}
                                 >
                                     {item.name}
@@ -192,6 +229,8 @@ const NavBar = ({darkTheme, setDarkTheme}) => {
                                 onClick={toggleLanguage}
                                 whileHover={{ scale: 1.15 }}
                                 whileTap={{ scale: 0.85 }}
+                                role="button"
+                                aria-label={language === 'id' ? 'Switch to English' : 'Ganti ke Bahasa Indonesia'}
                                 style={{
                                     cursor: 'pointer',
                                     display: 'inline-flex',
@@ -225,6 +264,8 @@ const NavBar = ({darkTheme, setDarkTheme}) => {
                                 onClick={() => setDarkTheme(prev => !prev)}
                                 whileHover={{ scale: 1.15 }}
                                 whileTap={{ scale: 0.85 }}
+                                role="button"
+                                aria-label={darkTheme ? t('theme.light') : t('theme.dark')}
                                 style={{
                                     cursor: 'pointer',
                                     display: 'inline-flex',

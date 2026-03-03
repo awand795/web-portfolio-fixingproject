@@ -41,11 +41,19 @@ const en = {
 
     // Footer
     'footer.builtWith': 'Built with React & lots of ☕',
+    'footer.projects': 'Projects',
+    'footer.skills': 'Skills',
+    'footer.contact': 'Contact',
+    'footer.backToTop': 'Back to Top',
+
+    // Contact
+    'contact.location': 'Langkat, Sumatera Utara, Indonesia',
 
     // Social page
     'social.title': 'Fullstack JavaScript Developer & UI/UX Designer',
     'social.copyright': 'Copyright',
     'social.madeWith': 'Made With ❤️ By Awanda',
+    'social.backToHome': 'Back to Home',
 
     // Theme toggle
     'theme.light': 'Switch to light mode',

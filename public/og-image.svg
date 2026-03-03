@@ -1,0 +1,19 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0e27"/>
+      <stop offset="100%" stop-color="#151932"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#667eea"/>
+      <stop offset="100%" stop-color="#764ba2"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="200" cy="500" r="300" fill="#667eea" opacity="0.08"/>
+  <circle cx="1000" cy="150" r="250" fill="#764ba2" opacity="0.08"/>
+  <text x="600" y="260" text-anchor="middle" font-family="sans-serif" font-size="80" font-weight="800" fill="url(#accent)">Awanda</text>
+  <text x="600" y="340" text-anchor="middle" font-family="sans-serif" font-size="32" font-weight="400" fill="#a8b2d1">Fullstack JavaScript Developer</text>
+  <rect x="450" y="380" width="300" height="4" rx="2" fill="url(#accent)"/>
+  <text x="600" y="440" text-anchor="middle" font-family="sans-serif" font-size="22" fill="#8892b0">React &bull; Express.js &bull; MongoDB &bull; Node.js</text>
+</svg>

@@ -1,5 +1,51 @@
-body{
+.socmed-page {
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.socmed-page.dark {
     background-color: #242424;
+    color: #fff;
+}
+
+.socmed-page.light {
+    background-color: #f8f9fa;
+    color: #1a1a2e;
+}
+
+.socmed-page.light .colorgray {
+    color: #6c757d;
+}
+
+.socmed-page.light a {
+    color: #667eea;
+}
+
+.socmed-page.dark a {
+    color: #8b9cf7;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.socmed-page.dark .back-link {
+    color: #8b9cf7;
+}
+
+.socmed-page.light .back-link {
+    color: #667eea;
+}
+
+.back-link:hover {
+    transform: translateX(-4px);
 }
 
 .bgimage{
@@ -50,3 +96,30 @@ body{
     background: linear-gradient(to right,#4FCE5D,#60d26d);
     color: #fff;
   }
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .profilePic {
+        height: 120px;
+        width: 120px;
+    }
+
+    .content {
+        margin-top: 260px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .profilePic {
+        height: 100px;
+        width: 100px;
+    }
+
+    .bgimage {
+        height: 160px;
+    }
+
+    .content {
+        margin-top: 220px;
+    }
+}

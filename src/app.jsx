@@ -12,25 +12,37 @@ import nodeJSLogo from './image/nodeJsLogo.png'
 import bootstrapLogo from './image/bootstrap.png'
 import expressJs from './image/expressjs.png'
 import FadeInWhenVisible from './Component/animate/FadeInWhenVisible';
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import MyProject from './Component/MyProject';
 import NavBar from './Component/NavBar';
 import { useLanguage } from './context/LanguageContext';
+import { useTheme } from './context/ThemeContext';
+import { scroller } from 'react-scroll';
 
 const App = () => {
 
     const { t } = useLanguage();
+    const { darkTheme, setDarkTheme } = useTheme();
+    const [showBackToTop, setShowBackToTop] = useState(false);
 
-    // Load dark theme preference from localStorage
-    const [darkTheme, setDarkTheme] = useState(() => {
-        const savedTheme = localStorage.getItem('darkTheme');
-        return savedTheme !== 'false'; // Default to dark theme
-    });
-
-    // Save dark theme preference to localStorage
     useEffect(() => {
-        localStorage.setItem('darkTheme', darkTheme);
-    }, [darkTheme]);
+        const handleScroll = () => {
+            setShowBackToTop(window.scrollY > 300);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const socialIcons = [
+        { icon: 'bi-github', url: 'https://github.com/awand795', label: 'GitHub' },
+        { icon: 'bi-linkedin', url: 'https://linkedin.com/in/awanda', label: 'LinkedIn' },
+        { icon: 'bi-facebook', url: 'https://facebook.com/awandd6', label: 'Facebook' },
+        { icon: 'bi-instagram', url: 'https://instagram.com/adnawaa', label: 'Instagram' },
+    ];
 
     return (
         <div className={darkTheme ? 'bg-dark text-white' : 'bg-light text-dark'}>
@@ -60,17 +72,20 @@ const App = () => {
                                     src={picture}
                                     className="gambarprofile"
                                     alt="Awanda - Fullstack JavaScript Developer"
+                                    loading="lazy"
+                                    width="400"
+                                    height="400"
                                 />
                             </motion.div>
                         </div>
-                        
+
                         <div className='col-lg-6'>
                             <motion.div
                                 initial={{ x: 50, opacity: 0 }}
                                 animate={{ x: 0, opacity: 1 }}
                                 transition={{ duration: 0.8, delay: 0.2 }}
                             >
-                                <motion.p 
+                                <motion.p
                                     className="text-gradient mb-2"
                                     style={{ fontSize: '1.25rem', fontWeight: '600', letterSpacing: '0.1em' }}
                                     initial={{ opacity: 0 }}
@@ -79,8 +94,8 @@ const App = () => {
                                 >
                                     {t('hero.greeting')}
                                 </motion.p>
-                                
-                                <motion.h1 
+
+                                <motion.h1
                                     className="display-1 mb-4"
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
@@ -88,8 +103,8 @@ const App = () => {
                                 >
                                     Awanda
                                 </motion.h1>
-                                
-                                <motion.h2 
+
+                                <motion.h2
                                     className="h3 mb-4"
                                     style={{ color: 'var(--text-secondary)' }}
                                     initial={{ opacity: 0 }}
@@ -98,8 +113,8 @@ const App = () => {
                                 >
                                     {t('hero.title')}
                                 </motion.h2>
-                                
-                                <motion.p 
+
+                                <motion.p
                                     className="text-justify mb-5"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
@@ -107,8 +122,8 @@ const App = () => {
                                 >
                                     {t('hero.description')}
                                 </motion.p>
-                                
-                                <motion.div 
+
+                                <motion.div
                                     className="d-flex flex-wrap gap-3"
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
@@ -126,7 +141,7 @@ const App = () => {
                                         <i className="bi bi-download me-2"></i>
                                         {t('hero.downloadCv')}
                                     </motion.a>
-                                    
+
                                     <motion.a
                                         whileHover={{ scale: 1.05, y: -2 }}
                                         whileTap={{ scale: 0.95 }}
@@ -166,7 +181,7 @@ const App = () => {
                                     className="skill-tag mx-2"
                                     whileHover={{ y: -4 }}
                                 >
-                                    <img src={js} alt="JavaScript" height="24px" width="24px" />
+                                    <img src={js} alt="JavaScript" height="24" width="24" loading="lazy" />
                                     JavaScript
                                 </motion.span>
                                 {t('skills.description.mid')}
@@ -174,7 +189,7 @@ const App = () => {
                                     className="skill-tag mx-2"
                                     whileHover={{ y: -4 }}
                                 >
-                                    <img src={reactLogo} alt="React" height="24px" width="24px" />
+                                    <img src={reactLogo} alt="React" height="24" width="24" loading="lazy" />
                                     React
                                 </motion.span>
                                 {t('skills.description.and')}
@@ -182,7 +197,7 @@ const App = () => {
                                     className="skill-tag mx-2"
                                     whileHover={{ y: -4 }}
                                 >
-                                    <img src={expressJs} alt="Express.js" height="24px" width="24px" />
+                                    <img src={expressJs} alt="Express.js" height="24" width="24" loading="lazy" />
                                     Express.js
                                 </motion.span>
                                 {t('skills.description.after')}
@@ -192,7 +207,7 @@ const App = () => {
 
                     <div className="row justify-content-center text-center pt-4 pb-5">
                         <div className="col-lg-10">
-                            <motion.div 
+                            <motion.div
                                 className="d-flex flex-wrap justify-content-center align-items-center gap-4"
                                 initial={{ opacity: 0 }}
                                 whileInView={{ opacity: 1 }}
@@ -218,10 +233,13 @@ const App = () => {
                                         viewport={{ once: true }}
                                         transition={{ delay: index * 0.1 }}
                                     >
-                                        <motion.img 
-                                            src={tech.img} 
-                                            alt={`${tech.name} logo`} 
+                                        <motion.img
+                                            src={tech.img}
+                                            alt={`${tech.name} logo`}
                                             className="imgLogo"
+                                            loading="lazy"
+                                            width="80"
+                                            height="80"
                                             whileHover={{ scale: 1.1, y: -8 }}
                                             whileTap={{ scale: 0.95 }}
                                         />
@@ -253,20 +271,20 @@ const App = () => {
                                 <p className="h4 mb-4" style={{ color: 'var(--text-secondary)' }}>
                                     {t('contact.cta')}
                                 </p>
-                                
-                                <motion.a 
-                                    href="mailto:awand795@gmail.com" 
+
+                                <motion.a
+                                    href="mailto:awand795@gmail.com"
                                     className="email-modern d-inline-block mb-4"
                                     whileHover={{ scale: 1.05 }}
                                 >
                                     awand795@gmail.com
                                 </motion.a>
-                                
+
                                 <div className="mt-4 mb-3">
                                     <p style={{ color: 'var(--text-secondary)', fontSize: '1.125rem' }}>
                                         <i className="bi bi-phone me-2"></i>
-                                        <a 
-                                            href="tel:+6282362851796" 
+                                        <a
+                                            href="tel:+6282362851796"
                                             className={darkTheme ? 'text-white text-decoration-none' : 'text-dark text-decoration-none'}
                                             style={{ transition: 'color 0.3s' }}
                                         >
@@ -275,17 +293,12 @@ const App = () => {
                                     </p>
                                     <p style={{ color: 'var(--text-secondary)', fontSize: '1.125rem' }}>
                                         <i className="bi bi-geo-alt me-2"></i>
-                                        Langkat, Sumatera Utara, Indonesia
+                                        {t('contact.location')}
                                     </p>
                                 </div>
 
                                 <div className="mt-5">
-                                    {[
-                                        { icon: 'bi-github', url: 'https://github.com/awand795', label: 'GitHub' },
-                                        { icon: 'bi-linkedin', url: 'https://linkedin.com/in/awanda', label: 'LinkedIn' },
-                                        { icon: 'bi-facebook', url: 'https://facebook.com/awandd6', label: 'Facebook' },
-                                        { icon: 'bi-instagram', url: 'https://instagram.com/adnawaa', label: 'Instagram' },
-                                    ].map((social, index) => (
+                                    {socialIcons.map((social, index) => (
                                         <motion.a
                                             key={index}
                                             href={social.url}
@@ -305,16 +318,87 @@ const App = () => {
                     </div>
 
                     {/* Footer */}
-                    <div className="row justify-content-center pt-5 pb-4">
-                        <div className="col-12 text-center">
-                            <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
-                                © {new Date().getFullYear()} Awanda. {t('footer.builtWith')}
-                            </p>
+                    <footer className="row justify-content-center pt-5 pb-4">
+                        <div className="col-lg-10">
+                            {/* Quick Links */}
+                            <div className="d-flex justify-content-center gap-4 mb-4">
+                                {[
+                                    { label: t('footer.projects'), scrollTo: 'project' },
+                                    { label: t('footer.skills'), scrollTo: 'skill' },
+                                    { label: t('footer.contact'), scrollTo: 'contact' },
+                                ].map((link, i) => (
+                                    <a
+                                        key={i}
+                                        href={`#${link.scrollTo}`}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            scroller.scrollTo(link.scrollTo, { smooth: true, offset: -80, duration: 500 });
+                                        }}
+                                        className="footer-link"
+                                        style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontWeight: '500', transition: 'color 0.3s' }}
+                                    >
+                                        {link.label}
+                                    </a>
+                                ))}
+                            </div>
+
+                            {/* Social Icons */}
+                            <div className="d-flex justify-content-center gap-3 mb-4">
+                                {socialIcons.map((social, index) => (
+                                    <a
+                                        key={index}
+                                        href={social.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={social.label}
+                                        className="footer-social-icon"
+                                    >
+                                        <i className={`bi ${social.icon}`}></i>
+                                    </a>
+                                ))}
+                            </div>
+
+                            {/* Back to top */}
+                            <div className="text-center mb-3">
+                                <a
+                                    href="#"
+                                    onClick={(e) => { e.preventDefault(); scrollToTop(); }}
+                                    className="footer-link"
+                                    style={{ color: '#667eea', textDecoration: 'none', fontWeight: '500', fontSize: '0.875rem' }}
+                                >
+                                    <i className="bi bi-arrow-up me-1"></i>
+                                    {t('footer.backToTop')}
+                                </a>
+                            </div>
+
+                            <div className="text-center">
+                                <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
+                                    © {new Date().getFullYear()} Awanda. {t('footer.builtWith')}
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    </footer>
                 </FadeInWhenVisible>
 
             </div>
+
+            {/* Back to Top Button */}
+            <AnimatePresence>
+                {showBackToTop && (
+                    <motion.button
+                        className="back-to-top-btn"
+                        onClick={scrollToTop}
+                        aria-label={t('footer.backToTop')}
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.5 }}
+                        whileHover={{ scale: 1.1, y: -4 }}
+                        whileTap={{ scale: 0.9 }}
+                    >
+                        <i className="bi bi-arrow-up"></i>
+                    </motion.button>
+                )}
+            </AnimatePresence>
         </div>
     );
 }

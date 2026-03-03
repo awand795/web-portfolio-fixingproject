@@ -41,11 +41,19 @@ const id = {
 
     // Footer
     'footer.builtWith': 'Dibangun dengan React & banyak ☕',
+    'footer.projects': 'Proyek',
+    'footer.skills': 'Keahlian',
+    'footer.contact': 'Kontak',
+    'footer.backToTop': 'Kembali ke Atas',
+
+    // Contact
+    'contact.location': 'Langkat, Sumatera Utara, Indonesia',
 
     // Social page
     'social.title': 'Fullstack JavaScript Developer & UI/UX Designer',
     'social.copyright': 'Hak Cipta',
     'social.madeWith': 'Dibuat Dengan ❤️ Oleh Awanda',
+    'social.backToHome': 'Kembali ke Beranda',
 
     // Theme toggle
     'theme.light': 'Beralih ke mode terang',
