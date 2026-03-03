@@ -2,7 +2,6 @@ import React from "react";
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
 import NavBar from '../Component/NavBar';
-import imagebghead from '../image/bgimage.gif'
 import picture from '../image/imgprofile.jpg'
 import './socmed.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
@@ -33,7 +32,7 @@ const Socmed = () => {
             <div className="row">
                 <div className="col-md-12">
                     <div className="imagewrap content-justify-center position-relative">
-                        <img src={imagebghead} className="bgimage d-block position-absolute" alt="Background animation" loading="lazy" width="1200" height="200" />
+                        <div className="bg-animated d-block position-absolute"></div>
                         <img
                             src={picture}
                             className="profilePic mx-auto d-block position-absolute top-50 start-50 translate-middle rounded-3 border-primary"

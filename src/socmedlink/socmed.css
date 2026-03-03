@@ -48,9 +48,18 @@
     transform: translateX(-4px);
 }
 
-.bgimage{
+.bg-animated {
     height: 200px;
     width: 100%;
+    background: linear-gradient(-45deg, #667eea, #764ba2, #4facfe, #667eea);
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .profilePic{
@@ -115,7 +124,7 @@
         width: 100px;
     }
 
-    .bgimage {
+    .bg-animated {
         height: 160px;
     }
 

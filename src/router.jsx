@@ -5,6 +5,7 @@ import ScrollToTop from './Component/ScrollToTop';
 
 const App = lazy(() => import('./app'));
 const Socmed = lazy(() => import('./socmedlink/socmed'));
+const NotFound = lazy(() => import('./Component/NotFound'));
 
 const Router = () => {
     return (
@@ -14,7 +15,7 @@ const Router = () => {
           <Routes>
             <Route exact path='/' element={<App/>}/>
             <Route path='/socmed' element={<Socmed/>}/>
-            <Route path="*" element={<App/>}/>
+            <Route path="*" element={<NotFound/>}/>
           </Routes>
         </Suspense>
       </div>

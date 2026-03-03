@@ -47,6 +47,8 @@ const App = () => {
     return (
         <div className={darkTheme ? 'bg-dark text-white' : 'bg-light text-dark'}>
 
+            <a className="skip-link" href="#main-content">Skip to main content</a>
+
             <div className="container-fluid">
 
                 {/* Navigation */}
@@ -60,7 +62,7 @@ const App = () => {
 
                 {/* Hero Section */}
                 <FadeInWhenVisible>
-                    <div className="row justify-content-center align-items-center pt-4 pb-5" style={{ minHeight: '80vh' }}>
+                    <div id="main-content" className="row justify-content-center align-items-center pt-4 pb-5" style={{ minHeight: '80vh' }}>
                         <div className="col-lg-5 text-center mb-5 mb-lg-0">
                             <motion.div
                                 initial={{ scale: 0.8, opacity: 0 }}
@@ -105,13 +107,13 @@ const App = () => {
                                 </motion.h1>
 
                                 <motion.h2
-                                    className="h3 mb-4"
+                                    className="h3 mb-4 typing-wrapper"
                                     style={{ color: 'var(--text-secondary)' }}
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.5 }}
                                 >
-                                    {t('hero.title')}
+                                    <span className="typing-text">{t('hero.title')}</span>
                                 </motion.h2>
 
                                 <motion.p
@@ -161,6 +163,8 @@ const App = () => {
                 <div className='py-5'>
                     <MyProject darkTheme={darkTheme} />
                 </div>
+
+                <div className="section-divider"></div>
 
                 {/* Skills Section */}
                 <FadeInWhenVisible>
@@ -250,6 +254,8 @@ const App = () => {
                     </div>
                 </FadeInWhenVisible>
 
+                <div className="section-divider"></div>
+
                 {/* Contact Section */}
                 <FadeInWhenVisible>
                     <div id="contact" className="row text-center pt-5 justify-content-center">
@@ -318,46 +324,8 @@ const App = () => {
                     </div>
 
                     {/* Footer */}
-                    <footer className="row justify-content-center pt-5 pb-4">
+                    <footer className="row justify-content-center pt-0 pb-4">
                         <div className="col-lg-10">
-                            {/* Quick Links */}
-                            <div className="d-flex justify-content-center gap-4 mb-4">
-                                {[
-                                    { label: t('footer.projects'), scrollTo: 'project' },
-                                    { label: t('footer.skills'), scrollTo: 'skill' },
-                                    { label: t('footer.contact'), scrollTo: 'contact' },
-                                ].map((link, i) => (
-                                    <a
-                                        key={i}
-                                        href={`#${link.scrollTo}`}
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            scroller.scrollTo(link.scrollTo, { smooth: true, offset: -80, duration: 500 });
-                                        }}
-                                        className="footer-link"
-                                        style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontWeight: '500', transition: 'color 0.3s' }}
-                                    >
-                                        {link.label}
-                                    </a>
-                                ))}
-                            </div>
-
-                            {/* Social Icons */}
-                            <div className="d-flex justify-content-center gap-3 mb-4">
-                                {socialIcons.map((social, index) => (
-                                    <a
-                                        key={index}
-                                        href={social.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label={social.label}
-                                        className="footer-social-icon"
-                                    >
-                                        <i className={`bi ${social.icon}`}></i>
-                                    </a>
-                                ))}
-                            </div>
-
                             {/* Back to top */}
                             <div className="text-center mb-3">
                                 <a

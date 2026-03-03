@@ -585,3 +585,82 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(102, 126, 234, 0.15);
   border-color: rgba(102, 126, 234, 0.5);
 }
+
+/* Skip to Content Link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 9999;
+  padding: 12px 24px;
+  background: var(--primary-gradient);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 16px;
+  color: #fff;
+}
+
+/* Typing Animation */
+.typing-wrapper {
+  display: inline-block;
+}
+
+.typing-text {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid #667eea;
+  animation: typing 2.5s steps(35, end) forwards, blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: #667eea; }
+}
+
+/* Section Divider */
+.section-divider {
+  width: 60%;
+  max-width: 600px;
+  height: 1px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.4), rgba(118, 75, 162, 0.4), transparent);
+  opacity: 0.6;
+}
+
+/* Focus Visible Styles */
+:focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.btn-modern:focus-visible,
+.btn-gradient:focus-visible,
+.btn-outline-modern:focus-visible {
+  outline: 2px solid #4facfe;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.25);
+}
+
+.social-icon:focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.25);
+}
+
+.nav-link:focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
