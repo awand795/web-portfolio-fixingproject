@@ -30,7 +30,7 @@ const projects = [
     },
     {
         id: 4,
-        title: "MevnStack-NotesApp",
+        title: "Web Notes App",
         description: "Full-stack notes application built with Vue.js frontend and Express.js backend, featuring real-time updates and MongoDB storage",
         githubUrl: "https://github.com/awand795/MevnStack-NotesApp",
         tags: ["Vue.js", "Express.js", "MongoDB"],

@@ -203,7 +203,7 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 👤 Author
 
 **Awanda**
-- Website: [awanda.my.id](https://awanda.my.id)
+- Website: [awanda.eu.org](https://awanda.eu.org)
 - Email: awand795@gmail.com
 - GitHub: [@awand795](https://github.com/awand795)
 - LinkedIn: [/in/awanda](https://linkedin.com/in/awanda)
