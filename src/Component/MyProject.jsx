@@ -38,18 +38,18 @@ const projects = [
     },
     {
         id: 5,
-        title: "JWT Auth System",
-        description: "Secure authentication system implementing JWT tokens with Express.js backend and MongoDB user storage",
-        githubUrl: "https://github.com/awand795/nodejs-loginsystem",
-        tags: ["Node.js", "JWT", "MongoDB"],
+        title: "Nysql MCP Server",
+        description: "An MCP-based server bridging AI with MySQL databases for secure schema inspection, query execution, and real-time data analysis using natural language.",
+        githubUrl: "https://github.com/awand795/mcp-server-mysql",
+        tags: ["Node.js", "MySQL", "Electron"],
         gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
     },
     {
         id: 6,
-        title: "MERN CRUD App",
-        description: "Modern CRUD application showcasing React state management, responsive design, and seamless API integration",
-        githubUrl: "https://github.com/awand795/Frontend-MERN-Crud",
-        tags: ["React", "CRUD", "REST API"],
+        title: "Bot WA",
+        description: "A web/Node.js-based WhatsApp bot supporting automated message management, API integration, and interactive features for real-time communication efficiency and group management.",
+        githubUrl: "https://github.com/awand795/bot-wa",
+        tags: ["Node.js", "WA", "Chromium"],
         gradient: "linear-gradient(135deg, #30cfd0 0%, #330867 100%)"
     }
 ];

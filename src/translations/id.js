@@ -25,8 +25,8 @@ const id = {
     'projects.desc.2': 'Aplikasi Point of Sale full-stack dengan frontend React dan backend Laravel, dilengkapi manajemen produk, pemrosesan transaksi, dan pelaporan penjualan untuk bisnis ritel',
     'projects.desc.3': 'Sistem pemungutan suara elektronik berbasis web untuk pemilihan online yang aman dan transparan dengan autentikasi pemilih, penghitungan suara real-time, dan manajemen hasil pemilihan',
     'projects.desc.4': 'Aplikasi catatan full-stack yang dibangun dengan frontend Vue.js dan backend Express.js, dilengkapi pembaruan real-time dan penyimpanan MongoDB',
-    'projects.desc.5': 'Sistem autentikasi aman yang mengimplementasikan token JWT dengan backend Express.js dan penyimpanan pengguna MongoDB',
-    'projects.desc.6': 'Aplikasi CRUD modern yang menampilkan manajemen state React, desain responsif, dan integrasi API yang mulus',
+    'projects.desc.5': 'Server berbasis protokol MCP yang menjembatani AI dengan database MySQL untuk inspeksi skema, eksekusi query, dan analisis data real-time menggunakan bahasa natural secara aman.',
+    'projects.desc.6': 'Bot WhatsApp berbasis web/Node.js yang mendukung manajemen pesan otomatis, integrasi API, dan fitur interaktif untuk meningkatkan efisiensi komunikasi serta manajemen grup secara real-time.',
 
     // Skills
     'skills.title': 'Keahlian & Kompetensi',

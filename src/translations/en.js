@@ -25,8 +25,8 @@ const en = {
     'projects.desc.2': 'Full-stack Point of Sale application with React frontend and Laravel backend, featuring product management, transaction processing, and sales reporting for retail businesses',
     'projects.desc.3': 'Web-based electronic voting system for secure and transparent online elections with voter authentication, real-time vote counting, and election result management',
     'projects.desc.4': 'Full-stack notes application built with Vue.js frontend and Express.js backend, featuring real-time updates and MongoDB storage',
-    'projects.desc.5': 'Secure authentication system implementing JWT tokens with Express.js backend and MongoDB user storage',
-    'projects.desc.6': 'Modern CRUD application showcasing React state management, responsive design, and seamless API integration',
+    'projects.desc.5': 'An MCP-based server bridging AI with MySQL databases for secure schema inspection, query execution, and real-time data analysis using natural language.',
+    'projects.desc.6': 'A web/Node.js-based WhatsApp bot supporting automated message management, API integration, and interactive features for real-time communication efficiency and group management.',
 
     // Skills
     'skills.title': 'Skills & Expertise',
