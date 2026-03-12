@@ -11,6 +11,7 @@ A modern, responsive portfolio website built with React and Vite, showcasing my 
 - 🎨 **Modern UI/UX** - Clean and professional design with smooth animations
 - 🌓 **Dark Mode** - Toggle between light and dark themes (persistent with localStorage)
 - 📱 **Fully Responsive** - Optimized for mobile, tablet, and desktop
+- 📲 **PWA Support** - Install as app on your device with offline support
 - 🚀 **Performance** - Built with Vite for lightning-fast development and builds
 - ♿ **Accessible** - ARIA labels and semantic HTML for better accessibility
 - 🔍 **SEO Optimized** - Meta tags for better search engine visibility
@@ -24,6 +25,7 @@ A modern, responsive portfolio website built with React and Vite, showcasing my 
 - **Icons:** Bootstrap Icons 1.10.3
 - **Routing:** React Router DOM 6.9.0
 - **Scroll:** React Scroll 1.8.9
+- **PWA:** vite-plugin-pwa
 
 ## 📦 Installation
 

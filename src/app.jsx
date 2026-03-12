@@ -13,6 +13,7 @@ import FadeInWhenVisible from './Component/animate/FadeInWhenVisible';
 import { motion, AnimatePresence } from 'framer-motion'
 import MyProject from './Component/MyProject';
 import NavBar from './Component/NavBar';
+import PWAInstallPrompt from './Component/PWAInstallPrompt';
 import { useLanguage } from './context/LanguageContext';
 import { useTheme } from './context/ThemeContext';
 import { scroller } from 'react-scroll';
@@ -365,6 +366,9 @@ const App = () => {
                     </motion.button>
                 )}
             </AnimatePresence>
+
+            {/* PWA Install Prompt */}
+            <PWAInstallPrompt darkTheme={darkTheme} />
         </div>
     );
 }
