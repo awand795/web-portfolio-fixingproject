@@ -2,9 +2,9 @@
 
 A modern, responsive portfolio website built with React and Vite, showcasing my skills and projects as a Fullstack JavaScript Developer.
 
-![React](https://img.shields.io/badge/React-18.2.0-blue)
-![Vite](https://img.shields.io/badge/Vite-4.1.4-purple)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-5.2.3-violet)
+![React](https://img.shields.io/badge/React-19.2.4-blue)
+![Vite](https://img.shields.io/badge/Vite-6.3.5-purple)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.3-violet)
 ![PWA](https://img.shields.io/badge/PWA-Enabled-green)
 
 ## ✨ Features
@@ -20,14 +20,14 @@ A modern, responsive portfolio website built with React and Vite, showcasing my 
 
 ## 🛠️ Tech Stack
 
-- **Frontend Framework:** React 18.2.0
-- **Build Tool:** Vite 4.1.4
-- **Styling:** Bootstrap 5.2.3 + React Bootstrap 2.7.2
-- **Animations:** Framer Motion 10.8.5
-- **Icons:** Bootstrap Icons 1.10.3
-- **Routing:** React Router DOM 6.9.0
-- **Scroll:** React Scroll 1.8.9
-- **Intersection Observer:** React Intersection Observer 9.4.3
+- **Frontend Framework:** React 19.2.4
+- **Build Tool:** Vite 6.3.5
+- **Styling:** Bootstrap 5.3.3 + React Bootstrap 2.10.10
+- **Animations:** Framer Motion 12.35.2
+- **Icons:** Bootstrap Icons 1.11.3
+- **Routing:** React Router DOM 7.13.1
+- **Scroll:** React Scroll 1.9.3
+- **Intersection Observer:** React Intersection Observer 9.16.0
 - **PWA:** vite-plugin-pwa 1.2.0
 
 ## 📦 Installation
@@ -227,6 +227,40 @@ vercel
 - [ ] Add unit tests
 - [ ] Optimize images (WebP format, lazy loading)
 - [ ] Implement analytics (Google Analytics / Plausible)
+
+## 📋 Changelog
+
+### [2026-03-12] - Major Dependencies Update
+
+#### Updated Packages
+| Package | Previous Version | New Version |
+|---------|-----------------|-------------|
+| **Vite** | 4.1.4 | 6.3.5 |
+| **React** | 18.2.0 | 19.2.4 |
+| **React DOM** | 18.2.0 | 19.2.4 |
+| **@vitejs/plugin-react** | 3.1.0 | 5.1.4 |
+| **@types/react** | 18.0.28 | 19.1.0 |
+| **@types/react-dom** | 18.0.11 | 19.1.2 |
+| **Bootstrap** | 5.2.3 | 5.3.3 |
+| **Bootstrap Icons** | 1.10.3 | 1.11.3 |
+| **React Bootstrap** | 2.7.2 | 2.10.10 |
+| **Framer Motion** | 10.8.5 | 12.35.2 |
+| **React Router DOM** | 6.9.0 | 7.13.1 |
+| **React Scroll** | 1.8.9 | 1.9.3 |
+| **React Intersection Observer** | 9.4.3 | 9.16.0 |
+
+#### Key Improvements
+- ⚡ **Vite 6** - Faster build times, improved HMR, better tree-shaking
+- ⚛️ **React 19** - Latest React features, improved performance, new hooks
+- 🎨 **Bootstrap 5.3** - Latest UI components and bug fixes
+- 🎬 **Framer Motion 12** - Better animations with improved performance
+- 🛣️ **React Router 7** - Enhanced routing capabilities and data APIs
+- 📦 **TypeScript Types** - Updated type definitions for React 19
+
+#### Migration Notes
+- Build tested and verified working
+- No breaking changes detected in current implementation
+- All existing features remain functional
 
 ## 🤝 Contributing
 
