@@ -2,9 +2,10 @@
 
 A modern, responsive portfolio website built with React and Vite, showcasing my skills and projects as a Fullstack JavaScript Developer.
 
-![Portfolio Preview](https://img.shields.io/badge/React-18.2.0-blue)
+![React](https://img.shields.io/badge/React-18.2.0-blue)
 ![Vite](https://img.shields.io/badge/Vite-4.1.4-purple)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.2.3-violet)
+![PWA](https://img.shields.io/badge/PWA-Enabled-green)
 
 ## ✨ Features
 
@@ -15,65 +16,77 @@ A modern, responsive portfolio website built with React and Vite, showcasing my 
 - 🚀 **Performance** - Built with Vite for lightning-fast development and builds
 - ♿ **Accessible** - ARIA labels and semantic HTML for better accessibility
 - 🔍 **SEO Optimized** - Meta tags for better search engine visibility
+- 🌐 **Multi-language Ready** - Translation support structure in place
 
 ## 🛠️ Tech Stack
 
 - **Frontend Framework:** React 18.2.0
 - **Build Tool:** Vite 4.1.4
-- **Styling:** Bootstrap 5.2.3
+- **Styling:** Bootstrap 5.2.3 + React Bootstrap 2.7.2
 - **Animations:** Framer Motion 10.8.5
 - **Icons:** Bootstrap Icons 1.10.3
 - **Routing:** React Router DOM 6.9.0
 - **Scroll:** React Scroll 1.8.9
-- **PWA:** vite-plugin-pwa
+- **Intersection Observer:** React Intersection Observer 9.4.3
+- **PWA:** vite-plugin-pwa 1.2.0
 
 ## 📦 Installation
 
 1. Clone the repository:
-\`\`\`bash
+```bash
 git clone https://github.com/awand795/web-portfolio-fixingproject.git
 cd web-portfolio-fixingproject
-\`\`\`
+```
 
 2. Install dependencies:
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
 3. Run the development server:
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
 4. Build for production:
-\`\`\`bash
+```bash
 npm run build
-\`\`\`
+```
 
 5. Preview production build:
-\`\`\`bash
+```bash
 npm run preview
-\`\`\`
+```
 
 ## 📁 Project Structure
 
-\`\`\`
+```
 web-portfolio-fixingproject/
 ├── public/
+│   ├── favicon.svg
+│   ├── manifest.json
+│   ├── og-image.svg
+│   ├── pwa-192x192.png
+│   ├── pwa-512x512.png
 │   └── vite.svg
 ├── src/
+│   ├── assets/              # Static assets
 │   ├── Component/
 │   │   ├── animate/
 │   │   │   ├── FadeFromSide.jsx
 │   │   │   └── FadeInWhenVisible.jsx
+│   │   ├── LoadingSpinner.jsx
 │   │   ├── MyProject.jsx
-│   │   └── NavBar.jsx
-│   ├── image/
-│   │   ├── icon/
-│   │   └── [various logos and images]
+│   │   ├── NavBar.jsx
+│   │   ├── NotFound.jsx
+│   │   ├── PWAInstallPrompt.jsx
+│   │   └── ScrollToTop.jsx
+│   ├── context/             # React context providers
+│   ├── image/               # Images and logos
 │   ├── socmedlink/
 │   │   ├── socmed.css
 │   │   └── socmed.jsx
+│   ├── translations/        # Multi-language support
 │   ├── App.css
 │   ├── app.jsx
 │   ├── index.css
@@ -81,44 +94,51 @@ web-portfolio-fixingproject/
 │   └── router.jsx
 ├── index.html
 ├── package.json
-└── vite.config.js
-\`\`\`
+├── vite.config.js
+└── netlify.toml
+```
 
-## 🎯 Key Improvements Made
+## 🎯 Key Features
 
 ### 1. **SEO Enhancement**
-- Added comprehensive meta tags (description, keywords, author)
-- Implemented Open Graph tags for social media sharing
-- Added Twitter Card meta tags
-- Improved page title with keywords
+- Comprehensive meta tags (description, keywords, author)
+- Open Graph tags for social media sharing
+- Twitter Card meta tags
+- Optimized page title with keywords
 
 ### 2. **Accessibility**
-- Added descriptive alt text to all images
-- Implemented ARIA labels for links and buttons
-- Added keyboard navigation support for dark mode toggle
-- Improved semantic HTML structure
+- Descriptive alt text for all images
+- ARIA labels for links and buttons
+- Keyboard navigation support
+- Semantic HTML structure
 
 ### 3. **Performance**
-- Optimized image loading
-- Added hover transitions for better UX
-- Implemented lazy loading with Framer Motion
+- Optimized image loading with preconnect
+- Hover transitions for better UX
+- Lazy loading with Framer Motion
+- Code splitting with Vite
 
-### 4. **Code Quality**
-- Fixed typos ("exprienced" → "experienced")
-- Corrected external links (javascript.com → developer.mozilla.org)
-- Added proper target="_blank" and rel="noopener noreferrer" for security
-- Implemented data-driven approach for projects and social links
+### 4. **PWA Capabilities**
+- Installable as a standalone app
+- Offline support with service workers
+- Custom manifest configuration
+- App icons for all device sizes
+- Runtime caching for fonts and CDN assets
 
 ### 5. **User Experience**
 - **Persistent Dark Mode** - Theme preference saved in localStorage
-- Improved responsive design for all screen sizes
-- Added smooth animations and transitions
+- Responsive design for all screen sizes
+- Smooth animations and transitions
 - Better mobile navigation
+- Loading spinner for better feedback
+- Scroll to top functionality
+- 404 Not Found page
 
 ### 6. **Modern Practices**
-- Component modularity with reusable ProjectCard
+- Component modularity with reusable components
 - Data separation (projects array, social links array)
-- Better error handling and validation
+- React Router for navigation
+- Context API for state management
 - Improved code organization
 
 ## 🎨 Customization
@@ -126,15 +146,15 @@ web-portfolio-fixingproject/
 ### Update Personal Information
 
 Edit the data in `src/app.jsx`:
-\`\`\`jsx
+```jsx
 <p className="h1 fw-bold fs-1">Hello I'm Awanda</p>
 <p className="text fs-5 text-justify mx-4 mt-4">Your bio here...</p>
-\`\`\`
+```
 
 ### Update Projects
 
 Edit the `projects` array in `src/Component/MyProject.jsx`:
-\`\`\`jsx
+```jsx
 const projects = [
     {
         id: 1,
@@ -144,43 +164,58 @@ const projects = [
         tags: ["React", "Node.js"]
     }
 ];
-\`\`\`
+```
 
 ### Update Social Links
 
 Edit the `socialLinks` array in `src/socmedlink/socmed.jsx`:
-\`\`\`jsx
+```jsx
 const socialLinks = [
     { name: 'Facebook', url: 'https://facebook.com/yourprofile', icon: 'bi-facebook', className: 'btn-fb' }
 ];
-\`\`\`
+```
+
+### Add Translations
+
+Add new language files in `src/translations/`:
+```js
+// src/translations/es.js
+export default {
+  greeting: "Hola, soy Awanda",
+  // ... other translations
+};
+```
 
 ## 🚀 Deployment
 
-This project can be deployed to various platforms:
+### Netlify (Recommended)
+
+This project includes a `netlify.toml` configuration file for easy deployment:
+
+1. Connect your GitHub repository to Netlify
+2. Netlify will automatically detect Vite and use the correct build settings
+3. Deploy!
+
+Build settings (auto-detected):
+- **Build command:** `npm run build`
+- **Publish directory:** `dist/`
 
 ### Vercel
-\`\`\`bash
+```bash
 npm install -g vercel
 vercel
-\`\`\`
-
-### Netlify
-\`\`\`bash
-npm run build
-# Drag and drop the 'dist' folder to Netlify
-\`\`\`
+```
 
 ### GitHub Pages
-1. Install gh-pages: \`npm install --save-dev gh-pages\`
+1. Install gh-pages: `npm install --save-dev gh-pages`
 2. Add to package.json:
-\`\`\`json
+```json
 "scripts": {
   "predeploy": "npm run build",
   "deploy": "gh-pages -d dist"
 }
-\`\`\`
-3. Run: \`npm run deploy\`
+```
+3. Run: `npm run deploy`
 
 ## 📝 TODO / Future Improvements
 
@@ -188,10 +223,9 @@ npm run build
 - [ ] Implement contact form with backend
 - [ ] Add more projects dynamically from GitHub API
 - [ ] Add testimonials section
-- [ ] Implement multi-language support
+- [ ] Implement multi-language support (complete translations)
 - [ ] Add unit tests
 - [ ] Optimize images (WebP format, lazy loading)
-- [ ] Add PWA capabilities
 - [ ] Implement analytics (Google Analytics / Plausible)
 
 ## 🤝 Contributing
