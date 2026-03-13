@@ -2,7 +2,7 @@ import React from "react";
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
 import NavBar from '../Component/NavBar';
-import picture from '../image/imgprofile.jpg'
+import picture from '../image/imgprofile.webp'
 import './socmed.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 

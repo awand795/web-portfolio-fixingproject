@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
-import picture from './image/imgprofile.jpg'
-import reactLogo from './image/reactLogo.png';
-import js from './image/js.png'
-import mongoDbLogo from './image/mongoDbLogo.png'
-import dockerLogo from './image/dockerLogo.png'
-import nodeJSLogo from './image/nodeJsLogo.png'
-import bootstrapLogo from './image/bootstrap.png'
-import expressJs from './image/expressjs.png'
+import picture from './image/imgprofile.webp'
+import reactLogo from './image/reactLogo.webp';
+import js from './image/js.webp'
+import mongoDbLogo from './image/mongoDbLogo.webp'
+import dockerLogo from './image/dockerLogo.webp'
+import nodeJSLogo from './image/nodeJsLogo.webp'
+import bootstrapLogo from './image/bootstrap.webp'
+import expressJs from './image/expressjs.webp'
 import FadeInWhenVisible from './Component/animate/FadeInWhenVisible';
 import { motion, AnimatePresence } from 'framer-motion'
 import MyProject from './Component/MyProject';

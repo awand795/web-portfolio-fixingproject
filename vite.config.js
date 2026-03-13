@@ -74,4 +74,19 @@ export default defineConfig({
       }
     })
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'bootstrap-vendor': ['bootstrap', 'react-bootstrap'],
+          'animation-vendor': ['framer-motion']
+        }
+      }
+    },
+    target: 'esnext',
+    minify: 'esbuild',
+    cssMinify: true,
+    assetsInlineLimit: 4096
+  }
 })

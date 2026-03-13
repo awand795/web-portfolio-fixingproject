@@ -23,6 +23,7 @@
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^5.1.4",
+    "fs-extra": "^11.3.4",
     "sharp": "^0.34.5",
     "vite": "^6.3.5",
     "vite-plugin-pwa": "^1.2.0"
