@@ -7,14 +7,14 @@ export function Logo({ className = "w-8 h-8" }) {
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
-        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id="awandaLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#3b82f6" />
           <stop offset="100%" stopColor="#8b5cf6" />
         </linearGradient>
       </defs>
       
       {/* Geometric design - abstract shape representing creativity and innovation */}
-      <circle cx="50" cy="50" r="45" fill="url(#logoGradient)" opacity="0.2" />
+      <circle cx="50" cy="50" r="45" fill="url(#awandaLogoGradient)" opacity="0.2" />
       
       {/* Three layered triangular shapes forming a modern symbol */}
       <path
