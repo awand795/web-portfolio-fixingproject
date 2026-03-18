@@ -4,6 +4,7 @@ import { scroller } from 'react-scroll';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
+import { Logo } from './Logo';
 
 const ThemeIcon = ({ darkTheme }) => (
     <div style={{ width: '38px', height: '38px', position: 'relative' }}>
@@ -150,7 +151,7 @@ const NavBar = ({darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme} = {})
             <div className="container-fluid">
                 {/* Logo */}
                 <Link
-                    className="navbar-brand"
+                    className="navbar-brand d-flex align-items-center"
                     to={"/"}
                     style={{
                         fontSize: '1.5rem',
@@ -158,6 +159,12 @@ const NavBar = ({darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme} = {})
                         letterSpacing: '-0.02em'
                     }}
                 >
+                    <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        style={{ marginRight: '10px' }}
+                    >
+                        <Logo className="w-10 h-10" />
+                    </motion.div>
                     <motion.span
                         whileHover={{ scale: 1.05 }}
                         style={{
