@@ -4,22 +4,3 @@
 
 [build.environment]
   NODE_VERSION = "24"
-
-# Serve static SEO files directly (MUST be before catch-all redirect)
-[[redirects]]
-  from = "/sitemap.xml"
-  to = "/sitemap.xml"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/robots.txt"
-  to = "/robots.txt"
-  status = 200
-  force = true
-
-# Redirect all other routes to index.html for React Router SPA
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200

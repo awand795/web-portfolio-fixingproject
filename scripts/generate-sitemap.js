@@ -56,4 +56,38 @@ ${sitemapFooter}`;
   });
 }
 
+// Generate _redirects file for Netlify
+function generateNetlifyRedirects() {
+  const redirectsContent = `# Netlify redirects file
+# Serve SEO static files directly (must be before catch-all)
+/sitemap.xml    /sitemap.xml    200
+/robots.txt     /robots.txt     200
+
+# React Router SPA fallback
+/*    /index.html    200
+`;
+
+  const redirectsPath = path.join(OUTPUT_DIR, '_redirects');
+  fs.writeFileSync(redirectsPath, redirectsContent, 'utf8');
+  console.log(`✅ _redirects generated at ${redirectsPath}`);
+}
+
+// Generate _headers file for Netlify
+function generateNetlifyHeaders() {
+  const headersContent = `/sitemap.xml
+  Content-Type: application/xml
+  Cache-Control: public, max-age=3600
+
+/robots.txt
+  Content-Type: text/plain
+  Cache-Control: public, max-age=3600
+`;
+
+  const headersPath = path.join(OUTPUT_DIR, '_headers');
+  fs.writeFileSync(headersPath, headersContent, 'utf8');
+  console.log(`✅ _headers generated at ${headersPath}`);
+}
+
 generateSitemap();
+generateNetlifyRedirects();
+generateNetlifyHeaders();
