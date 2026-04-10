@@ -2,32 +2,26 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" as="style" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- PWA Meta Tags -->
-    <meta name="theme-color" content="#667eea" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Awanda Portfolio" />
-    <link rel="apple-touch-icon" href="/pwa-192x192.png" />
-    <link rel="manifest" href="/manifest.json" />
-
     <!-- SEO Meta Tags -->
     <meta name="description" content="Awanda - Fullstack JavaScript Developer specializing in MERN Stack web development. Experienced in React, Express.js, MongoDB, and Node.js." />
     <meta name="keywords" content="Fullstack Developer, JavaScript, React, MERN Stack, Web Development, Portfolio, Awanda" />
     <meta name="author" content="Awanda" />
-    
+    <link rel="canonical" href="https://awanda.eu.org" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/pwa-192x192.png" />
+
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Awanda - Fullstack JavaScript Developer" />
     <meta property="og:description" content="Fullstack JavaScript Developer specializing in MERN Stack web development" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://awanda.eu.org" />
     <meta property="og:image" content="https://awanda.eu.org/og-image.svg" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Awanda Portfolio" />
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -35,8 +29,41 @@
     <meta name="twitter:description" content="Fullstack JavaScript Developer specializing in MERN Stack web development" />
     <meta name="twitter:image" content="https://awanda.eu.org/og-image.svg" />
 
-    <!-- Preload Critical Assets -->
-    <link rel="preload" as="image" href="/src/image/imgprofile.webp" type="image/webp" />
+    <!-- Structured Data / JSON-LD Schema.org for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Awanda",
+      "url": "https://awanda.eu.org",
+      "image": "https://awanda.eu.org/favicon.svg",
+      "jobTitle": "Fullstack JavaScript Developer",
+      "description": "Fullstack JavaScript Developer specializing in MERN Stack web development",
+      "sameAs": [
+        "https://github.com/awand795",
+        "https://linkedin.com/in/awanda",
+        "https://facebook.com/awandd6",
+        "https://instagram.com/adnawaa"
+      ],
+      "knowsAbout": [
+        "JavaScript",
+        "React",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "MERN Stack",
+        "Bootstrap",
+        "Docker"
+      ],
+      "email": "mailto:awand795@gmail.com",
+      "telephone": "+6282362851796",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Indonesia",
+        "addressCountry": "ID"
+      }
+    }
+    </script>
 
     <title>Awanda - Fullstack JavaScript Developer Portfolio</title>
   </head>
