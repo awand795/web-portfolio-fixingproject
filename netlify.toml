@@ -5,20 +5,20 @@
 [build.environment]
   NODE_VERSION = "24"
 
-# Serve static files directly (no redirect to index.html)
-[[headers]]
-  for = "/sitemap.xml"
-  [headers.values]
-    Content-Type = "application/xml"
-    Cache-Control = "public, max-age=3600"
+# Serve static SEO files directly (MUST be before catch-all redirect)
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap.xml"
+  status = 200
+  force = true
 
-[[headers]]
-  for = "/robots.txt"
-  [headers.values]
-    Content-Type = "text/plain"
-    Cache-Control = "public, max-age=3600"
+[[redirects]]
+  from = "/robots.txt"
+  to = "/robots.txt"
+  status = 200
+  force = true
 
-# Redirect all other routes to index.html for React Router
+# Redirect all other routes to index.html for React Router SPA
 [[redirects]]
   from = "/*"
   to = "/index.html"
