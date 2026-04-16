@@ -9,7 +9,7 @@ const en = {
     // Hero
     'hero.greeting': "HELLO, I'M",
     'hero.title': 'Fullstack JavaScript Developer',
-    'hero.description': "Awanda is a dedicated Fullstack JavaScript Developer and IT Specialist based in Indonesia. He specializes in the MERN Stack (MongoDB, Express.js, React, Node.js) to build modern, scalable web applications. With expertise in digital solution development and system efficiency, he currently serves as an IT Developer focused on creating robust business systems.",
+    'hero.description': "Born in Bangun Rakyat on November 18, 2000, Awanda is a high-caliber IT Web Developer currently spearheading digital innovations at Darkotech. An only child with an unrelenting drive, he transitioned from his roots in Langkat to the urban tech landscape of Medan, where he channels his ambitious nature and love for complex challenges into building world-class web solutions. Known for his tireless work ethic and strategic mindset, Awanda is not just writing code; he's architecting the future of digital experiences.",
     'hero.downloadCv': 'Download CV',
     'hero.getInTouch': 'Get in Touch',
 
@@ -47,7 +47,7 @@ const en = {
     'footer.backToTop': 'Back to Top',
 
     // Contact
-    'contact.location': 'Langkat, Sumatera Utara, Indonesia',
+    'contact.location': 'Medan, Sumatera Utara, Indonesia',
 
     // Social page
     'social.title': 'Fullstack JavaScript Developer & UI/UX Designer',
