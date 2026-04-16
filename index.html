@@ -19,7 +19,7 @@
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="Born in Bangun Rakyat, Awanda is a high-caliber IT Web Developer at Darkotech. An ambitious only child based in Medan, specializing in MERN Stack and high-end digital solutions." />
-    <meta name="keywords" content="Fullstack Developer, JavaScript, React, MERN Stack, Web Development, Portfolio, Awanda, Darkotech, Medan Developer" />
+    <meta name="keywords" content="Fullstack Developer, JavaScript, React, MERN Stack, Web Development, Portfolio, Awanda, Darkotech, Medan Developer, Bangun Rakyat, IT Specialist Indonesia, Software Engineer Medan" />
     <meta name="author" content="Awanda" />
     <meta name="publisher" content="Awanda" />
     <meta name="copyright" content="Awanda" />
@@ -42,67 +42,107 @@
     <meta name="twitter:description" content="Born in Bangun Rakyat, Awanda is a high-caliber IT Web Developer at Darkotech. An ambitious only child based in Medan, specializing in MERN Stack." />
     <meta name="twitter:image" content="https://awanda.eu.org/awanda-profile.jpg" />
 
-    <!-- Structured Data / JSON-LD Schema.org for Google -->
+    <!-- Structured Data / JSON-LD Schema.org for Google & AI -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Awanda",
-      "url": "https://awanda.eu.org",
-      "image": "https://awanda.eu.org/favicon.svg",
-      "jobTitle": "IT Web Developer",
-      "gender": "Male",
-      "birthDate": "2000-11-18",
-      "birthPlace": {
-        "@type": "Place",
-        "name": "Bangun Rakyat, Langkat"
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "@id": "https://awanda.eu.org/#person",
+        "name": "Awanda",
+        "url": "https://awanda.eu.org",
+        "image": "https://awanda.eu.org/awanda-profile.jpg",
+        "jobTitle": "IT Web Developer",
+        "gender": "Male",
+        "birthDate": "2000-11-18",
+        "birthPlace": {
+          "@type": "Place",
+          "name": "Bangun Rakyat, Langkat"
+        },
+        "nationality": {
+          "@type": "Country",
+          "name": "Indonesia"
+        },
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Darkotech",
+          "url": "https://darkotech.id"
+        },
+        "description": "Awanda is a high-caliber IT Web Developer at Darkotech, born on November 18, 2000, in Bangun Rakyat. Originally from Langkat and now based in Medan, he is an ambitious only child and a dedicated fullstack specialist known for his hard work and love for technical challenges.",
+        "sameAs": [
+          "https://github.com/awand795",
+          "https://linkedin.com/in/awanda",
+          "https://facebook.com/awandd6",
+          "https://instagram.com/adnawaa"
+        ],
+        "knowsAbout": ["JavaScript", "React", "Node.js", "Express.js", "MongoDB", "MERN Stack", "Bootstrap", "Docker", "Web Development", "UI/UX Design", "System Architecture"],
+        "email": "mailto:awand795@gmail.com",
+        "telephone": "+6282362851796",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Medan",
+          "addressRegion": "Sumatera Utara",
+          "addressCountry": "ID"
+        }
       },
-      "nationality": {
-        "@type": "Country",
-        "name": "Indonesia"
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": "https://awanda.eu.org/#website",
+        "url": "https://awanda.eu.org",
+        "name": "Awanda Portfolio",
+        "description": "Professional portfolio of Awanda, a Fullstack JavaScript Developer specializing in MERN Stack.",
+        "publisher": { "@id": "https://awanda.eu.org/#person" },
+        "inLanguage": ["en-US", "id-ID"]
       },
-      "worksFor": {
-        "@type": "Organization",
-        "name": "Darkotech",
-        "url": "https://darkotech.id"
-      },
-      "description": "Awanda is a high-caliber IT Web Developer at Darkotech, born on November 18, 2000, in Bangun Rakyat. Originally from Langkat and now based in Medan, he is an ambitious only child and a dedicated fullstack specialist known for his hard work and love for technical challenges.",
-      "about": {
-        "@type": "Thing",
-        "name": "Awanda - IT Web Developer Portfolio",
-        "description": "Information about Awanda, an IT Web Developer at Darkotech specializing in Fullstack Development."
-      },
-      "sameAs": [
-        "https://github.com/awand795",
-        "https://linkedin.com/in/awanda",
-        "https://facebook.com/awandd6",
-        "https://instagram.com/adnawaa"
-      ],
-      "knowsAbout": [
-        "JavaScript",
-        "React",
-        "Node.js",
-        "Express.js",
-        "MongoDB",
-        "MERN Stack",
-        "Bootstrap",
-        "Docker",
-        "Web Development",
-        "UI/UX Design",
-        "System Architecture"
-      ],
-      "email": "mailto:awand795@gmail.com",
-      "telephone": "+6282362851796",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Medan",
-        "addressRegion": "Sumatera Utara",
-        "addressCountry": "ID"
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Awanda's Featured Projects",
+        "description": "A list of software development projects completed by Awanda.",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@type": "SoftwareApplication",
+              "name": "Web Absensi Online",
+              "description": "Web-based online attendance system for real-time attendance tracking.",
+              "applicationCategory": "BusinessApplication",
+              "operatingSystem": "Web",
+              "author": { "@id": "https://awanda.eu.org/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@type": "SoftwareApplication",
+              "name": "Point of Sale",
+              "description": "Full-stack Point of Sale application for retail businesses.",
+              "applicationCategory": "BusinessApplication",
+              "operatingSystem": "Web",
+              "author": { "@id": "https://awanda.eu.org/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+              "@type": "SoftwareApplication",
+              "name": "Web E-Voting",
+              "description": "Web-based electronic voting system for secure elections.",
+              "applicationCategory": "Utility",
+              "operatingSystem": "Web",
+              "author": { "@id": "https://awanda.eu.org/#person" }
+            }
+          }
+        ]
       }
-    }
+    ]
     </script>
 
-    <title>Awanda - Fullstack JavaScript Developer Portfolio</title>
+    <title>Awanda - IT Web Developer at Darkotech</title>
   </head>
   <body>
     <div id="root"></div>
