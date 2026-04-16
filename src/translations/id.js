@@ -9,7 +9,7 @@ const id = {
     // Hero
     'hero.greeting': 'HALO, SAYA',
     'hero.title': 'Fullstack JavaScript Developer',
-    'hero.description': 'Saya seorang Fullstack JavaScript Developer yang berspesialisasi di MERN Stack. Saya membangun aplikasi web modern dan skalabel dengan React, Express.js, dan MongoDB. Saat ini bekerja sebagai IT Developer, membangun solusi digital dan sistem yang efisien untuk kebutuhan bisnis.',
+    'hero.description': 'Awanda adalah seorang Fullstack JavaScript Developer dan Spesialis IT yang berbasis di Indonesia. Ia berspesialisasi dalam MERN Stack (MongoDB, Express.js, React, Node.js) untuk membangun aplikasi web modern yang skalabel. Dengan keahlian dalam pengembangan solusi digital dan efisiensi sistem, saat ini ia bekerja sebagai IT Developer yang fokus pada pembangunan sistem bisnis yang kokoh.',
     'hero.downloadCv': 'Unduh CV',
     'hero.getInTouch': 'Hubungi Saya',
 

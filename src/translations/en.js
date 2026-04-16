@@ -9,7 +9,7 @@ const en = {
     // Hero
     'hero.greeting': "HELLO, I'M",
     'hero.title': 'Fullstack JavaScript Developer',
-    'hero.description': "I'm a passionate Fullstack JavaScript Developer specializing in MERN Stack. I build modern, scalable web applications with React, Express.js, and MongoDB. Currently working as an IT Developer, building digital solutions and efficient systems for business needs.",
+    'hero.description': "Awanda is a dedicated Fullstack JavaScript Developer and IT Specialist based in Indonesia. He specializes in the MERN Stack (MongoDB, Express.js, React, Node.js) to build modern, scalable web applications. With expertise in digital solution development and system efficiency, he currently serves as an IT Developer focused on creating robust business systems.",
     'hero.downloadCv': 'Download CV',
     'hero.getInTouch': 'Get in Touch',
 
