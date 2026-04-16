@@ -50,18 +50,26 @@ ${sitemapFooter}`;
   fs.writeFileSync(outputPath, sitemap, 'utf8');
 
   console.log(`✅ Sitemap generated at ${outputPath}`);
-  console.log(`📍 Total URLs: ${routes.length}`);
-  routes.forEach(route => {
-    console.log(`   - ${SITE_URL}${route.url} (priority: ${route.priority})`);
-  });
+}
+
+// Copy robots.txt to dist
+function generateRobotsTxt() {
+  const robotsContent = `# robots.txt for Awanda Portfolio
+User-agent: *
+Allow: /
+
+Sitemap: ${SITE_URL}/sitemap.xml
+`;
+  const robotsPath = path.join(OUTPUT_DIR, 'robots.txt');
+  fs.writeFileSync(robotsPath, robotsContent, 'utf8');
+  console.log(`✅ robots.txt generated at ${robotsPath}`);
 }
 
 // Generate _redirects file for Netlify
 function generateNetlifyRedirects() {
   const redirectsContent = `# Netlify redirects file
-# Force static files to be served directly
-/sitemap.xml    /sitemap.xml    200
-/robots.txt     /robots.txt     200
+/sitemap.xml    /sitemap.xml    200!
+/robots.txt     /robots.txt     200!
 
 # React Router SPA fallback
 /*    /index.html    200
@@ -77,9 +85,11 @@ function generateNetlifyHeaders() {
   const headersContent = `/sitemap.xml
   Content-Type: application/xml; charset=UTF-8
   X-Content-Type-Options: nosniff
+  Cache-Control: public, max-age=0, must-revalidate
 
 /robots.txt
   Content-Type: text/plain; charset=UTF-8
+  Cache-Control: public, max-age=0, must-revalidate
 `;
 
   const headersPath = path.join(OUTPUT_DIR, '_headers');
@@ -88,5 +98,6 @@ function generateNetlifyHeaders() {
 }
 
 generateSitemap();
+generateRobotsTxt();
 generateNetlifyRedirects();
 generateNetlifyHeaders();
