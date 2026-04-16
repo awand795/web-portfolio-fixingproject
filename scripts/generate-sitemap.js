@@ -59,6 +59,10 @@ ${sitemapFooter}`;
 // Generate _redirects file for Netlify
 function generateNetlifyRedirects() {
   const redirectsContent = `# Netlify redirects file
+# Force static files to be served directly
+/sitemap.xml    /sitemap.xml    200
+/robots.txt     /robots.txt     200
+
 # React Router SPA fallback
 /*    /index.html    200
 `;
@@ -71,12 +75,11 @@ function generateNetlifyRedirects() {
 // Generate _headers file for Netlify
 function generateNetlifyHeaders() {
   const headersContent = `/sitemap.xml
-  Content-Type: application/xml
-  Cache-Control: public, max-age=3600
+  Content-Type: application/xml; charset=UTF-8
+  X-Content-Type-Options: nosniff
 
 /robots.txt
-  Content-Type: text/plain
-  Cache-Control: public, max-age=3600
+  Content-Type: text/plain; charset=UTF-8
 `;
 
   const headersPath = path.join(OUTPUT_DIR, '_headers');

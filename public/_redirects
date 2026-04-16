@@ -1,3 +1,7 @@
 # Netlify _redirects file
+# Force static files to be served directly
+/sitemap.xml    /sitemap.xml    200
+/robots.txt     /robots.txt     200
+
 # React Router SPA fallback - all other routes to index.html
 /*    /index.html    200
