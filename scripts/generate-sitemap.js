@@ -10,12 +10,12 @@ const OUTPUT_FILE = 'sitemap.xml';
 const routes = [
   {
     url: '/',
-    priority: 1.0,
+    priority: '1.0',
     changefreq: 'monthly'
   },
   {
     url: '/socmed',
-    priority: 0.7,
+    priority: '0.7',
     changefreq: 'monthly'
   }
 ];
