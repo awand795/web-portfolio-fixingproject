@@ -59,10 +59,6 @@ ${sitemapFooter}`;
 // Generate _redirects file for Netlify
 function generateNetlifyRedirects() {
   const redirectsContent = `# Netlify redirects file
-# Serve SEO static files directly (must be before catch-all)
-/sitemap.xml    /sitemap.xml    200
-/robots.txt     /robots.txt     200
-
 # React Router SPA fallback
 /*    /index.html    200
 `;
