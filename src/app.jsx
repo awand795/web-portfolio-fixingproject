@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import picture from './image/imgprofile.webp'
 import reactLogo from './image/reactLogo.webp';
 import js from './image/js.webp'
@@ -9,8 +11,6 @@ import dockerLogo from './image/dockerLogo.webp'
 import nodeJSLogo from './image/nodeJsLogo.webp'
 import bootstrapLogo from './image/bootstrap.webp'
 import expressJs from './image/expressjs.webp'
-import FadeInWhenVisible from './Component/animate/FadeInWhenVisible';
-import { motion, AnimatePresence } from 'framer-motion'
 import MyProject from './Component/MyProject';
 import NavBar from './Component/NavBar';
 import PWAInstallPrompt from './Component/PWAInstallPrompt';
@@ -25,6 +25,13 @@ const App = () => {
     const [showBackToTop, setShowBackToTop] = useState(false);
 
     useEffect(() => {
+        document.title = "Awanda - IT Web Developer at Darkotech";
+        AOS.init({
+            duration: 800,
+            once: true,
+            easing: 'ease-out'
+        });
+
         const handleScroll = () => {
             setShowBackToTop(window.scrollY > 300);
         };
@@ -51,88 +58,56 @@ const App = () => {
             <div className="container-fluid">
 
                 {/* Navigation */}
-                <FadeInWhenVisible>
+                <header>
                     <div className="row justify-content-center">
                         <div className="col-lg-10">
                             <NavBar darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
                         </div>
                     </div>
-                </FadeInWhenVisible>
+                </header>
 
-                {/* Hero Section */}
-                <FadeInWhenVisible>
-                    <div id="main-content" className="row justify-content-center align-items-center pt-4 pb-5" style={{ minHeight: '80vh' }}>
-                        <div className="col-lg-5 text-center mb-5 mb-lg-0">
-                            <motion.div
-                                initial={{ scale: 0.8, opacity: 0 }}
-                                animate={{ scale: 1, opacity: 1 }}
-                                transition={{ duration: 0.8, ease: "easeOut" }}
-                                className="profile-wrapper"
-                            >
+                <main id="main-content">
+                    {/* Hero Section */}
+                    <div className="row justify-content-center align-items-center pt-4 pb-5" style={{ minHeight: '80vh' }}>
+                        <div className="col-lg-5 text-center mb-5 mb-lg-0" data-aos="fade-right">
+                            <div className="profile-wrapper">
                                 <img
                                     src={picture}
                                     className="gambarprofile"
                                     alt="Awanda - Fullstack JavaScript Developer"
-                                    loading="lazy"
+                                    fetchpriority="high"
                                     width="400"
                                     height="400"
                                 />
-                            </motion.div>
+                            </div>
                         </div>
 
-                        <div className='col-lg-6'>
-                            <motion.div
-                                initial={{ x: 50, opacity: 0 }}
-                                animate={{ x: 0, opacity: 1 }}
-                                transition={{ duration: 0.8, delay: 0.2 }}
-                            >
-                                <motion.p
+                        <div className='col-lg-6' data-aos="fade-left">
+                            <div>
+                                <p
                                     className="text-gradient mb-2"
                                     style={{ fontSize: '1.25rem', fontWeight: '600', letterSpacing: '0.1em' }}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: 0.3 }}
                                 >
                                     {t('hero.greeting')}
-                                </motion.p>
+                                </p>
 
-                                <motion.h1
-                                    className="display-1 mb-4"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.4 }}
-                                >
+                                <h1 className="display-1 mb-4">
                                     Awanda
-                                </motion.h1>
+                                </h1>
 
-                                <motion.h2
+                                <h2
                                     className="h3 mb-4 typing-wrapper"
                                     style={{ color: 'var(--text-secondary)' }}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: 0.5 }}
                                 >
                                     <span className="typing-text">{t('hero.title')}</span>
-                                </motion.h2>
+                                </h2>
 
-                                <motion.p
-                                    className="text-justify mb-5"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: 0.6 }}
-                                >
+                                <p className="text-justify mb-5">
                                     {t('hero.description')}
-                                </motion.p>
+                                </p>
 
-                                <motion.div
-                                    className="d-flex flex-wrap gap-3"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.7 }}
-                                >
-                                    <motion.a
-                                        whileHover={{ scale: 1.05, y: -2 }}
-                                        whileTap={{ scale: 0.95 }}
+                                <div className="d-flex flex-wrap gap-3">
+                                    <a
                                         className="btn btn-gradient btn-modern"
                                         href='/files/CV Fullstack Developer - Awanda.pdf'
                                         target="_blank"
@@ -141,33 +116,29 @@ const App = () => {
                                     >
                                         <i className="bi bi-download me-2"></i>
                                         {t('hero.downloadCv')}
-                                    </motion.a>
+                                    </a>
 
-                                    <motion.a
-                                        whileHover={{ scale: 1.05, y: -2 }}
-                                        whileTap={{ scale: 0.95 }}
+                                    <a
                                         className="btn btn-outline-modern btn-modern"
                                         href='#contact'
                                     >
                                         <i className="bi bi-envelope me-2"></i>
                                         {t('hero.getInTouch')}
-                                    </motion.a>
-                                </motion.div>
-                            </motion.div>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </FadeInWhenVisible>
 
-                {/* Projects Section */}
-                <div className='py-5'>
-                    <MyProject darkTheme={darkTheme} />
-                </div>
+                    {/* Projects Section */}
+                    <div className='py-5'>
+                        <MyProject darkTheme={darkTheme} />
+                    </div>
 
-                <div className="section-divider"></div>
+                    <div className="section-divider"></div>
 
-                {/* Skills Section */}
-                <FadeInWhenVisible>
-                    <div id="skill" className="row text-center pt-5 justify-content-center">
+                    {/* Skills Section */}
+                    <div id="skill" className="row text-center pt-5 justify-content-center" data-aos="fade-up">
                         <div className="col-12">
                             <div className="section-header mx-auto">
                                 <h2 className="section-title">{t('skills.title')}</h2>
@@ -176,33 +147,24 @@ const App = () => {
                         </div>
                     </div>
 
-                    <div className="row justify-content-center pt-3 text-center mb-5">
+                    <div className="row justify-content-center pt-3 text-center mb-5" data-aos="fade-up">
                         <div className="col-lg-8">
                             <p className="text-justify text-center" style={{ fontSize: '1.125rem', lineHeight: '1.8' }}>
                                 {t('skills.description.before')}
-                                <motion.span
-                                    className="skill-tag mx-2"
-                                    whileHover={{ y: -4 }}
-                                >
+                                <span className="skill-tag mx-2">
                                     <img src={js} alt="JavaScript" height="24" width="24" loading="lazy" />
                                     JavaScript
-                                </motion.span>
+                                </span>
                                 {t('skills.description.mid')}
-                                <motion.span
-                                    className="skill-tag mx-2"
-                                    whileHover={{ y: -4 }}
-                                >
+                                <span className="skill-tag mx-2">
                                     <img src={reactLogo} alt="React" height="24" width="24" loading="lazy" />
                                     React
-                                </motion.span>
+                                </span>
                                 {t('skills.description.and')}
-                                <motion.span
-                                    className="skill-tag mx-2"
-                                    whileHover={{ y: -4 }}
-                                >
+                                <span className="skill-tag mx-2">
                                     <img src={expressJs} alt="Express.js" height="24" width="24" loading="lazy" />
                                     Express.js
-                                </motion.span>
+                                </span>
                                 {t('skills.description.after')}
                             </p>
                         </div>
@@ -210,12 +172,9 @@ const App = () => {
 
                     <div className="row justify-content-center text-center pt-4 pb-5">
                         <div className="col-lg-10">
-                            <motion.div
+                            <div
                                 className="d-flex flex-wrap justify-content-center align-items-center gap-4"
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ staggerChildren: 0.1 }}
+                                data-aos="zoom-in"
                             >
                                 {[
                                     { img: reactLogo, url: 'https://reactjs.org', name: 'React' },
@@ -225,39 +184,31 @@ const App = () => {
                                     { img: nodeJSLogo, url: 'https://nodejs.org', name: 'Node.js' },
                                     { img: dockerLogo, url: 'https://www.docker.com', name: 'Docker' },
                                 ].map((tech, index) => (
-                                    <motion.a
+                                    <a
                                         key={index}
                                         href={tech.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label={`${tech.name} official website`}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: index * 0.1 }}
                                     >
-                                        <motion.img
+                                        <img
                                             src={tech.img}
                                             alt={`${tech.name} logo`}
                                             className="imgLogo"
                                             loading="lazy"
                                             width="80"
                                             height="80"
-                                            whileHover={{ scale: 1.1, y: -8 }}
-                                            whileTap={{ scale: 0.95 }}
                                         />
-                                    </motion.a>
+                                    </a>
                                 ))}
-                            </motion.div>
+                            </div>
                         </div>
                     </div>
-                </FadeInWhenVisible>
 
-                <div className="section-divider"></div>
+                    <div className="section-divider"></div>
 
-                {/* Contact Section */}
-                <FadeInWhenVisible>
-                    <div id="contact" className="row text-center pt-5 justify-content-center">
+                    {/* Contact Section */}
+                    <div id="contact" className="row text-center pt-5 justify-content-center" data-aos="fade-up">
                         <div className="col-12">
                             <div className="section-header mx-auto">
                                 <h2 className="section-title">{t('contact.title')}</h2>
@@ -266,24 +217,19 @@ const App = () => {
                         </div>
                     </div>
 
-                    <div className="row justify-content-center pt-4 pb-5">
+                    <div className="row justify-content-center pt-4 pb-5" data-aos="fade-up">
                         <div className="col-lg-8 text-center">
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                            >
+                            <div>
                                 <p className="h4 mb-4" style={{ color: 'var(--text-secondary)' }}>
                                     {t('contact.cta')}
                                 </p>
 
-                                <motion.a
+                                <a
                                     href="mailto:awand795@gmail.com"
                                     className="email-modern d-inline-block mb-4"
-                                    whileHover={{ scale: 1.05 }}
                                 >
                                     awand795@gmail.com
-                                </motion.a>
+                                </a>
 
                                 <div className="mt-4 mb-3">
                                     <p style={{ color: 'var(--text-secondary)', fontSize: '1.125rem' }}>
@@ -304,68 +250,59 @@ const App = () => {
 
                                 <div className="mt-5">
                                     {socialIcons.map((social, index) => (
-                                        <motion.a
+                                        <a
                                             key={index}
                                             href={social.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             aria-label={social.label}
                                             className="social-icon"
-                                            whileHover={{ y: -8, scale: 1.1 }}
-                                            whileTap={{ scale: 0.95 }}
                                         >
                                             <i className={`bi ${social.icon}`}></i>
-                                        </motion.a>
+                                        </a>
                                     ))}
                                 </div>
-                            </motion.div>
+                            </div>
                         </div>
                     </div>
+                </main>
 
-                    {/* Footer */}
-                    <footer className="row justify-content-center pt-0 pb-4">
-                        <div className="col-lg-10">
-                            {/* Back to top */}
-                            <div className="text-center mb-3">
-                                <a
-                                    href="#"
-                                    onClick={(e) => { e.preventDefault(); scrollToTop(); }}
-                                    className="footer-link"
-                                    style={{ color: '#667eea', textDecoration: 'none', fontWeight: '500', fontSize: '0.875rem' }}
-                                >
-                                    <i className="bi bi-arrow-up me-1"></i>
-                                    {t('footer.backToTop')}
-                                </a>
-                            </div>
-
-                            <div className="text-center">
-                                <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
-                                    © {new Date().getFullYear()} Awanda. {t('footer.builtWith')}
-                                </p>
-                            </div>
+                {/* Footer */}
+                <footer className="row justify-content-center pt-0 pb-4">
+                    <div className="col-lg-10">
+                        {/* Back to top */}
+                        <div className="text-center mb-3">
+                            <a
+                                href="#"
+                                onClick={(e) => { e.preventDefault(); scrollToTop(); }}
+                                className="footer-link"
+                                style={{ color: '#667eea', textDecoration: 'none', fontWeight: '500', fontSize: '0.875rem' }}
+                            >
+                                <i className="bi bi-arrow-up me-1"></i>
+                                {t('footer.backToTop')}
+                            </a>
                         </div>
-                    </footer>
-                </FadeInWhenVisible>
+
+                        <div className="text-center">
+                            <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
+                                © {new Date().getFullYear()} Awanda. {t('footer.builtWith')}
+                            </p>
+                        </div>
+                    </div>
+                </footer>
 
             </div>
 
             {/* Back to Top Button */}
-            <AnimatePresence>
-                {showBackToTop && (
-                    <motion.button
-                        className="back-to-top-btn"
-                        onClick={scrollToTop}
-                        aria-label={t('footer.backToTop')}
-                        initial={{ opacity: 0, scale: 0.5 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.5 }}
-                        whileHover={{ scale: 1.1, y: -4 }}
-                        whileTap={{ scale: 0.9 }}
-                    >
-                        <i className="bi bi-arrow-up"></i>
-                    </motion.button>
-                )}
-            </AnimatePresence>
+            {showBackToTop && (
+                <button
+                    className="back-to-top-btn"
+                    onClick={scrollToTop}
+                    aria-label={t('footer.backToTop')}
+                >
+                    <i className="bi bi-arrow-up"></i>
+                </button>
+            )}
 
             {/* PWA Install Prompt */}
             <PWAInstallPrompt darkTheme={darkTheme} />
@@ -374,3 +311,4 @@ const App = () => {
 }
 
 export default App;
+

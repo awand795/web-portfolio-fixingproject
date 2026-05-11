@@ -79,8 +79,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           'react-vendor': ['react', 'react-dom'],
-          'bootstrap-vendor': ['bootstrap', 'react-bootstrap'],
-          'animation-vendor': ['framer-motion']
+          'bootstrap-vendor': ['bootstrap', 'react-bootstrap']
         }
       }
     },

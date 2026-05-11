@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { scroller } from 'react-scroll';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
 import { Logo } from './Logo';
 
 const ThemeIcon = ({ darkTheme }) => (
     <div style={{ width: '38px', height: '38px', position: 'relative' }}>
-        <AnimatePresence mode="wait">
+        <div className={`theme-icon-container ${darkTheme ? 'dark' : 'light'}`}>
             {darkTheme ? (
-                <motion.svg
+                <svg
                     key="sun"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -21,10 +20,6 @@ const ThemeIcon = ({ darkTheme }) => (
                     strokeLinejoin="round"
                     width="38"
                     height="38"
-                    initial={{ rotate: -90, scale: 0, opacity: 0 }}
-                    animate={{ rotate: 0, scale: 1, opacity: 1 }}
-                    exit={{ rotate: 90, scale: 0, opacity: 0 }}
-                    transition={{ duration: 0.4, ease: "easeInOut" }}
                     style={{ position: 'absolute', top: 0, left: 0 }}
                 >
                     <defs>
@@ -42,19 +37,15 @@ const ThemeIcon = ({ darkTheme }) => (
                     <line x1="21" y1="12" x2="23" y2="12" />
                     <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
                     <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                </motion.svg>
+                </svg>
             ) : (
-                <motion.svg
+                <svg
                     key="moon"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="none"
                     width="38"
                     height="38"
-                    initial={{ rotate: 90, scale: 0, opacity: 0 }}
-                    animate={{ rotate: 0, scale: 1, opacity: 1 }}
-                    exit={{ rotate: -90, scale: 0, opacity: 0 }}
-                    transition={{ duration: 0.4, ease: "easeInOut" }}
                     style={{ position: 'absolute', top: 0, left: 0 }}
                 >
                     <defs>
@@ -71,9 +62,9 @@ const ThemeIcon = ({ darkTheme }) => (
                         strokeLinecap="round"
                         strokeLinejoin="round"
                     />
-                </motion.svg>
+                </svg>
             )}
-        </AnimatePresence>
+        </div>
     </div>
 );
 
@@ -137,11 +128,8 @@ const NavBar = ({darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme} = {})
     };
 
     return (
-        <motion.nav
-            className="navbar navbar-expand-lg py-4"
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+        <nav
+            className="navbar navbar-expand-lg py-4 fade-in-down"
             style={{
                 background: 'transparent',
                 position: 'relative',
@@ -153,20 +141,21 @@ const NavBar = ({darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme} = {})
                 <Link
                     className="navbar-brand d-flex align-items-center"
                     to={"/"}
+                    aria-label="Awanda Portfolio Home"
                     style={{
                         fontSize: '1.5rem',
                         fontWeight: '800',
                         letterSpacing: '-0.02em'
                     }}
                 >
-                    <motion.div
-                        whileHover={{ scale: 1.05 }}
+                    <div
+                        className="logo-hover"
                         style={{ marginRight: '10px' }}
                     >
                         <Logo className="w-10 h-10" />
-                    </motion.div>
-                    <motion.span
-                        whileHover={{ scale: 1.05 }}
+                    </div>
+                    <span
+                        className="logo-text"
                         style={{
                             background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                             WebkitBackgroundClip: 'text',
@@ -175,7 +164,7 @@ const NavBar = ({darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme} = {})
                         }}
                     >
                         Awanda
-                    </motion.span>
+                    </span>
                 </Link>
 
                 {/* Mobile Toggle */}
@@ -184,6 +173,7 @@ const NavBar = ({darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme} = {})
                     type="button"
                     onClick={() => setIsOpen(!isOpen)}
                     aria-label="Toggle navigation"
+                    aria-expanded={isOpen}
                     style={{
                         color: '#667eea'
                     }}
@@ -200,17 +190,15 @@ const NavBar = ({darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme} = {})
                 <div className={`collapse navbar-collapse ${isOpen ? 'show' : ''}`} id="navbarNav">
                     <ul className="navbar-nav ms-auto align-items-lg-center">
                         {menuItems.map((item, index) => (
-                            <motion.li
+                            <li
                                 key={index}
                                 className="nav-item ps-lg-4"
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1 }}
                             >
                                 <Link
                                     className={`nav-link ${isActive(item) ? 'nav-active' : ''}`}
                                     to={item.target}
                                     onClick={() => handleNavClick(item.scrollTo)}
+                                    aria-label={`Navigate to ${item.name}`}
                                     style={{
                                         color: isActive(item) ? '#667eea' : (darkTheme ? '#fff' : '#667eea'),
                                         fontWeight: '600',
@@ -218,25 +206,18 @@ const NavBar = ({darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme} = {})
                                         position: 'relative',
                                         transition: 'color 0.3s ease'
                                     }}
-                                    onMouseEnter={(e) => {
-                                        e.target.style.color = '#764ba2';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.target.style.color = isActive(item) ? '#667eea' : (darkTheme ? '#fff' : '#667eea');
-                                    }}
                                 >
                                     {item.name}
                                 </Link>
-                            </motion.li>
+                            </li>
                         ))}
 
                         {/* Language Toggle */}
                         <li className="nav-item ps-lg-4">
-                            <motion.div
+                            <div
                                 onClick={toggleLanguage}
-                                whileHover={{ scale: 1.15 }}
-                                whileTap={{ scale: 0.85 }}
                                 role="button"
+                                className="nav-icon-toggle"
                                 aria-label={language === 'id' ? 'Switch to English' : 'Ganti ke Bahasa Indonesia'}
                                 style={{
                                     cursor: 'pointer',
@@ -253,7 +234,7 @@ const NavBar = ({darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme} = {})
                                         ? '1px solid rgba(255, 255, 255, 0.12)'
                                         : '1px solid rgba(102, 126, 234, 0.2)',
                                     backdropFilter: 'blur(10px)',
-                                    transition: 'background 0.3s ease, border 0.3s ease',
+                                    transition: 'all 0.3s ease',
                                     fontWeight: '700',
                                     fontSize: '0.8rem',
                                     color: '#667eea',
@@ -262,16 +243,15 @@ const NavBar = ({darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme} = {})
                                 title={language === 'id' ? 'Switch to English' : 'Ganti ke Bahasa Indonesia'}
                             >
                                 {language === 'id' ? 'EN' : 'ID'}
-                            </motion.div>
+                            </div>
                         </li>
 
                         {/* Theme Toggle */}
                         <li className="nav-item ps-lg-4">
-                            <motion.div
+                            <div
                                 onClick={() => setDarkTheme(prev => !prev)}
-                                whileHover={{ scale: 1.15 }}
-                                whileTap={{ scale: 0.85 }}
                                 role="button"
+                                className="nav-icon-toggle"
                                 aria-label={darkTheme ? t('theme.light') : t('theme.dark')}
                                 style={{
                                     cursor: 'pointer',
@@ -288,18 +268,19 @@ const NavBar = ({darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme} = {})
                                         ? '1px solid rgba(255, 255, 255, 0.12)'
                                         : '1px solid rgba(102, 126, 234, 0.2)',
                                     backdropFilter: 'blur(10px)',
-                                    transition: 'background 0.3s ease, border 0.3s ease'
+                                    transition: 'all 0.3s ease'
                                 }}
                                 title={darkTheme ? t('theme.light') : t('theme.dark')}
                             >
                                 <ThemeIcon darkTheme={darkTheme} />
-                            </motion.div>
+                            </div>
                         </li>
                     </ul>
                 </div>
             </div>
-        </motion.nav>
+        </nav>
     );
 }
 
 export default NavBar;
+

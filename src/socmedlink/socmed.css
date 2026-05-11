@@ -14,15 +14,15 @@
 }
 
 .socmed-page.light .colorgray {
-    color: #6c757d;
+    color: #4b5563; /* Darker gray for better contrast */
 }
 
 .socmed-page.light a {
-    color: #667eea;
+    color: #4f46e5; /* Darker indigo for better contrast */
 }
 
 .socmed-page.dark a {
-    color: #8b9cf7;
+    color: #a5b4fc;
 }
 
 .back-link {

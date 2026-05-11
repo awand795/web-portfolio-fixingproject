@@ -1,6 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import FadeInWhenVisible from './animate/FadeInWhenVisible';
 import { useLanguage } from '../context/LanguageContext';
 
 const projects = [
@@ -57,24 +55,21 @@ const projects = [
 const ProjectCard = ({ project, index, darkTheme }) => {
     const { t } = useLanguage();
     return (
-        <motion.div 
+        <div 
             className="col-lg-4 col-md-6 mb-4"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
+            data-aos="fade-up"
+            data-aos-delay={index * 100}
         >
-            <motion.div 
+            <div 
                 className="glass-card h-100 p-4"
                 style={{ 
                     position: 'relative',
                     overflow: 'hidden'
                 }}
-                whileHover={{ y: -8 }}
-                transition={{ duration: 0.3 }}
             >
-                {/* Gradient Background on Hover */}
-                <motion.div
+                {/* Gradient Top Border */}
+                <div
+                    className="card-gradient-border"
                     style={{
                         position: 'absolute',
                         top: 0,
@@ -83,14 +78,11 @@ const ProjectCard = ({ project, index, darkTheme }) => {
                         height: '4px',
                         background: project.gradient,
                     }}
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                    transition={{ duration: 0.3 }}
                 />
 
                 <div className="d-flex flex-column h-100">
                     {/* Project Number */}
-                    <motion.div 
+                    <div 
                         className="mb-3"
                         style={{ 
                             fontSize: '3rem', 
@@ -103,7 +95,7 @@ const ProjectCard = ({ project, index, darkTheme }) => {
                         }}
                     >
                         {String(project.id).padStart(2, '0')}
-                    </motion.div>
+                    </div>
 
                     {/* Title */}
                     <h3 className="h4 fw-bold mb-3" style={{ color: darkTheme ? '#fff' : '#1e2139' }}>
@@ -122,9 +114,9 @@ const ProjectCard = ({ project, index, darkTheme }) => {
                     {/* Tags */}
                     <div className="mb-4">
                         {project.tags.map((tag, tagIndex) => (
-                            <motion.span
+                            <span
                                 key={tagIndex}
-                                className="badge me-2 mb-2"
+                                className="badge me-2 mb-2 badge-tag"
                                 style={{
                                     background: 'rgba(102, 126, 234, 0.15)',
                                     color: '#667eea',
@@ -134,38 +126,34 @@ const ProjectCard = ({ project, index, darkTheme }) => {
                                     fontWeight: '600',
                                     borderRadius: '6px'
                                 }}
-                                whileHover={{ 
-                                    background: 'rgba(102, 126, 234, 0.25)',
-                                    scale: 1.05 
-                                }}
                             >
                                 {tag}
-                            </motion.span>
+                            </span>
                         ))}
                     </div>
 
                     {/* GitHub Link */}
-                    <motion.a
+                    <a
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="d-flex align-items-center justify-content-between text-decoration-none"
+                        className="d-flex align-items-center justify-content-between text-decoration-none project-link"
+                        aria-label={`${t('projects.viewProject')} ${project.title}`}
                         style={{ 
                             color: '#667eea',
                             fontWeight: '600',
                             fontSize: '0.9rem'
                         }}
-                        whileHover={{ x: 5 }}
                     >
                         <span>
                             <i className="bi bi-github me-2"></i>
                             {t('projects.viewProject')}
                         </span>
                         <i className="bi bi-arrow-right"></i>
-                    </motion.a>
+                    </a>
                 </div>
-            </motion.div>
-        </motion.div>
+            </div>
+        </div>
     );
 };
 
@@ -173,24 +161,22 @@ const MyProject = ({ darkTheme }) => {
     const { t } = useLanguage();
     return (
         <div>
-            <FadeInWhenVisible>
-                <div id="project" className="row text-center pt-5 justify-content-center mb-5">
-                    <div className="col-12">
-                        <div className="section-header mx-auto">
-                            <h2 className="section-title">{t('projects.title')}</h2>
-                            <div className="section-underline"></div>
-                        </div>
-                        <p className="mt-4" style={{ 
-                            color: 'var(--text-secondary)', 
-                            fontSize: '1.125rem',
-                            maxWidth: '600px',
-                            margin: '0 auto'
-                        }}>
-                            {t('projects.subtitle')}
-                        </p>
+            <div id="project" className="row text-center pt-5 justify-content-center mb-5" data-aos="fade-up">
+                <div className="col-12">
+                    <div className="section-header mx-auto">
+                        <h2 className="section-title">{t('projects.title')}</h2>
+                        <div className="section-underline"></div>
                     </div>
+                    <p className="mt-4" style={{ 
+                        color: 'var(--text-secondary)', 
+                        fontSize: '1.125rem',
+                        maxWidth: '600px',
+                        margin: '0 auto'
+                    }}>
+                        {t('projects.subtitle')}
+                    </p>
                 </div>
-            </FadeInWhenVisible>
+            </div>
 
             <div className="row justify-content-center px-lg-5">
                 {projects.map((project, index) => (
@@ -203,29 +189,26 @@ const MyProject = ({ darkTheme }) => {
                 ))}
             </div>
 
-            <FadeInWhenVisible>
-                <div className="row pt-5 justify-content-center text-center">
-                    <div className="col-lg-6">
-                        <motion.a 
-                            href='https://github.com/awand795' 
-                            className="btn btn-gradient btn-modern"
-                            whileHover={{ scale: 1.05, y: -2 }}
-                            whileTap={{ scale: 0.95 }}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <i className="bi bi-github me-2"></i>
-                            {t('projects.exploreMore')}
-                        </motion.a>
-                        
-                        <p className="mt-4" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-                            {t('projects.moreText')}
-                        </p>
-                    </div>
+            <div className="row pt-5 justify-content-center text-center" data-aos="fade-up">
+                <div className="col-lg-6">
+                    <a 
+                        href='https://github.com/awand795' 
+                        className="btn btn-gradient btn-modern"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i className="bi bi-github me-2"></i>
+                        {t('projects.exploreMore')}
+                    </a>
+                    
+                    <p className="mt-4" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+                        {t('projects.moreText')}
+                    </p>
                 </div>
-            </FadeInWhenVisible>
+            </div>
         </div>
     )
 }
 
 export default MyProject;
+
