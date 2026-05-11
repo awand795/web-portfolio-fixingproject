@@ -80,7 +80,7 @@ const PWAInstallPrompt = ({ darkTheme }) => {
                             width: '48px',
                             height: '48px',
                             borderRadius: '12px',
-                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                            background: 'var(--primary-gradient)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
@@ -90,11 +90,11 @@ const PWAInstallPrompt = ({ darkTheme }) => {
                         <i className="bi bi-phone text-white" style={{ fontSize: '1.5rem' }}></i>
                     </div>
                     <div className="flex-grow-1">
-                        <h5 className="fw-bold mb-1" style={{ color: darkTheme ? '#fff' : '#1e2139' }}>
+                        <h5 className="fw-bold mb-1" style={{ color: darkTheme ? '#fff' : '#0f172a' }}>
                             Install App
                         </h5>
                         <p className="mb-0" style={{ 
-                            color: darkTheme ? '#a8b2d1' : '#666',
+                            color: darkTheme ? 'var(--text-secondary)' : '#475569',
                             fontSize: '0.875rem',
                             lineHeight: '1.5'
                         }}>
@@ -106,7 +106,7 @@ const PWAInstallPrompt = ({ darkTheme }) => {
                         className="btn btn-link p-0 ms-2"
                         aria-label="Dismiss install prompt"
                         style={{ 
-                            color: darkTheme ? '#8892b0' : '#999',
+                            color: darkTheme ? 'var(--text-muted)' : '#64748b',
                             border: 'none',
                             background: 'none',
                             cursor: 'pointer',
@@ -114,8 +114,8 @@ const PWAInstallPrompt = ({ darkTheme }) => {
                     >
                         <i className="bi bi-x-lg" style={{ fontSize: '1.25rem' }}></i>
                     </button>
-                </div>
-                <div className="d-flex gap-2">
+                    </div>
+                    <div className="d-flex gap-2">
                     <button
                         className="btn btn-modern btn-gradient flex-grow-1"
                         onClick={handleInstall}
@@ -123,6 +123,7 @@ const PWAInstallPrompt = ({ darkTheme }) => {
                             padding: '10px 20px',
                             fontSize: '0.875rem',
                             fontWeight: '600',
+                            color: '#fff'
                         }}
                     >
                         <i className="bi bi-download me-2"></i>
@@ -135,12 +136,13 @@ const PWAInstallPrompt = ({ darkTheme }) => {
                             padding: '10px 20px',
                             fontSize: '0.875rem',
                             fontWeight: '600',
+                            color: darkTheme ? 'var(--brand-indigo)' : 'var(--brand-indigo-dark)',
+                            borderColor: darkTheme ? 'var(--brand-indigo)' : 'var(--brand-indigo-dark)'
                         }}
                     >
                         Later
                     </button>
-                </div>
-            </div>
+                    </div>            </div>
         </div>
     );
 };

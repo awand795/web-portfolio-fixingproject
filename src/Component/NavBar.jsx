@@ -50,7 +50,7 @@ const ThemeIcon = ({ darkTheme }) => (
                 >
                     <defs>
                         <linearGradient id="moonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#667eea" />
+                            <stop offset="0%" stopColor="var(--brand-indigo)" />
                             <stop offset="100%" stopColor="#764ba2" />
                         </linearGradient>
                     </defs>
@@ -157,7 +157,7 @@ const NavBar = ({darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme} = {})
                     <span
                         className="logo-text"
                         style={{
-                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                            background: 'var(--primary-gradient)',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
                             backgroundClip: 'text'
@@ -175,13 +175,13 @@ const NavBar = ({darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme} = {})
                     aria-label="Toggle navigation"
                     aria-expanded={isOpen}
                     style={{
-                        color: '#667eea'
+                        color: 'var(--brand-indigo)'
                     }}
                 >
                     <i className={`bi ${isOpen ? 'bi-x-lg' : 'bi-list'}`}
                        style={{
                            fontSize: '1.5rem',
-                           color: '#667eea'
+                           color: 'var(--brand-indigo)'
                        }}
                     ></i>
                 </button>
@@ -200,7 +200,7 @@ const NavBar = ({darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme} = {})
                                     onClick={() => handleNavClick(item.scrollTo)}
                                     aria-label={`Navigate to ${item.name}`}
                                     style={{
-                                        color: isActive(item) ? '#667eea' : (darkTheme ? '#fff' : '#667eea'),
+                                        color: isActive(item) ? 'var(--brand-indigo)' : (darkTheme ? 'var(--text-primary)' : 'var(--brand-indigo-dark)'),
                                         fontWeight: '600',
                                         fontSize: '1rem',
                                         position: 'relative',
@@ -224,20 +224,20 @@ const NavBar = ({darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme} = {})
                                     display: 'inline-flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    width: '44px',
-                                    height: '44px',
+                                    width: '48px',
+                                    height: '48px',
                                     borderRadius: '50%',
                                     background: darkTheme
                                         ? 'rgba(255, 255, 255, 0.08)'
-                                        : 'rgba(102, 126, 234, 0.1)',
+                                        : 'rgba(67, 56, 202, 0.1)',
                                     border: darkTheme
                                         ? '1px solid rgba(255, 255, 255, 0.12)'
-                                        : '1px solid rgba(102, 126, 234, 0.2)',
+                                        : '1px solid rgba(67, 56, 202, 0.2)',
                                     backdropFilter: 'blur(10px)',
                                     transition: 'all 0.3s ease',
                                     fontWeight: '700',
                                     fontSize: '0.8rem',
-                                    color: '#667eea',
+                                    color: darkTheme ? 'var(--brand-indigo)' : 'var(--brand-indigo-dark)',
                                     userSelect: 'none'
                                 }}
                                 title={language === 'id' ? 'Switch to English' : 'Ganti ke Bahasa Indonesia'}
@@ -258,15 +258,15 @@ const NavBar = ({darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme} = {})
                                     display: 'inline-flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    width: '44px',
-                                    height: '44px',
+                                    width: '48px',
+                                    height: '48px',
                                     borderRadius: '50%',
                                     background: darkTheme
                                         ? 'rgba(255, 255, 255, 0.08)'
-                                        : 'rgba(102, 126, 234, 0.1)',
+                                        : 'rgba(67, 56, 202, 0.1)',
                                     border: darkTheme
                                         ? '1px solid rgba(255, 255, 255, 0.12)'
-                                        : '1px solid rgba(102, 126, 234, 0.2)',
+                                        : '1px solid rgba(67, 56, 202, 0.2)',
                                     backdropFilter: 'blur(10px)',
                                     transition: 'all 0.3s ease'
                                 }}

@@ -14,15 +14,15 @@
 }
 
 .socmed-page.light .colorgray {
-    color: #4b5563; /* Darker gray for better contrast */
+    color: #475569; /* Darker gray for better contrast */
 }
 
 .socmed-page.light a {
-    color: #4f46e5; /* Darker indigo for better contrast */
+    color: #4338ca; /* Darker indigo for better contrast */
 }
 
 .socmed-page.dark a {
-    color: #a5b4fc;
+    color: #818cf8;
 }
 
 .back-link {
@@ -37,11 +37,11 @@
 }
 
 .socmed-page.dark .back-link {
-    color: #8b9cf7;
+    color: #818cf8;
 }
 
 .socmed-page.light .back-link {
-    color: #667eea;
+    color: #4338ca;
 }
 
 .back-link:hover {
@@ -51,7 +51,7 @@
 .bg-animated {
     height: 200px;
     width: 100%;
-    background: linear-gradient(-45deg, #667eea, #764ba2, #4facfe, #667eea);
+    background: linear-gradient(-45deg, #818cf8, #764ba2, #4facfe, #818cf8);
     background-size: 400% 400%;
     animation: gradientShift 8s ease infinite;
 }

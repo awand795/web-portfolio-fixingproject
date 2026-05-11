@@ -276,7 +276,7 @@ const App = () => {
                                 href="#"
                                 onClick={(e) => { e.preventDefault(); scrollToTop(); }}
                                 className="footer-link"
-                                style={{ color: '#667eea', textDecoration: 'none', fontWeight: '500', fontSize: '0.875rem' }}
+                                style={{ textDecoration: 'none', fontWeight: '500', fontSize: '0.875rem' }}
                             >
                                 <i className="bi bi-arrow-up me-1"></i>
                                 {t('footer.backToTop')}

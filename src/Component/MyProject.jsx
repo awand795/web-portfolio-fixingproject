@@ -8,7 +8,7 @@ const projects = [
         description: "Web-based online attendance system for real-time attendance tracking with employee data management and attendance reporting features",
         githubUrl: "https://github.com/awand795/web-absensi",
         tags: ["PHP", "MySQL", "Bootstrap"],
-        gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+        gradient: "linear-gradient(135deg, var(--brand-indigo) 0%, #764ba2 100%)"
     },
     {
         id: 2,
@@ -118,9 +118,9 @@ const ProjectCard = ({ project, index, darkTheme }) => {
                                 key={tagIndex}
                                 className="badge me-2 mb-2 badge-tag"
                                 style={{
-                                    background: 'rgba(102, 126, 234, 0.15)',
-                                    color: '#667eea',
-                                    border: '1px solid rgba(102, 126, 234, 0.3)',
+                                    background: 'rgba(129, 140, 248, 0.1)',
+                                    color: darkTheme ? 'var(--brand-indigo)' : 'var(--brand-indigo-dark)',
+                                    border: `1px solid ${darkTheme ? 'rgba(129, 140, 248, 0.3)' : 'rgba(67, 56, 202, 0.3)'}`,
                                     padding: '6px 12px',
                                     fontSize: '0.75rem',
                                     fontWeight: '600',
@@ -140,7 +140,7 @@ const ProjectCard = ({ project, index, darkTheme }) => {
                         className="d-flex align-items-center justify-content-between text-decoration-none project-link"
                         aria-label={`${t('projects.viewProject')} ${project.title}`}
                         style={{ 
-                            color: '#667eea',
+                            color: darkTheme ? 'var(--brand-indigo)' : 'var(--brand-indigo-dark)',
                             fontWeight: '600',
                             fontSize: '0.9rem'
                         }}

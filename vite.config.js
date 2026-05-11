@@ -13,7 +13,7 @@ export default defineConfig({
         name: 'Awanda - Fullstack JavaScript Developer',
         short_name: 'Awanda Portfolio',
         description: 'Fullstack JavaScript Developer specializing in MERN Stack web development',
-        theme_color: '#667eea',
+        theme_color: '#818cf8',
         background_color: '#0a0e27',
         display: 'standalone',
         orientation: 'portrait',

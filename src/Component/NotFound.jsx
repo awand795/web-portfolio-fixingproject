@@ -22,7 +22,7 @@ const NotFound = () => {
                 style={{
                     fontSize: 'clamp(6rem, 15vw, 12rem)',
                     fontWeight: 800,
-                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    background: 'var(--primary-gradient)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
@@ -37,8 +37,8 @@ const NotFound = () => {
             </p>
             <Link
                 to="/"
-                className="btn btn-gradient btn-modern"
-                style={{ textDecoration: 'none' }}
+                className="btn btn-modern btn-gradient"
+                style={{ textDecoration: 'none', color: '#fff' }}
             >
                 <i className="bi bi-arrow-left me-2"></i>
                 Back to Home

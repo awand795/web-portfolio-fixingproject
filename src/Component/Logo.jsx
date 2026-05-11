@@ -9,7 +9,7 @@ export function Logo({ className = "w-8 h-8" }) {
       <title>Awanda Portfolio Logo</title>
       <defs>
         <linearGradient id="awandaLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#3b82f6" />
+          <stop offset="0%" stopColor="var(--brand-indigo)" />
           <stop offset="100%" stopColor="#8b5cf6" />
         </linearGradient>
       </defs>
