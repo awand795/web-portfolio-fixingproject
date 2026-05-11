@@ -8,6 +8,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
+      injectRegister: 'inline',
       includeAssets: ['favicon.svg', 'og-image.svg'],
       manifest: {
         name: 'Awanda - Fullstack JavaScript Developer',
