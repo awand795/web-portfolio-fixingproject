@@ -36,7 +36,7 @@ const projects = [
     },
     {
         id: 5,
-        title: "Nysql MCP Server",
+        title: "MySQL MCP Server",
         description: "An MCP-based server bridging AI with MySQL databases for secure schema inspection, query execution, and real-time data analysis using natural language.",
         githubUrl: "https://github.com/awand795/mcp-server-mysql",
         tags: ["Node.js", "MySQL", "Electron"],
