@@ -3,27 +3,19 @@
 @theme {
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-display: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-  
+
   --color-brand-indigo: #818cf8;
   --color-brand-indigo-dark: #4338ca;
-  
+
   --background-image-gradient-primary: linear-gradient(135deg, #7c3aed 0%, #6366f1 50%, #06b6d4 100%);
   --background-image-gradient-secondary: linear-gradient(135deg, #f43f5e 0%, #ec4899 100%);
   --background-image-gradient-accent: linear-gradient(135deg, #06b6d4 0%, #10b981 100%);
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    @apply font-sans antialiased overflow-x-hidden;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-display;
-  }
+  html { scroll-behavior: smooth; }
+  body { @apply font-sans antialiased overflow-x-hidden; }
+  h1, h2, h3, h4, h5, h6 { @apply font-display; }
 }
 
 @layer components {
@@ -38,24 +30,24 @@
     @apply absolute -top-full left-4 z-[9999] px-6 py-3 font-semibold text-white no-underline transition-all duration-200 rounded-lg;
     background: var(--background-image-gradient-primary);
   }
-  
-  .skip-link:focus {
-    @apply top-4;
+  .skip-link:focus { @apply top-4; }
+
+  /* Subtle noise/grain texture untuk background dark */
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
   }
 }
 
-@layer utilities {
-  .bg-grid-pattern {
-    background-image:
-      linear-gradient(to right, rgba(255,255,255,0.025) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255,255,255,0.025) 1px, transparent 1px);
-    background-size: 72px 72px;
-  }
-}
-
+/* Blink cursor untuk typing effect */
 @keyframes blink {
   0%, 100% { border-color: transparent; }
   50%       { border-color: #7c3aed; }
+}
+
+/* Hanya satu animasi looping yang diizinkan: pulse kecil untuk status dot */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(0.85); }
 }
 
 @media (prefers-reduced-motion: reduce) {

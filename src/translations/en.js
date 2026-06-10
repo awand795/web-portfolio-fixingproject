@@ -9,7 +9,7 @@ const en = {
     // Hero
     'hero.greeting': "Hi, I'm",
     'hero.title': 'Fullstack JavaScript Developer',
-    'hero.description': "Fullstack developer based in Medan with 2+ years of experience building production web applications. I work across the entire stack — from REST APIs and database design to responsive UIs — with a focus on clean code, performance, and shipping things that work.",
+    'hero.description': "Fullstack developer based in Medan with 2+ years building production web apps. I work across the full stack — REST APIs, database architecture, and responsive frontends — with a focus on clean code and shipping things that actually hold up.",
     'hero.downloadCv': 'Download CV',
     'hero.getInTouch': 'Get in Touch',
 

@@ -7,9 +7,9 @@ const id = {
     'nav.social': 'Sosial',
 
     // Hero
-    'hero.greeting': 'Hei, saya',
+    'hero.greeting': "Hei, saya",
     'hero.title': 'Fullstack JavaScript Developer',
-    'hero.description': 'Fullstack developer berbasis di Medan dengan pengalaman 2+ tahun membangun aplikasi web production. Saya bekerja di seluruh stack — mulai dari REST API dan desain database hingga UI responsif — dengan fokus pada kode yang bersih, performa, dan hasil yang benar-benar berfungsi.',
+    'hero.description': "Fullstack developer berbasis di Medan dengan pengalaman 2+ tahun membangun aplikasi web production. Saya mengerjakan seluruh stack — REST API, arsitektur database, dan frontend responsif — dengan fokus pada kode yang bersih dan hasil yang tahan lama.",
     'hero.downloadCv': 'Unduh CV',
     'hero.getInTouch': 'Hubungi Saya',
 

@@ -13,7 +13,7 @@ import PWAInstallPrompt from './Component/PWAInstallPrompt';
 import { useLanguage } from './context/LanguageContext';
 import { useTheme } from './context/ThemeContext';
 import {
-  Download, Mail, Phone, MapPin, ArrowUp, ChevronDown
+  Download, Mail, Phone, MapPin, ArrowUp
 } from 'lucide-react';
 import { Github, Linkedin, Facebook, Instagram } from './icons/SocialIcons';
 
@@ -43,6 +43,19 @@ const TechLogo = ({ img, name, url, darkTheme }) => (
   </motion.a>
 );
 
+const BackgroundCanvas = ({ darkTheme }) => {
+  if (!darkTheme) return null;
+  return (
+    <div className="fixed inset-0 pointer-events-none z-0" aria-hidden="true">
+      {/* Dua glow sangat redup di pojok — bukan tengah layar */}
+      <div className="absolute top-[-200px] right-[-100px] w-[600px] h-[600px]
+        rounded-full bg-violet-600/[0.04] blur-[160px]" />
+      <div className="absolute bottom-[-100px] left-[-200px] w-[500px] h-[500px]
+        rounded-full bg-cyan-500/[0.03] blur-[140px]" />
+    </div>
+  );
+};
+
 const SocialButton = ({ href, label, icon: Icon, darkTheme }) => (
   <motion.a
     href={href}
@@ -65,15 +78,6 @@ const SocialButton = ({ href, label, icon: Icon, darkTheme }) => (
   </motion.a>
 );
 
-const SectionLabel = ({ label, darkTheme }) => (
-  <div className="flex items-center gap-3 mb-3">
-    <span className="w-1 h-6 rounded-full bg-gradient-to-b from-violet-500 to-cyan-400" />
-    <span className={`text-xs font-bold tracking-[0.2em] uppercase ${darkTheme ? 'text-violet-400' : 'text-violet-600'}`}>
-      {label}
-    </span>
-  </div>
-);
-
 const App = () => {
   const { t } = useLanguage();
   const { darkTheme, setDarkTheme } = useTheme();
@@ -83,7 +87,7 @@ const App = () => {
   const typingRef = useRef(null);
 
   useEffect(() => {
-    document.title = 'Awanda - IT Web Developer at Darkotech';
+    document.title = 'Awanda — Fullstack JavaScript Developer';
 
     const handleScroll = () => setShowBackToTop(window.scrollY > 300);
     window.addEventListener('scroll', handleScroll);
@@ -128,18 +132,12 @@ const App = () => {
   };
   const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
 
-  const bg = darkTheme ? 'bg-[#020617] text-slate-100' : 'bg-slate-50 text-slate-900';
+  const bg = darkTheme ? 'bg-[#050a14] text-slate-100' : 'bg-white text-slate-900';
 
   return (
     <div className={`${bg} min-h-screen transition-colors duration-300 relative overflow-x-hidden`}>
       <a className="skip-link" href="#main-content">Skip to main content</a>
-      {/* Radial glow background (dark only) */}
-      {darkTheme && (
-        <div className="fixed inset-0 pointer-events-none z-0 bg-grid-pattern" aria-hidden="true">
-          <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-violet-600/[0.04] rounded-full blur-[120px]" />
-          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-cyan-500/[0.06] rounded-full blur-[100px]" />
-        </div>
-      )}
+      <BackgroundCanvas darkTheme={darkTheme} />
 
       {/* Header di luar relative container supaya sticky bekerja */}
       <header className="relative z-50 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -151,125 +149,181 @@ const App = () => {
         <main id="main-content">
 
           {/* ── HERO SECTION ── */}
-          <section className="min-h-[90vh] flex items-center pt-8 pb-20">
-            <div className="w-full grid lg:grid-cols-2 gap-12 items-center">
+          <section className="min-h-[88vh] flex items-center pt-4 pb-16">
+            <div className="w-full grid lg:grid-cols-[1fr_420px] gap-16 items-center">
 
-              {/* Profile Image */}
+              {/* Hero Text — kiri */}
               <motion.div
-                initial={{ opacity: 0, x: -60 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
-                className="flex justify-center lg:order-1 order-2"
+                initial={{ opacity: 0, y: 32 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                className="order-1"
               >
-                <div className="relative">
-                  {/* Static gradient ring */}
-                  <div
-                    className="absolute inset-[-4px] rounded-full bg-gradient-to-br from-violet-500 via-indigo-500 to-cyan-400 opacity-60"
-                    aria-hidden="true"
+                {/* Availability badge — pengganti "HELLO I'M" */}
+                <div className={`
+                  inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full
+                  text-xs font-semibold tracking-wide mb-8 border
+                  ${darkTheme
+                    ? 'bg-emerald-500/[0.08] border-emerald-500/[0.18] text-emerald-400'
+                    : 'bg-emerald-50 border-emerald-200/80 text-emerald-700'
+                  }
+                `}>
+                  <span
+                    className="w-1.5 h-1.5 rounded-full bg-emerald-400"
+                    style={{ animation: 'pulse-dot 2.5s ease-in-out infinite' }}
                   />
-                  {/* Glow */}
-                  <div className="absolute inset-0 rounded-full bg-violet-500/20 blur-2xl scale-110" aria-hidden="true" />
-                  {/* Photo */}
-                  <img
-                    src={picture}
-                    alt="Awanda - Fullstack JavaScript Developer"
-                    fetchPriority="high"
-                    width={380}
-                    height={380}
-                    className={`
-                      relative z-10 rounded-full object-cover
-                      w-[280px] h-[280px] sm:w-[340px] sm:h-[340px] lg:w-[380px] lg:h-[380px]
-                      border-4 transition-transform duration-300 hover:scale-[1.03]
-                      ${darkTheme ? 'border-[#020617]' : 'border-slate-50'}
-                    `}
-                  />
-                  {/* Status badge */}
-                  <div className={`
-                    absolute bottom-4 right-0 flex items-center gap-2 px-3 py-2 rounded-full text-xs font-semibold
-                    border shadow-lg z-20
-                    ${darkTheme ? 'bg-emerald-900/80 border-emerald-700/50 text-emerald-400' : 'bg-emerald-50 border-emerald-200 text-emerald-700'}
-                  `}>
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    Available for work
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Hero Text */}
-              <motion.div
-                initial={{ opacity: 0, x: 60 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.15, ease: 'easeOut' }}
-                className="lg:order-2 order-1"
-              >
-                <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-6 border w-fit ${darkTheme ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' : 'bg-emerald-50 border-emerald-200 text-emerald-700'}`}>
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  Open to new opportunities
+                  Available for new projects
                 </div>
 
-                <h1 className="font-display font-extrabold leading-[1.05] mb-6" style={{
-                  fontSize: 'clamp(3rem, 7vw, 5.5rem)',
-                  background: 'var(--gradient-primary)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text'
-                }}>
+                {/* Nama sebagai headline utama */}
+                <h1
+                  className="font-display font-extrabold leading-[0.95] tracking-tight mb-5"
+                  style={{
+                    fontSize: 'clamp(3.5rem, 9vw, 7rem)',
+                    background: 'var(--gradient-primary)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                  }}
+                >
                   Awanda
                 </h1>
 
-                <div className="h-10 mb-6">
-                  <h2 className={`text-xl sm:text-2xl font-semibold inline-block border-r-2 pr-1 ${darkTheme ? 'text-slate-300 border-violet-500' : 'text-slate-600 border-violet-600'}`}
-                    style={{ animation: 'blink 0.75s step-end infinite' }}>
+                {/* Role dengan typing effect — ukuran lebih kecil dari nama */}
+                <div className="mb-6 h-9 flex items-center">
+                  <h2
+                    className={`text-lg sm:text-xl font-semibold border-r-2 pr-1 leading-none
+                      ${darkTheme ? 'text-slate-300 border-violet-500' : 'text-slate-600 border-violet-600'}`}
+                    style={{ animation: 'blink 0.75s step-end infinite' }}
+                  >
                     {typedText}
                   </h2>
                 </div>
 
-                <p className={`text-base sm:text-lg leading-relaxed mb-8 max-w-lg ${darkTheme ? 'text-slate-400' : 'text-slate-600'}`}>
+                {/* Bio — 2 kalimat, tidak ada kata hiperbola */}
+                <p className={`
+                  text-base sm:text-lg leading-relaxed mb-10 max-w-[520px]
+                  ${darkTheme ? 'text-slate-400' : 'text-slate-600'}
+                `}>
                   {t('hero.description')}
                 </p>
 
-                <div className="flex flex-wrap gap-4">
+                {/* CTA buttons */}
+                <div className="flex flex-wrap gap-3 mb-14">
                   <motion.a
                     href="/files/CV Fullstack Developer - Awanda.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     download
-                    whileHover={{ scale: 1.04, y: -2 }}
+                    whileHover={{ scale: 1.03, y: -2 }}
                     whileTap={{ scale: 0.97 }}
-                    className="flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-white text-sm tracking-wide transition-all duration-300 shadow-[0_4px_20px_rgba(124,58,237,0.4)] hover:shadow-[0_6px_28px_rgba(124,58,237,0.6)]"
+                    className="flex items-center gap-2 px-6 py-3 rounded-xl font-semibold
+                      text-white text-sm transition-all duration-300
+                      shadow-[0_2px_16px_rgba(124,58,237,0.35)]
+                      hover:shadow-[0_4px_24px_rgba(124,58,237,0.55)]"
                     style={{ background: 'var(--gradient-primary)' }}
                   >
-                    <Download size={18} />
+                    <Download size={16} />
                     {t('hero.downloadCv')}
                   </motion.a>
 
                   <motion.a
                     href="#contact"
-                    whileHover={{ scale: 1.04, y: -2 }}
+                    whileHover={{ scale: 1.03, y: -2 }}
                     whileTap={{ scale: 0.97 }}
                     className={`
-                      flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-sm tracking-wide
-                      border-2 transition-all duration-300 backdrop-blur-sm
+                      flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm
+                      border-2 transition-all duration-300
                       ${darkTheme
-                        ? 'border-violet-500/40 text-violet-400 hover:bg-violet-500/10 hover:border-violet-400'
-                        : 'border-violet-600/30 text-violet-700 hover:bg-violet-50 hover:border-violet-500'
+                        ? 'border-white/10 text-slate-300 hover:border-violet-500/50 hover:text-violet-300'
+                        : 'border-slate-200 text-slate-700 hover:border-violet-400 hover:text-violet-700'
                       }
                     `}
                   >
-                    <Mail size={18} />
+                    <Mail size={16} />
                     {t('hero.getInTouch')}
                   </motion.a>
                 </div>
 
-                {/* Scroll hint */}
-                <motion.div
-                  className="mt-12 flex items-center gap-2"
-                  animate={{ y: [0, 6, 0] }}
-                  transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-                >
-                  <ChevronDown size={18} className={darkTheme ? 'text-slate-600' : 'text-slate-400'} />
-                  <span className={`text-xs ${darkTheme ? 'text-slate-600' : 'text-slate-400'}`}>Scroll down</span>
-                </motion.div>
+                {/* Stats baris — 3 angka kecil yang informatif */}
+                <div className={`
+                  flex items-center gap-8 pt-8 border-t
+                  ${darkTheme ? 'border-white/[0.06]' : 'border-slate-200'}
+                `}>
+                  {[
+                    { num: '2+', label: 'Years experience' },
+                    { num: '6+', label: 'Projects shipped' },
+                    { num: 'MERN', label: 'Core stack' },
+                  ].map((stat) => (
+                    <div key={stat.label}>
+                      <p className={`font-display font-extrabold text-2xl leading-none mb-1
+                        ${darkTheme ? 'text-slate-100' : 'text-slate-900'}`}>
+                        {stat.num}
+                      </p>
+                      <p className={`text-xs ${darkTheme ? 'text-slate-500' : 'text-slate-500'}`}>
+                        {stat.label}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Foto — kanan */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.92 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                className="flex justify-center order-2"
+              >
+                <div className="relative">
+                  {/* Ring luar — gradient statis, tidak berputar */}
+                  <div className={`
+                    absolute inset-[-3px] rounded-full
+                    ${darkTheme
+                      ? 'bg-gradient-to-br from-violet-500/60 via-indigo-500/40 to-cyan-400/50'
+                      : 'bg-gradient-to-br from-violet-400/50 via-indigo-400/30 to-cyan-300/40'
+                    }
+                  `} aria-hidden="true" />
+
+                  {/* Glow di belakang foto */}
+                  <div
+                    className="absolute inset-0 rounded-full blur-2xl scale-90 -z-10"
+                    style={{ background: 'rgba(124,58,237,0.12)' }}
+                    aria-hidden="true"
+                  />
+
+                  {/* Foto */}
+                  <img
+                    src={picture}
+                    alt="Awanda — Fullstack JavaScript Developer"
+                    fetchPriority="high"
+                    width={400}
+                    height={400}
+                    className={`
+                      relative z-10 rounded-full object-cover
+                      w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] lg:w-[380px] lg:h-[380px]
+                      border-[3px] transition-transform duration-500 hover:scale-[1.02]
+                      ${darkTheme ? 'border-[#050a14]' : 'border-slate-50'}
+                    `}
+                  />
+
+                  {/* Status badge di bawah foto */}
+                  <div className={`
+                    absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap
+                    flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold
+                    border shadow-lg z-20
+                    ${darkTheme
+                      ? 'bg-[#050a14] border-white/10 text-emerald-400'
+                      : 'bg-white border-slate-200 text-emerald-700 shadow-slate-200/60'
+                    }
+                  `}>
+                    <span
+                      className="w-1.5 h-1.5 rounded-full bg-emerald-400"
+                      style={{ animation: 'pulse-dot 2.5s ease-in-out infinite' }}
+                    />
+                    Available for work
+                  </div>
+                </div>
               </motion.div>
             </div>
           </section>
@@ -294,7 +348,9 @@ const App = () => {
               viewport={{ once: true, amount: 0.2 }}
             >
               <motion.div variants={fadeUp} className="mb-4">
-                <SectionLabel label={t('skills.title')} darkTheme={darkTheme} />
+                <p className={`text-xs font-bold tracking-[0.2em] uppercase mb-3 ${darkTheme ? 'text-violet-400' : 'text-violet-600'}`}>
+                  Expertise
+                </p>
                 <h2 className="font-display font-extrabold text-4xl sm:text-5xl text-gradient mb-4">
                   Tech Stack
                 </h2>
@@ -334,7 +390,9 @@ const App = () => {
               viewport={{ once: true, amount: 0.2 }}
             >
               <motion.div variants={fadeUp} className="mb-12">
-                <SectionLabel label={t('contact.title')} darkTheme={darkTheme} />
+                <p className={`text-xs font-bold tracking-[0.2em] uppercase mb-3 ${darkTheme ? 'text-violet-400' : 'text-violet-600'}`}>
+                  Contact
+                </p>
                 <h2 className="font-display font-extrabold text-4xl sm:text-5xl text-gradient mb-4">
                   {t('contact.title')}
                 </h2>

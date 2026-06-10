@@ -152,15 +152,14 @@ const MyProject = ({ darkTheme }) => {
         className="mb-12"
         id="project"
       >
-        <div className="flex items-center gap-3 mb-3">
-          <span className="w-1 h-6 rounded-full bg-gradient-to-b from-violet-500 to-cyan-400" />
-          <span className={`text-xs font-bold tracking-[0.2em] uppercase ${darkTheme ? 'text-violet-400' : 'text-violet-600'}`}>
-            {t('projects.title')}
-          </span>
-        </div>
+        <p className={`text-xs font-bold tracking-[0.2em] uppercase mb-3
+          ${darkTheme ? 'text-violet-400' : 'text-violet-600'}`}>
+          Work
+        </p>
         <h2 className="font-display font-extrabold text-4xl sm:text-5xl mb-4"
-          style={{ background: 'var(--gradient-primary)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-          {t('projects.title')}
+          style={{ background: 'var(--gradient-primary)', WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+          Featured Projects
         </h2>
         <p className={`text-base sm:text-lg max-w-xl ${darkTheme ? 'text-slate-400' : 'text-slate-600'}`}>
           {t('projects.subtitle')}
