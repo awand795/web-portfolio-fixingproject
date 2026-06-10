@@ -87,7 +87,7 @@ const SocialRow = ({ link, index, darkTheme }) => (
       <p className={`text-sm font-semibold leading-tight ${darkTheme ? 'text-slate-200' : 'text-slate-800'}`}>
         {link.name}
       </p>
-      <p className={`text-xs truncate ${darkTheme ? 'text-slate-500' : 'text-slate-400'}`}>
+      <p className={`text-xs truncate ${darkTheme ? 'text-slate-500' : 'text-slate-500'}`}>
         {link.handle}
       </p>
     </div>
@@ -96,7 +96,7 @@ const SocialRow = ({ link, index, darkTheme }) => (
     <ArrowUpRight
       size={14}
       className={`flex-shrink-0 transition-transform duration-200 group-hover:translate-x-0.5
-        ${darkTheme ? 'text-slate-600' : 'text-slate-300'}`}
+        ${darkTheme ? 'text-slate-600' : 'text-slate-400'}`}
     />
   </motion.a>
 );
@@ -197,7 +197,7 @@ const Socmed = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`flex items-center gap-1.5 text-xs transition-colors
-                  ${darkTheme ? 'text-slate-500 hover:text-violet-400' : 'text-slate-400 hover:text-violet-700'}`}
+                  ${darkTheme ? 'text-slate-500 hover:text-violet-400' : 'text-slate-600 hover:text-violet-700'}`}
               >
                 <Globe size={12} />
                 awanda.eu.org
@@ -205,7 +205,7 @@ const Socmed = () => {
               <a
                 href="mailto:awand795@gmail.com"
                 className={`flex items-center gap-1.5 text-xs transition-colors
-                  ${darkTheme ? 'text-slate-500 hover:text-violet-400' : 'text-slate-400 hover:text-violet-700'}`}
+                  ${darkTheme ? 'text-slate-500 hover:text-violet-400' : 'text-slate-600 hover:text-violet-700'}`}
               >
                 <Mail size={12} />
                 awand795@gmail.com
@@ -225,10 +225,10 @@ const Socmed = () => {
             {/* Footer */}
             <div className={`mt-6 pt-5 border-t text-center
               ${darkTheme ? 'border-white/[0.05]' : 'border-slate-100'}`}>
-              <p className={`text-xs ${darkTheme ? 'text-slate-600' : 'text-slate-400'}`}>
+              <p className={`text-xs ${darkTheme ? 'text-slate-600' : 'text-slate-500'}`}>
                 © {currentYear} Awanda
               </p>
-              <p className={`text-xs mt-0.5 ${darkTheme ? 'text-slate-700' : 'text-slate-300'}`}>
+              <p className={`text-xs mt-0.5 ${darkTheme ? 'text-slate-700' : 'text-slate-400'}`}>
                 Made with ♥ in Medan
               </p>
             </div>

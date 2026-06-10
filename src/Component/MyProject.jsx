@@ -173,7 +173,7 @@ const CardMedia = ({ project, darkTheme }) => {
         }
       `}>
         <ImageIcon size={10} />
-        <span className="text-[10px] font-semibold">No preview yet</span>
+        <span className={`text-[10px] font-semibold ${darkTheme ? 'text-slate-600' : 'text-slate-600'}`}>No preview yet</span>
       </div>
     </div>
   );
@@ -235,7 +235,7 @@ const ProjectCard = ({ project, index, darkTheme }) => {
 
           {/* Description */}
           <p className={`text-xs leading-relaxed flex-grow mb-4
-            ${darkTheme ? 'text-slate-500' : 'text-slate-500'}`}>
+            ${darkTheme ? 'text-slate-500' : 'text-slate-600'}`}>
             {t(`projects.desc.${project.id}`)}
           </p>
 

@@ -260,7 +260,7 @@ const App = () => {
                         ${darkTheme ? 'text-slate-100' : 'text-slate-900'}`}>
                         {stat.num}
                       </p>
-                      <p className={`text-xs ${darkTheme ? 'text-slate-500' : 'text-slate-500'}`}>
+                      <p className={`text-xs ${darkTheme ? 'text-slate-500' : 'text-slate-600'}`}>
                         {stat.label}
                       </p>
                     </div>
