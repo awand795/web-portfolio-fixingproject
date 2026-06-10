@@ -65,30 +65,6 @@ const SocialButton = ({ href, label, icon: Icon, darkTheme }) => (
   </motion.a>
 );
 
-const FloatingParticles = ({ darkTheme }) => (
-  <div className="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
-    {[...Array(6)].map((_, i) => (
-      <div
-        key={i}
-        style={{
-          position: 'absolute',
-          opacity: darkTheme ? 0.05 : 0.03,
-          width: `${80 + i * 40}px`,
-          height: `${80 + i * 40}px`,
-          left: `${10 + i * 15}%`,
-          top: `${5 + i * 14}%`,
-          background: i % 2 === 0
-            ? 'linear-gradient(135deg, #7c3aed, #6366f1)'
-            : 'linear-gradient(135deg, #06b6d4, #10b981)',
-          borderRadius: i % 3 === 0 ? '30% 70% 70% 30% / 30% 30% 70% 70%' : '50%',
-          animation: `float ${6 + i * 1.5}s ease-in-out infinite`,
-          animationDelay: `${i * 0.8}s`,
-        }}
-      />
-    ))}
-  </div>
-);
-
 const SectionLabel = ({ label, darkTheme }) => (
   <div className="flex items-center gap-3 mb-3">
     <span className="w-1 h-6 rounded-full bg-gradient-to-b from-violet-500 to-cyan-400" />
@@ -157,12 +133,10 @@ const App = () => {
   return (
     <div className={`${bg} min-h-screen transition-colors duration-300 relative overflow-x-hidden`}>
       <a className="skip-link" href="#main-content">Skip to main content</a>
-      <FloatingParticles darkTheme={darkTheme} />
-
       {/* Radial glow background (dark only) */}
       {darkTheme && (
-        <div className="fixed inset-0 pointer-events-none z-0" aria-hidden="true">
-          <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-violet-600/[0.07] rounded-full blur-[120px]" />
+        <div className="fixed inset-0 pointer-events-none z-0 bg-grid-pattern" aria-hidden="true">
+          <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-violet-600/[0.04] rounded-full blur-[120px]" />
           <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-cyan-500/[0.06] rounded-full blur-[100px]" />
         </div>
       )}
@@ -188,15 +162,9 @@ const App = () => {
                 className="flex justify-center lg:order-1 order-2"
               >
                 <div className="relative">
-                  {/* Orbit ring */}
+                  {/* Static gradient ring */}
                   <div
-                    className="absolute inset-[-16px] rounded-full opacity-60"
-                    style={{
-                      background: 'conic-gradient(from 0deg, #7c3aed, #6366f1, #06b6d4, #10b981, #7c3aed)',
-                      animation: 'spin-slow 10s linear infinite',
-                      WebkitMask: 'radial-gradient(farthest-side, transparent calc(100% - 3px), white calc(100% - 3px))',
-                      mask: 'radial-gradient(farthest-side, transparent calc(100% - 3px), white calc(100% - 3px))',
-                    }}
+                    className="absolute inset-[-4px] rounded-full bg-gradient-to-br from-violet-500 via-indigo-500 to-cyan-400 opacity-60"
                     aria-hidden="true"
                   />
                   {/* Glow */}
@@ -234,9 +202,10 @@ const App = () => {
                 transition={{ duration: 0.8, delay: 0.15, ease: 'easeOut' }}
                 className="lg:order-2 order-1"
               >
-                <p className={`text-sm font-bold tracking-[0.25em] uppercase mb-4 ${darkTheme ? 'text-violet-400' : 'text-violet-600'}`}>
-                  {t('hero.greeting')}
-                </p>
+                <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-6 border w-fit ${darkTheme ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' : 'bg-emerald-50 border-emerald-200 text-emerald-700'}`}>
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  Open to new opportunities
+                </div>
 
                 <h1 className="font-display font-extrabold leading-[1.05] mb-6" style={{
                   fontSize: 'clamp(3rem, 7vw, 5.5rem)',

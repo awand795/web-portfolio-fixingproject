@@ -7,9 +7,9 @@ const en = {
     'nav.social': 'Social',
 
     // Hero
-    'hero.greeting': "HELLO, I'M",
+    'hero.greeting': "Hi, I'm",
     'hero.title': 'Fullstack JavaScript Developer',
-    'hero.description': "Born in Bangun Rakyat on November 18, 2000, Awanda is a high-caliber IT Web Developer currently spearheading digital innovations at Darkotech. An only child with an unrelenting drive, he transitioned from his roots in Langkat to the urban tech landscape of Medan, where he channels his ambitious nature and love for complex challenges into building world-class web solutions. Known for his tireless work ethic and strategic mindset, Awanda is not just writing code; he's architecting the future of digital experiences.",
+    'hero.description': "Fullstack developer based in Medan with 2+ years of experience building production web applications. I work across the entire stack — from REST APIs and database design to responsive UIs — with a focus on clean code, performance, and shipping things that work.",
     'hero.downloadCv': 'Download CV',
     'hero.getInTouch': 'Get in Touch',
 

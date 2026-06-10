@@ -7,9 +7,9 @@ const id = {
     'nav.social': 'Sosial',
 
     // Hero
-    'hero.greeting': 'HALO, SAYA',
+    'hero.greeting': 'Hei, saya',
     'hero.title': 'Fullstack JavaScript Developer',
-    'hero.description': 'Lahir di Bangun Rakyat pada 18 November 2000, Awanda adalah seorang IT Web Developer berdedikasi tinggi yang kini menjadi motor penggerak inovasi digital di Darkotech. Sebagai anak tunggal dengan ambisi besar dan etos kerja tanpa kompromi, ia melakukan perjalanan dari tanah kelahirannya di Langkat untuk menaklukkan lanskap teknologi di Medan. Awanda adalah sosok pekerja keras yang haus akan tantangan kompleks, menggabungkan visi ambisius dengan keahlian teknis untuk menciptakan solusi web kelas dunia.',
+    'hero.description': 'Fullstack developer berbasis di Medan dengan pengalaman 2+ tahun membangun aplikasi web production. Saya bekerja di seluruh stack — mulai dari REST API dan desain database hingga UI responsif — dengan fokus pada kode yang bersih, performa, dan hasil yang benar-benar berfungsi.',
     'hero.downloadCv': 'Unduh CV',
     'hero.getInTouch': 'Hubungi Saya',
 
