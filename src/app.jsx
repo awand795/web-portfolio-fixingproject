@@ -205,7 +205,7 @@ const App = () => {
                   <img
                     src={picture}
                     alt="Awanda - Fullstack JavaScript Developer"
-                    fetchpriority="high"
+                    fetchPriority="high"
                     width={380}
                     height={380}
                     className={`
