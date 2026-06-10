@@ -45,10 +45,10 @@ const Socmed = () => {
 
     return (
         <div className={`min-h-screen transition-colors duration-300 ${darkTheme ? 'bg-[#020617] text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <header>
-                    <NavBar darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
-                </header>
+            <header className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <NavBar darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
+        </header>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 <main className="pb-16">
                     {/* Animated Banner */}

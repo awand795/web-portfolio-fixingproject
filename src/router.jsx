@@ -9,7 +9,7 @@ const NotFound = lazy(() => import('./Component/NotFound'));
 
 const Router = () => {
     return (
-      <div className="App">
+      <>
         <ScrollToTop />
         <Suspense fallback={<LoadingSpinner />}>
           <Routes>
@@ -18,7 +18,7 @@ const Router = () => {
             <Route path="*" element={<NotFound/>}/>
           </Routes>
         </Suspense>
-      </div>
+      </>
     );
   }
 

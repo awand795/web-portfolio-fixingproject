@@ -39,7 +39,7 @@ const TechLogo = ({ img, name, url, darkTheme }) => (
     `}>
       <img src={img} alt={`${name} logo`} className="w-full h-full object-contain" loading="lazy" />
     </span>
-    <span className="text-xs text-slate-400 font-medium group-hover:text-violet-400 transition-colors">{name}</span>
+    <span className={`text-xs font-medium group-hover:text-violet-400 transition-colors ${darkTheme ? 'text-slate-400' : 'text-slate-500'}`}>{name}</span>
   </motion.a>
 );
 
