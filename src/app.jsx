@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import { Github, Linkedin, Facebook, Instagram } from './icons/SocialIcons';
 
-const TechLogo = ({ img, name, url }) => (
+const TechLogo = ({ img, name, url, darkTheme }) => (
   <motion.a
     href={url}
     target="_blank"
@@ -28,13 +28,15 @@ const TechLogo = ({ img, name, url }) => (
     transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     className="group flex flex-col items-center gap-2"
   >
-    <span className="
+    <span className={`
       flex items-center justify-center w-20 h-20 rounded-2xl
-      bg-white/5 border border-white/10
-      group-hover:bg-violet-500/15 group-hover:border-violet-500/40
-      group-hover:shadow-[0_0_24px_rgba(124,58,237,0.3)]
       transition-all duration-300 p-4 backdrop-blur-sm
-    ">
+      group-hover:border-violet-500/40 group-hover:shadow-[0_0_24px_rgba(124,58,237,0.3)]
+      ${darkTheme
+        ? 'bg-white/5 border border-white/10 group-hover:bg-violet-500/15'
+        : 'bg-slate-100 border border-slate-200 group-hover:bg-violet-50'
+      }
+    `}>
       <img src={img} alt={`${name} logo`} className="w-full h-full object-contain" loading="lazy" />
     </span>
     <span className="text-xs text-slate-400 font-medium group-hover:text-violet-400 transition-colors">{name}</span>
@@ -63,13 +65,14 @@ const SocialButton = ({ href, label, icon: Icon, darkTheme }) => (
   </motion.a>
 );
 
-const FloatingParticles = () => (
+const FloatingParticles = ({ darkTheme }) => (
   <div className="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
     {[...Array(6)].map((_, i) => (
       <div
         key={i}
-        className="absolute opacity-[0.06] dark:opacity-[0.04]"
         style={{
+          position: 'absolute',
+          opacity: darkTheme ? 0.05 : 0.03,
           width: `${80 + i * 40}px`,
           height: `${80 + i * 40}px`,
           left: `${10 + i * 15}%`,
@@ -154,7 +157,7 @@ const App = () => {
   return (
     <div className={`${bg} min-h-screen transition-colors duration-300 relative overflow-x-hidden`}>
       <a className="skip-link" href="#main-content">Skip to main content</a>
-      <FloatingParticles />
+      <FloatingParticles darkTheme={darkTheme} />
 
       {/* Radial glow background (dark only) */}
       {darkTheme && (
@@ -164,12 +167,12 @@ const App = () => {
         </div>
       )}
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Header di luar relative container supaya sticky bekerja */}
+      <header className="relative z-50 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <NavBar darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
+      </header>
 
-        {/* Navigation */}
-        <header>
-          <NavBar darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
-        </header>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <main id="main-content">
 
@@ -343,7 +346,7 @@ const App = () => {
               >
                 {techs.map((tech) => (
                   <motion.div key={tech.name} variants={fadeUp}>
-                    <TechLogo {...tech} />
+                    <TechLogo {...tech} darkTheme={darkTheme} />
                   </motion.div>
                 ))}
               </motion.div>

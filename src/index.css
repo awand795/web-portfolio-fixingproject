@@ -1,48 +1,43 @@
 @import "tailwindcss";
 
-/* Custom theme tokens via CSS variables */
-@theme {
-  --color-brand-violet: #7c3aed;
-  --color-brand-indigo: #6366f1;
-  --color-brand-cyan: #06b6d4;
-  --color-brand-emerald: #10b981;
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
-  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
-}
-
 :root {
-  --bg-dark: #020617;
-  --bg-dark-2: #0f172a;
-  --bg-dark-3: #1e293b;
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #64748b;
   --gradient-primary: linear-gradient(135deg, #7c3aed 0%, #6366f1 50%, #06b6d4 100%);
   --gradient-secondary: linear-gradient(135deg, #f43f5e 0%, #ec4899 100%);
   --gradient-accent: linear-gradient(135deg, #06b6d4 0%, #10b981 100%);
-  --glass-bg: rgba(255, 255, 255, 0.04);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  --brand-indigo: #818cf8;
+  --brand-indigo-dark: #4338ca;
 }
 
-* {
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
-  font-family: var(--font-body);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
 }
 
-/* Skip link aksesibilitas */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+}
+
+.font-display {
+  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif !important;
+}
+
+.text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .skip-link {
   position: absolute;
   top: -100%;
@@ -58,51 +53,27 @@ body {
 }
 .skip-link:focus { top: 1rem; }
 
-/* Gradient text utility */
-.text-gradient {
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Shimmer animation */
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-/* Glow rotate untuk profile ring */
 @keyframes spin-slow {
   from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  to   { transform: rotate(360deg); }
 }
 
-/* Typing cursor blink */
 @keyframes blink {
   0%, 100% { border-color: transparent; }
-  50% { border-color: #7c3aed; }
+  50%       { border-color: #7c3aed; }
 }
 
-/* Floating particles */
 @keyframes float {
   0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
-  50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+  50%       { transform: translateY(-20px) rotate(180deg); opacity: 1; }
 }
 
-/* Pop-in untuk back to top btn */
-@keyframes pop-in {
-  from { opacity: 0; transform: scale(0.5); }
-  to { opacity: 1; transform: scale(1); }
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* Slide up untuk PWA prompt */
-@keyframes slide-up {
-  from { opacity: 0; transform: translateY(100%); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -110,13 +81,6 @@ body {
   }
 }
 
-/* Light mode override untuk glass cards */
-.light-mode .glass-card {
-  --glass-bg: rgba(255, 255, 255, 0.85);
-  --glass-border: rgba(0, 0, 0, 0.1);
-}
-
-/* Focus visible global */
 :focus-visible {
   outline: 2px solid #7c3aed;
   outline-offset: 3px;

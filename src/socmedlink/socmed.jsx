@@ -6,7 +6,6 @@ import picture from '../image/imgprofile.webp';
 import { motion } from 'framer-motion';
 import { Globe, Mail } from 'lucide-react';
 import { Github, Linkedin, Facebook, Instagram } from '../icons/SocialIcons';
-import './socmed.css';
 
 const socialLinks = [
     { name: 'Facebook', url: 'https://facebook.com/awandd6', icon: Facebook, gradient: 'linear-gradient(to right, #3b5998, #5a7abf)' },
@@ -54,7 +53,14 @@ const Socmed = () => {
                 <main className="pb-16">
                     {/* Animated Banner */}
                     <div className="relative h-48 sm:h-56 rounded-2xl overflow-hidden mb-20">
-                        <div className="absolute inset-0 bg-gradient-to-r from-violet-600 via-indigo-500 to-cyan-500 animate-gradient-shift" />
+                        <div
+                className="absolute inset-0"
+                style={{
+                  background: 'linear-gradient(-45deg, #7c3aed, #6366f1, #06b6d4, #7c3aed)',
+                  backgroundSize: '400% 400%',
+                  animation: 'gradientShift 8s ease infinite',
+                }}
+              />
                         <motion.div
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
