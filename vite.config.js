@@ -1,10 +1,12 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    tailwindcss(),
     react(),
     VitePWA({
       registerType: 'autoUpdate',
@@ -14,8 +16,8 @@ export default defineConfig({
         name: 'Awanda - Fullstack JavaScript Developer',
         short_name: 'Awanda Portfolio',
         description: 'Fullstack JavaScript Developer specializing in MERN Stack web development',
-        theme_color: '#818cf8',
-        background_color: '#0a0e27',
+        theme_color: '#7c3aed',
+        background_color: '#020617',
         display: 'standalone',
         orientation: 'portrait',
         scope: '/',
@@ -41,7 +43,7 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,jpeg,webp,txt,xml}'],
-        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // 10 MB
+        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
@@ -50,21 +52,7 @@ export default defineConfig({
               cacheName: 'google-fonts-cache',
               expiration: {
                 maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
-            }
-          },
-          {
-            urlPattern: /^https:\/\/cdn\.jsdelivr\.net\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'jsdelivr-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
+                maxAgeSeconds: 60 * 60 * 24 * 365
               },
               cacheableResponse: {
                 statuses: [0, 200]
@@ -80,7 +68,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           'react-vendor': ['react', 'react-dom'],
-          'bootstrap-vendor': ['bootstrap', 'react-bootstrap']
+          'motion': ['framer-motion'],
         }
       }
     },

@@ -1,286 +1,201 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { scroller } from 'react-scroll';
+import { Menu, X, Sun, Moon } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
 import { Logo } from './Logo';
 
-const ThemeIcon = ({ darkTheme }) => (
-    <div style={{ width: '38px', height: '38px', position: 'relative' }}>
-        <div className={`theme-icon-container ${darkTheme ? 'dark' : 'light'}`}>
-            {darkTheme ? (
-                <svg
-                    key="sun"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="url(#sunGradient)"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    width="38"
-                    height="38"
-                    style={{ position: 'absolute', top: 0, left: 0 }}
-                >
-                    <defs>
-                        <linearGradient id="sunGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#f6d365" />
-                            <stop offset="100%" stopColor="#fda085" />
-                        </linearGradient>
-                    </defs>
-                    <circle cx="12" cy="12" r="5" fill="url(#sunGradient)" stroke="none" />
-                    <line x1="12" y1="1" x2="12" y2="3" />
-                    <line x1="12" y1="21" x2="12" y2="23" />
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                    <line x1="1" y1="12" x2="3" y2="12" />
-                    <line x1="21" y1="12" x2="23" y2="12" />
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                </svg>
-            ) : (
-                <svg
-                    key="moon"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    width="38"
-                    height="38"
-                    style={{ position: 'absolute', top: 0, left: 0 }}
-                >
-                    <defs>
-                        <linearGradient id="moonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="var(--brand-indigo)" />
-                            <stop offset="100%" stopColor="#764ba2" />
-                        </linearGradient>
-                    </defs>
-                    <path
-                        d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-                        fill="url(#moonGradient)"
-                        stroke="url(#moonGradient)"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                </svg>
-            )}
-        </div>
-    </div>
-);
+const NavBar = ({ darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme } = {}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+  const { language, toggleLanguage, t } = useLanguage();
+  const theme = useTheme();
+  const location = useLocation();
 
-const NavBar = ({darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme} = {}) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [activeSection, setActiveSection] = useState('home');
-    const { language, toggleLanguage, t } = useLanguage();
-    const theme = useTheme();
-    const location = useLocation();
-    const darkTheme = propDarkTheme !== undefined ? propDarkTheme : theme.darkTheme;
-    const setDarkTheme = propSetDarkTheme || theme.setDarkTheme;
-    const isSocmedPage = location.pathname === '/socmed';
+  const darkTheme = propDarkTheme !== undefined ? propDarkTheme : theme.darkTheme;
+  const setDarkTheme = propSetDarkTheme || theme.setDarkTheme;
+  const isSocmedPage = location.pathname === '/socmed';
 
-    const menuItems = [
-        { name: t('nav.home'), target: '/', scrollTo: null, section: 'home' },
-        { name: t('nav.projects'), target: '/', scrollTo: 'project', section: 'project' },
-        { name: t('nav.skills'), target: '/', scrollTo: 'skill', section: 'skill' },
-        { name: t('nav.contact'), target: '/', scrollTo: 'contact', section: 'contact' },
-        { name: t('nav.social'), target: '/socmed', scrollTo: null, section: 'social' }
-    ];
+  const menuItems = [
+    { name: t('nav.home'), target: '/', scrollTo: null, section: 'home' },
+    { name: t('nav.projects'), target: '/', scrollTo: 'project', section: 'project' },
+    { name: t('nav.skills'), target: '/', scrollTo: 'skill', section: 'skill' },
+    { name: t('nav.contact'), target: '/', scrollTo: 'contact', section: 'contact' },
+    { name: t('nav.social'), target: '/socmed', scrollTo: null, section: 'social' },
+  ];
 
-    useEffect(() => {
-        if (isSocmedPage) {
-            setActiveSection('social');
-            return;
-        }
-
-        const handleScroll = () => {
-            const sections = ['contact', 'skill', 'project'];
-            const scrollY = window.scrollY + 150;
-
-            for (const id of sections) {
-                const el = document.getElementById(id);
-                if (el && scrollY >= el.offsetTop) {
-                    setActiveSection(id);
-                    return;
-                }
-            }
-            setActiveSection('home');
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        handleScroll();
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [isSocmedPage]);
-
-    const handleNavClick = (scrollTarget) => {
-        if (scrollTarget) {
-            scroller.scrollTo(scrollTarget, {
-                smooth: true,
-                offset: -80,
-                duration: 500,
-            });
-        }
-        setIsOpen(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+      if (isSocmedPage) { setActiveSection('social'); return; }
+      const sections = ['contact', 'skill', 'project'];
+      const y = window.scrollY + 150;
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el && y >= el.offsetTop) { setActiveSection(id); return; }
+      }
+      setActiveSection('home');
     };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isSocmedPage]);
 
-    const isActive = (item) => {
-        if (isSocmedPage) return item.section === 'social';
-        return activeSection === item.section;
-    };
+  const handleNavClick = (scrollTarget) => {
+    if (scrollTarget) {
+      const el = document.getElementById(scrollTarget);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    setIsOpen(false);
+  };
 
-    return (
-        <nav
-            className="navbar navbar-expand-lg py-4 fade-in-down"
-            style={{
-                background: 'transparent',
-                position: 'relative',
-                zIndex: 1000
-            }}
+  const isActive = (item) => isSocmedPage ? item.section === 'social' : activeSection === item.section;
+
+  const navBg = scrolled
+    ? darkTheme
+      ? 'bg-[#020617]/80 backdrop-blur-xl border-b border-white/[0.06] shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
+      : 'bg-white/80 backdrop-blur-xl border-b border-slate-200/80 shadow-sm'
+    : 'bg-transparent border-b border-transparent';
+
+  return (
+    <nav className={`sticky top-0 z-50 transition-all duration-300 ${navBg}`}>
+      <div className="flex items-center justify-between h-16 lg:h-20">
+
+        {/* Logo */}
+        <Link
+          to="/"
+          aria-label="Awanda Portfolio Home"
+          className="flex items-center gap-2.5 group"
         >
-            <div className="container-fluid">
-                {/* Logo */}
-                <Link
-                    className="navbar-brand d-flex align-items-center"
-                    to={"/"}
-                    aria-label="Awanda Portfolio Home"
-                    style={{
-                        fontSize: '1.5rem',
-                        fontWeight: '800',
-                        letterSpacing: '-0.02em'
-                    }}
-                >
-                    <div
-                        className="logo-hover"
-                        style={{ marginRight: '10px' }}
-                    >
-                        <Logo className="w-10 h-10" />
-                    </div>
-                    <span
-                        className="logo-text"
-                        style={{
-                            background: 'var(--primary-gradient)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            backgroundClip: 'text'
-                        }}
-                    >
-                        Awanda
-                    </span>
-                </Link>
+          <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.6 }}>
+            <Logo className="w-9 h-9" />
+          </motion.div>
+          <span className="font-display font-extrabold text-xl tracking-tight"
+            style={{ background: 'var(--gradient-primary)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+            Awanda
+          </span>
+        </Link>
 
-                {/* Mobile Toggle */}
+        {/* Desktop Nav */}
+        <div className="hidden lg:flex items-center gap-1">
+          {menuItems.map((item) => (
+            <Link
+              key={item.section}
+              to={item.target}
+              onClick={() => handleNavClick(item.scrollTo)}
+              className={`relative px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-200 ${
+                isActive(item)
+                  ? darkTheme ? 'text-violet-400 bg-violet-500/10' : 'text-violet-700 bg-violet-50'
+                  : darkTheme ? 'text-slate-400 hover:text-slate-200 hover:bg-white/5' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
+            >
+              {item.name}
+              {isActive(item) && (
+                <motion.div
+                  layoutId="nav-indicator"
+                  className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-violet-500"
+                />
+              )}
+            </Link>
+          ))}
+        </div>
+
+        {/* Controls */}
+        <div className="flex items-center gap-2">
+          {/* Language toggle */}
+          <motion.button
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
+            onClick={toggleLanguage}
+            aria-label={language === 'id' ? 'Switch to English' : 'Ganti ke Bahasa Indonesia'}
+            className={`
+              hidden sm:flex items-center justify-center w-10 h-10 rounded-full text-xs font-bold
+              border transition-all duration-200
+              ${darkTheme ? 'bg-white/5 border-white/10 text-violet-400 hover:bg-violet-500/15 hover:border-violet-500/40' : 'bg-black/5 border-black/10 text-violet-700 hover:bg-violet-50 hover:border-violet-300'}
+            `}
+          >
+            {language === 'id' ? 'EN' : 'ID'}
+          </motion.button>
+
+          {/* Theme toggle */}
+          <motion.button
+            whileHover={{ scale: 1.08, rotate: 180 }}
+            whileTap={{ scale: 0.92 }}
+            onClick={() => setDarkTheme(prev => !prev)}
+            aria-label={darkTheme ? t('theme.light') : t('theme.dark')}
+            className={`
+              flex items-center justify-center w-10 h-10 rounded-full
+              border transition-all duration-200
+              ${darkTheme ? 'bg-white/5 border-white/10 text-amber-400 hover:bg-amber-400/10 hover:border-amber-400/30' : 'bg-black/5 border-black/10 text-indigo-600 hover:bg-indigo-50 hover:border-indigo-300'}
+            `}
+          >
+            {darkTheme ? <Sun size={18} /> : <Moon size={18} />}
+          </motion.button>
+
+          {/* Hamburger (mobile) */}
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle navigation"
+            className={`
+              flex lg:hidden items-center justify-center w-10 h-10 rounded-full border transition-all duration-200
+              ${darkTheme ? 'bg-white/5 border-white/10 text-slate-300' : 'bg-black/5 border-black/10 text-slate-700'}
+            `}
+          >
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </motion.button>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            className={`lg:hidden overflow-hidden border-t ${darkTheme ? 'border-white/[0.06]' : 'border-slate-200'}`}
+          >
+            <div className="py-4 flex flex-col gap-1">
+              {menuItems.map((item, i) => (
+                <motion.div
+                  key={item.section}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                >
+                  <Link
+                    to={item.target}
+                    onClick={() => handleNavClick(item.scrollTo)}
+                    className={`block px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                      isActive(item)
+                        ? darkTheme ? 'text-violet-400 bg-violet-500/10' : 'text-violet-700 bg-violet-50'
+                        : darkTheme ? 'text-slate-400 hover:text-slate-200 hover:bg-white/5' : 'text-slate-600 hover:bg-slate-100'
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                </motion.div>
+              ))}
+
+              {/* Mobile language toggle */}
+              <div className="px-4 pt-3 border-t mt-2 flex items-center gap-3 border-white/5">
                 <button
-                    className="navbar-toggler border-0"
-                    type="button"
-                    onClick={() => setIsOpen(!isOpen)}
-                    aria-label="Toggle navigation"
-                    aria-expanded={isOpen}
-                    style={{
-                        color: 'var(--brand-indigo)'
-                    }}
+                  onClick={toggleLanguage}
+                  className={`px-4 py-2 rounded-lg text-xs font-bold border transition-all ${darkTheme ? 'border-white/10 text-violet-400 hover:bg-violet-500/10' : 'border-slate-200 text-violet-700 hover:bg-violet-50'}`}
                 >
-                    <i className={`bi ${isOpen ? 'bi-x-lg' : 'bi-list'}`}
-                       style={{
-                           fontSize: '1.5rem',
-                           color: 'var(--brand-indigo)'
-                       }}
-                    ></i>
+                  {language === 'id' ? '🌐 EN' : '🌐 ID'}
                 </button>
-
-                {/* Menu Items */}
-                <div className={`collapse navbar-collapse ${isOpen ? 'show' : ''}`} id="navbarNav">
-                    <ul className="navbar-nav ms-auto align-items-lg-center">
-                        {menuItems.map((item, index) => (
-                            <li
-                                key={index}
-                                className="nav-item ps-lg-4"
-                            >
-                                <Link
-                                    className={`nav-link ${isActive(item) ? 'nav-active' : ''}`}
-                                    to={item.target}
-                                    onClick={() => handleNavClick(item.scrollTo)}
-                                    aria-label={`Navigate to ${item.name}`}
-                                    style={{
-                                        color: isActive(item) ? 'var(--brand-indigo)' : (darkTheme ? 'var(--text-primary)' : 'var(--brand-indigo-dark)'),
-                                        fontWeight: '600',
-                                        fontSize: '1rem',
-                                        position: 'relative',
-                                        transition: 'color 0.3s ease'
-                                    }}
-                                >
-                                    {item.name}
-                                </Link>
-                            </li>
-                        ))}
-
-                        {/* Language Toggle */}
-                        <li className="nav-item ps-lg-4">
-                            <div
-                                onClick={toggleLanguage}
-                                role="button"
-                                className="nav-icon-toggle"
-                                aria-label={language === 'id' ? 'Switch to English' : 'Ganti ke Bahasa Indonesia'}
-                                style={{
-                                    cursor: 'pointer',
-                                    display: 'inline-flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    width: '48px',
-                                    height: '48px',
-                                    borderRadius: '50%',
-                                    background: darkTheme
-                                        ? 'rgba(255, 255, 255, 0.08)'
-                                        : 'rgba(67, 56, 202, 0.1)',
-                                    border: darkTheme
-                                        ? '1px solid rgba(255, 255, 255, 0.12)'
-                                        : '1px solid rgba(67, 56, 202, 0.2)',
-                                    backdropFilter: 'blur(10px)',
-                                    transition: 'all 0.3s ease',
-                                    fontWeight: '700',
-                                    fontSize: '0.8rem',
-                                    color: darkTheme ? 'var(--brand-indigo)' : 'var(--brand-indigo-dark)',
-                                    userSelect: 'none'
-                                }}
-                                title={language === 'id' ? 'Switch to English' : 'Ganti ke Bahasa Indonesia'}
-                            >
-                                {language === 'id' ? 'EN' : 'ID'}
-                            </div>
-                        </li>
-
-                        {/* Theme Toggle */}
-                        <li className="nav-item ps-lg-4">
-                            <div
-                                onClick={() => setDarkTheme(prev => !prev)}
-                                role="button"
-                                className="nav-icon-toggle"
-                                aria-label={darkTheme ? t('theme.light') : t('theme.dark')}
-                                style={{
-                                    cursor: 'pointer',
-                                    display: 'inline-flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    width: '48px',
-                                    height: '48px',
-                                    borderRadius: '50%',
-                                    background: darkTheme
-                                        ? 'rgba(255, 255, 255, 0.08)'
-                                        : 'rgba(67, 56, 202, 0.1)',
-                                    border: darkTheme
-                                        ? '1px solid rgba(255, 255, 255, 0.12)'
-                                        : '1px solid rgba(67, 56, 202, 0.2)',
-                                    backdropFilter: 'blur(10px)',
-                                    transition: 'all 0.3s ease'
-                                }}
-                                title={darkTheme ? t('theme.light') : t('theme.dark')}
-                            >
-                                <ThemeIcon darkTheme={darkTheme} />
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+              </div>
             </div>
-        </nav>
-    );
-}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
+  );
+};
 
 export default NavBar;
-

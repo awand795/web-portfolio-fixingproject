@@ -1,314 +1,483 @@
-import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css'
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import picture from './image/imgprofile.webp'
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import picture from './image/imgprofile.webp';
 import reactLogo from './image/reactLogo.webp';
-import js from './image/js.webp'
-import mongoDbLogo from './image/mongoDbLogo.webp'
-import dockerLogo from './image/dockerLogo.webp'
-import nodeJSLogo from './image/nodeJsLogo.webp'
-import bootstrapLogo from './image/bootstrap.webp'
-import expressJs from './image/expressjs.webp'
+import js from './image/js.webp';
+import mongoDbLogo from './image/mongoDbLogo.webp';
+import dockerLogo from './image/dockerLogo.webp';
+import nodeJSLogo from './image/nodeJsLogo.webp';
+import expressJs from './image/expressjs.webp';
 import MyProject from './Component/MyProject';
 import NavBar from './Component/NavBar';
 import PWAInstallPrompt from './Component/PWAInstallPrompt';
 import { useLanguage } from './context/LanguageContext';
 import { useTheme } from './context/ThemeContext';
-import { scroller } from 'react-scroll';
+import {
+  Download, Mail, Phone, MapPin, ArrowUp, ChevronDown
+} from 'lucide-react';
+import { Github, Linkedin, Facebook, Instagram } from './icons/SocialIcons';
+
+const TechLogo = ({ img, name, url }) => (
+  <motion.a
+    href={url}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={`${name} official website`}
+    whileHover={{ y: -10, scale: 1.08 }}
+    whileTap={{ scale: 0.95 }}
+    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+    className="group flex flex-col items-center gap-2"
+  >
+    <span className="
+      flex items-center justify-center w-20 h-20 rounded-2xl
+      bg-white/5 border border-white/10
+      group-hover:bg-violet-500/15 group-hover:border-violet-500/40
+      group-hover:shadow-[0_0_24px_rgba(124,58,237,0.3)]
+      transition-all duration-300 p-4 backdrop-blur-sm
+    ">
+      <img src={img} alt={`${name} logo`} className="w-full h-full object-contain" loading="lazy" />
+    </span>
+    <span className="text-xs text-slate-400 font-medium group-hover:text-violet-400 transition-colors">{name}</span>
+  </motion.a>
+);
+
+const SocialButton = ({ href, label, icon: Icon, darkTheme }) => (
+  <motion.a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={label}
+    whileHover={{ y: -6, scale: 1.1 }}
+    whileTap={{ scale: 0.9 }}
+    transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+    className={`
+      flex items-center justify-center w-14 h-14 rounded-full
+      border transition-all duration-300
+      ${darkTheme
+        ? 'bg-white/5 border-white/10 text-slate-400 hover:bg-violet-500/20 hover:border-violet-500/50 hover:text-violet-400 hover:shadow-[0_0_20px_rgba(124,58,237,0.25)]'
+        : 'bg-black/5 border-black/10 text-slate-500 hover:bg-violet-500/10 hover:border-violet-500/30 hover:text-violet-600'
+      }
+    `}
+  >
+    <Icon size={22} />
+  </motion.a>
+);
+
+const FloatingParticles = () => (
+  <div className="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+    {[...Array(6)].map((_, i) => (
+      <div
+        key={i}
+        className="absolute opacity-[0.06] dark:opacity-[0.04]"
+        style={{
+          width: `${80 + i * 40}px`,
+          height: `${80 + i * 40}px`,
+          left: `${10 + i * 15}%`,
+          top: `${5 + i * 14}%`,
+          background: i % 2 === 0
+            ? 'linear-gradient(135deg, #7c3aed, #6366f1)'
+            : 'linear-gradient(135deg, #06b6d4, #10b981)',
+          borderRadius: i % 3 === 0 ? '30% 70% 70% 30% / 30% 30% 70% 70%' : '50%',
+          animation: `float ${6 + i * 1.5}s ease-in-out infinite`,
+          animationDelay: `${i * 0.8}s`,
+        }}
+      />
+    ))}
+  </div>
+);
+
+const SectionLabel = ({ label, darkTheme }) => (
+  <div className="flex items-center gap-3 mb-3">
+    <span className="w-1 h-6 rounded-full bg-gradient-to-b from-violet-500 to-cyan-400" />
+    <span className={`text-xs font-bold tracking-[0.2em] uppercase ${darkTheme ? 'text-violet-400' : 'text-violet-600'}`}>
+      {label}
+    </span>
+  </div>
+);
 
 const App = () => {
+  const { t } = useLanguage();
+  const { darkTheme, setDarkTheme } = useTheme();
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const [typedText, setTypedText] = useState('');
+  const fullText = t('hero.title');
+  const typingRef = useRef(null);
 
-    const { t } = useLanguage();
-    const { darkTheme, setDarkTheme } = useTheme();
-    const [showBackToTop, setShowBackToTop] = useState(false);
+  useEffect(() => {
+    document.title = 'Awanda - IT Web Developer at Darkotech';
 
-    useEffect(() => {
-        document.title = "Awanda - IT Web Developer at Darkotech";
-        AOS.init({
-            duration: 800,
-            once: true,
-            easing: 'ease-out'
-        });
+    const handleScroll = () => setShowBackToTop(window.scrollY > 300);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-        const handleScroll = () => {
-            setShowBackToTop(window.scrollY > 300);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+  // Typing animation
+  useEffect(() => {
+    setTypedText('');
+    let i = 0;
+    clearInterval(typingRef.current);
+    typingRef.current = setInterval(() => {
+      if (i < fullText.length) {
+        setTypedText(fullText.slice(0, i + 1));
+        i++;
+      } else {
+        clearInterval(typingRef.current);
+      }
+    }, 55);
+    return () => clearInterval(typingRef.current);
+  }, [fullText]);
 
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
+  const techs = [
+    { img: reactLogo, name: 'React', url: 'https://reactjs.org' },
+    { img: js, name: 'JavaScript', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
+    { img: mongoDbLogo, name: 'MongoDB', url: 'https://www.mongodb.com' },
+    { img: nodeJSLogo, name: 'Node.js', url: 'https://nodejs.org' },
+    { img: dockerLogo, name: 'Docker', url: 'https://www.docker.com' },
+    { img: expressJs, name: 'Express.js', url: 'https://expressjs.com' },
+  ];
 
-    const socialIcons = [
-        { icon: 'bi-github', url: 'https://github.com/awand795', label: 'GitHub' },
-        { icon: 'bi-linkedin', url: 'https://linkedin.com/in/awanda', label: 'LinkedIn' },
-        { icon: 'bi-facebook', url: 'https://facebook.com/awandd6', label: 'Facebook' },
-        { icon: 'bi-instagram', url: 'https://instagram.com/adnawaa', label: 'Instagram' },
-    ];
+  const socials = [
+    { href: 'https://github.com/awand795', label: 'GitHub', icon: Github },
+    { href: 'https://linkedin.com/in/awanda', label: 'LinkedIn', icon: Linkedin },
+    { href: 'https://facebook.com/awandd6', label: 'Facebook', icon: Facebook },
+    { href: 'https://instagram.com/adnawaa', label: 'Instagram', icon: Instagram },
+  ];
 
-    return (
-        <div className={darkTheme ? 'bg-dark text-white' : 'bg-light text-dark'}>
+  const fadeUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
+  };
+  const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
 
-            <a className="skip-link" href="#main-content">Skip to main content</a>
+  const bg = darkTheme ? 'bg-[#020617] text-slate-100' : 'bg-slate-50 text-slate-900';
 
-            <div className="container-fluid">
+  return (
+    <div className={`${bg} min-h-screen transition-colors duration-300 relative overflow-x-hidden`}>
+      <a className="skip-link" href="#main-content">Skip to main content</a>
+      <FloatingParticles />
 
-                {/* Navigation */}
-                <header>
-                    <div className="row justify-content-center">
-                        <div className="col-lg-10">
-                            <NavBar darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
-                        </div>
-                    </div>
-                </header>
-
-                <main id="main-content">
-                    {/* Hero Section */}
-                    <div className="row justify-content-center align-items-center pt-4 pb-5" style={{ minHeight: '80vh' }}>
-                        <div className="col-lg-5 text-center mb-5 mb-lg-0" data-aos="fade-right">
-                            <div className="profile-wrapper">
-                                <img
-                                    src={picture}
-                                    className="gambarprofile"
-                                    alt="Awanda - Fullstack JavaScript Developer"
-                                    fetchpriority="high"
-                                    width="400"
-                                    height="400"
-                                />
-                            </div>
-                        </div>
-
-                        <div className='col-lg-6' data-aos="fade-left">
-                            <div>
-                                <p
-                                    className="text-gradient mb-2"
-                                    style={{ fontSize: '1.25rem', fontWeight: '600', letterSpacing: '0.1em' }}
-                                >
-                                    {t('hero.greeting')}
-                                </p>
-
-                                <h1 className="display-1 mb-4">
-                                    Awanda
-                                </h1>
-
-                                <h2
-                                    className="h3 mb-4 typing-wrapper"
-                                    style={{ color: 'var(--text-secondary)' }}
-                                >
-                                    <span className="typing-text">{t('hero.title')}</span>
-                                </h2>
-
-                                <p className="text-justify mb-5">
-                                    {t('hero.description')}
-                                </p>
-
-                                <div className="d-flex flex-wrap gap-3">
-                                    <a
-                                        className="btn btn-gradient btn-modern"
-                                        href='/files/CV Fullstack Developer - Awanda.pdf'
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        download
-                                    >
-                                        <i className="bi bi-download me-2"></i>
-                                        {t('hero.downloadCv')}
-                                    </a>
-
-                                    <a
-                                        className="btn btn-outline-modern btn-modern"
-                                        href='#contact'
-                                    >
-                                        <i className="bi bi-envelope me-2"></i>
-                                        {t('hero.getInTouch')}
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Projects Section */}
-                    <div className='py-5'>
-                        <MyProject darkTheme={darkTheme} />
-                    </div>
-
-                    <div className="section-divider"></div>
-
-                    {/* Skills Section */}
-                    <div id="skill" className="row text-center pt-5 justify-content-center" data-aos="fade-up">
-                        <div className="col-12">
-                            <div className="section-header mx-auto">
-                                <h2 className="section-title">{t('skills.title')}</h2>
-                                <div className="section-underline"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="row justify-content-center pt-3 text-center mb-5" data-aos="fade-up">
-                        <div className="col-lg-8">
-                            <p className="text-justify text-center" style={{ fontSize: '1.125rem', lineHeight: '1.8' }}>
-                                {t('skills.description.before')}
-                                <span className="skill-tag mx-2">
-                                    <img src={js} alt="JavaScript" height="24" width="24" loading="lazy" />
-                                    JavaScript
-                                </span>
-                                {t('skills.description.mid')}
-                                <span className="skill-tag mx-2">
-                                    <img src={reactLogo} alt="React" height="24" width="24" loading="lazy" />
-                                    React
-                                </span>
-                                {t('skills.description.and')}
-                                <span className="skill-tag mx-2">
-                                    <img src={expressJs} alt="Express.js" height="24" width="24" loading="lazy" />
-                                    Express.js
-                                </span>
-                                {t('skills.description.after')}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="row justify-content-center text-center pt-4 pb-5">
-                        <div className="col-lg-10">
-                            <div
-                                className="d-flex flex-wrap justify-content-center align-items-center gap-4"
-                                data-aos="zoom-in"
-                            >
-                                {[
-                                    { img: reactLogo, url: 'https://reactjs.org', name: 'React' },
-                                    { img: js, url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript', name: 'JavaScript' },
-                                    { img: bootstrapLogo, url: 'https://getbootstrap.com', name: 'Bootstrap' },
-                                    { img: mongoDbLogo, url: 'https://www.mongodb.com', name: 'MongoDB' },
-                                    { img: nodeJSLogo, url: 'https://nodejs.org', name: 'Node.js' },
-                                    { img: dockerLogo, url: 'https://www.docker.com', name: 'Docker' },
-                                ].map((tech, index) => (
-                                    <a
-                                        key={index}
-                                        href={tech.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label={`${tech.name} official website`}
-                                    >
-                                        <img
-                                            src={tech.img}
-                                            alt={`${tech.name} logo`}
-                                            className="imgLogo"
-                                            loading="lazy"
-                                            width="80"
-                                            height="80"
-                                        />
-                                    </a>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="section-divider"></div>
-
-                    {/* Contact Section */}
-                    <div id="contact" className="row text-center pt-5 justify-content-center" data-aos="fade-up">
-                        <div className="col-12">
-                            <div className="section-header mx-auto">
-                                <h2 className="section-title">{t('contact.title')}</h2>
-                                <div className="section-underline"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="row justify-content-center pt-4 pb-5" data-aos="fade-up">
-                        <div className="col-lg-8 text-center">
-                            <div>
-                                <p className="h4 mb-4" style={{ color: 'var(--text-secondary)' }}>
-                                    {t('contact.cta')}
-                                </p>
-
-                                <a
-                                    href="mailto:awand795@gmail.com"
-                                    className="email-modern d-inline-block mb-4"
-                                >
-                                    awand795@gmail.com
-                                </a>
-
-                                <div className="mt-4 mb-3">
-                                    <p style={{ color: 'var(--text-secondary)', fontSize: '1.125rem' }}>
-                                        <i className="bi bi-phone me-2"></i>
-                                        <a
-                                            href="tel:+6282362851796"
-                                            className={darkTheme ? 'text-white text-decoration-none' : 'text-dark text-decoration-none'}
-                                            style={{ transition: 'color 0.3s' }}
-                                        >
-                                            +62 823-6285-1796
-                                        </a>
-                                    </p>
-                                    <p style={{ color: 'var(--text-secondary)', fontSize: '1.125rem' }}>
-                                        <i className="bi bi-geo-alt me-2"></i>
-                                        {t('contact.location')}
-                                    </p>
-                                </div>
-
-                                <div className="mt-5">
-                                    {socialIcons.map((social, index) => (
-                                        <a
-                                            key={index}
-                                            href={social.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            aria-label={social.label}
-                                            className="social-icon"
-                                        >
-                                            <i className={`bi ${social.icon}`}></i>
-                                        </a>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-
-                {/* Footer */}
-                <footer className="row justify-content-center pt-0 pb-4">
-                    <div className="col-lg-10">
-                        {/* Back to top */}
-                        <div className="text-center mb-3">
-                            <a
-                                href="#"
-                                onClick={(e) => { e.preventDefault(); scrollToTop(); }}
-                                className="footer-link"
-                                style={{ textDecoration: 'none', fontWeight: '500', fontSize: '0.875rem' }}
-                            >
-                                <i className="bi bi-arrow-up me-1"></i>
-                                {t('footer.backToTop')}
-                            </a>
-                        </div>
-
-                        <div className="text-center">
-                            <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
-                                © {new Date().getFullYear()} Awanda. {t('footer.builtWith')}
-                            </p>
-                        </div>
-                    </div>
-                </footer>
-
-            </div>
-
-            {/* Back to Top Button */}
-            {showBackToTop && (
-                <button
-                    className="back-to-top-btn"
-                    onClick={scrollToTop}
-                    aria-label={t('footer.backToTop')}
-                >
-                    <i className="bi bi-arrow-up"></i>
-                </button>
-            )}
-
-            {/* PWA Install Prompt */}
-            <PWAInstallPrompt darkTheme={darkTheme} />
+      {/* Radial glow background (dark only) */}
+      {darkTheme && (
+        <div className="fixed inset-0 pointer-events-none z-0" aria-hidden="true">
+          <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-violet-600/[0.07] rounded-full blur-[120px]" />
+          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-cyan-500/[0.06] rounded-full blur-[100px]" />
         </div>
-    );
-}
+      )}
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Navigation */}
+        <header>
+          <NavBar darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
+        </header>
+
+        <main id="main-content">
+
+          {/* ── HERO SECTION ── */}
+          <section className="min-h-[90vh] flex items-center pt-8 pb-20">
+            <div className="w-full grid lg:grid-cols-2 gap-12 items-center">
+
+              {/* Profile Image */}
+              <motion.div
+                initial={{ opacity: 0, x: -60 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
+                className="flex justify-center lg:order-1 order-2"
+              >
+                <div className="relative">
+                  {/* Orbit ring */}
+                  <div
+                    className="absolute inset-[-16px] rounded-full opacity-60"
+                    style={{
+                      background: 'conic-gradient(from 0deg, #7c3aed, #6366f1, #06b6d4, #10b981, #7c3aed)',
+                      animation: 'spin-slow 10s linear infinite',
+                      WebkitMask: 'radial-gradient(farthest-side, transparent calc(100% - 3px), white calc(100% - 3px))',
+                      mask: 'radial-gradient(farthest-side, transparent calc(100% - 3px), white calc(100% - 3px))',
+                    }}
+                    aria-hidden="true"
+                  />
+                  {/* Glow */}
+                  <div className="absolute inset-0 rounded-full bg-violet-500/20 blur-2xl scale-110" aria-hidden="true" />
+                  {/* Photo */}
+                  <img
+                    src={picture}
+                    alt="Awanda - Fullstack JavaScript Developer"
+                    fetchpriority="high"
+                    width={380}
+                    height={380}
+                    className={`
+                      relative z-10 rounded-full object-cover
+                      w-[280px] h-[280px] sm:w-[340px] sm:h-[340px] lg:w-[380px] lg:h-[380px]
+                      border-4 transition-transform duration-300 hover:scale-[1.03]
+                      ${darkTheme ? 'border-[#020617]' : 'border-slate-50'}
+                    `}
+                  />
+                  {/* Status badge */}
+                  <div className={`
+                    absolute bottom-4 right-0 flex items-center gap-2 px-3 py-2 rounded-full text-xs font-semibold
+                    border shadow-lg z-20
+                    ${darkTheme ? 'bg-emerald-900/80 border-emerald-700/50 text-emerald-400' : 'bg-emerald-50 border-emerald-200 text-emerald-700'}
+                  `}>
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    Available for work
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Hero Text */}
+              <motion.div
+                initial={{ opacity: 0, x: 60 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.15, ease: 'easeOut' }}
+                className="lg:order-2 order-1"
+              >
+                <p className={`text-sm font-bold tracking-[0.25em] uppercase mb-4 ${darkTheme ? 'text-violet-400' : 'text-violet-600'}`}>
+                  {t('hero.greeting')}
+                </p>
+
+                <h1 className="font-display font-extrabold leading-[1.05] mb-6" style={{
+                  fontSize: 'clamp(3rem, 7vw, 5.5rem)',
+                  background: 'var(--gradient-primary)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}>
+                  Awanda
+                </h1>
+
+                <div className="h-10 mb-6">
+                  <h2 className={`text-xl sm:text-2xl font-semibold inline-block border-r-2 pr-1 ${darkTheme ? 'text-slate-300 border-violet-500' : 'text-slate-600 border-violet-600'}`}
+                    style={{ animation: 'blink 0.75s step-end infinite' }}>
+                    {typedText}
+                  </h2>
+                </div>
+
+                <p className={`text-base sm:text-lg leading-relaxed mb-8 max-w-lg ${darkTheme ? 'text-slate-400' : 'text-slate-600'}`}>
+                  {t('hero.description')}
+                </p>
+
+                <div className="flex flex-wrap gap-4">
+                  <motion.a
+                    href="/files/CV Fullstack Developer - Awanda.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download
+                    whileHover={{ scale: 1.04, y: -2 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-white text-sm tracking-wide transition-all duration-300 shadow-[0_4px_20px_rgba(124,58,237,0.4)] hover:shadow-[0_6px_28px_rgba(124,58,237,0.6)]"
+                    style={{ background: 'var(--gradient-primary)' }}
+                  >
+                    <Download size={18} />
+                    {t('hero.downloadCv')}
+                  </motion.a>
+
+                  <motion.a
+                    href="#contact"
+                    whileHover={{ scale: 1.04, y: -2 }}
+                    whileTap={{ scale: 0.97 }}
+                    className={`
+                      flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-sm tracking-wide
+                      border-2 transition-all duration-300 backdrop-blur-sm
+                      ${darkTheme
+                        ? 'border-violet-500/40 text-violet-400 hover:bg-violet-500/10 hover:border-violet-400'
+                        : 'border-violet-600/30 text-violet-700 hover:bg-violet-50 hover:border-violet-500'
+                      }
+                    `}
+                  >
+                    <Mail size={18} />
+                    {t('hero.getInTouch')}
+                  </motion.a>
+                </div>
+
+                {/* Scroll hint */}
+                <motion.div
+                  className="mt-12 flex items-center gap-2"
+                  animate={{ y: [0, 6, 0] }}
+                  transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+                >
+                  <ChevronDown size={18} className={darkTheme ? 'text-slate-600' : 'text-slate-400'} />
+                  <span className={`text-xs ${darkTheme ? 'text-slate-600' : 'text-slate-400'}`}>Scroll down</span>
+                </motion.div>
+              </motion.div>
+            </div>
+          </section>
+
+          {/* ── DIVIDER ── */}
+          <div className={`w-2/3 max-w-xl mx-auto h-px mb-4 ${darkTheme ? 'bg-gradient-to-r from-transparent via-white/10 to-transparent' : 'bg-gradient-to-r from-transparent via-slate-200 to-transparent'}`} />
+
+          {/* ── PROJECTS SECTION ── */}
+          <section className="py-20">
+            <MyProject darkTheme={darkTheme} />
+          </section>
+
+          {/* ── DIVIDER ── */}
+          <div className={`w-2/3 max-w-xl mx-auto h-px mb-4 ${darkTheme ? 'bg-gradient-to-r from-transparent via-white/10 to-transparent' : 'bg-gradient-to-r from-transparent via-slate-200 to-transparent'}`} />
+
+          {/* ── SKILLS SECTION ── */}
+          <section id="skill" className="py-20">
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <motion.div variants={fadeUp} className="mb-4">
+                <SectionLabel label={t('skills.title')} darkTheme={darkTheme} />
+                <h2 className="font-display font-extrabold text-4xl sm:text-5xl text-gradient mb-4">
+                  Tech Stack
+                </h2>
+                <p className={`text-base sm:text-lg max-w-xl mb-12 ${darkTheme ? 'text-slate-400' : 'text-slate-600'}`}>
+                  {t('skills.description.before')}{' '}
+                  <span className={`font-semibold ${darkTheme ? 'text-violet-400' : 'text-violet-700'}`}>JavaScript</span>
+                  {' '}{t('skills.description.mid')}{' '}
+                  <span className={`font-semibold ${darkTheme ? 'text-cyan-400' : 'text-cyan-700'}`}>React</span>
+                  {' '}{t('skills.description.and')}{' '}
+                  <span className={`font-semibold ${darkTheme ? 'text-emerald-400' : 'text-emerald-700'}`}>Express.js</span>
+                  {' '}{t('skills.description.after')}
+                </p>
+              </motion.div>
+
+              <motion.div
+                variants={stagger}
+                className="flex flex-wrap gap-8 justify-start"
+              >
+                {techs.map((tech) => (
+                  <motion.div key={tech.name} variants={fadeUp}>
+                    <TechLogo {...tech} />
+                  </motion.div>
+                ))}
+              </motion.div>
+            </motion.div>
+          </section>
+
+          {/* ── DIVIDER ── */}
+          <div className={`w-2/3 max-w-xl mx-auto h-px mb-4 ${darkTheme ? 'bg-gradient-to-r from-transparent via-white/10 to-transparent' : 'bg-gradient-to-r from-transparent via-slate-200 to-transparent'}`} />
+
+          {/* ── CONTACT SECTION ── */}
+          <section id="contact" className="py-20">
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <motion.div variants={fadeUp} className="mb-12">
+                <SectionLabel label={t('contact.title')} darkTheme={darkTheme} />
+                <h2 className="font-display font-extrabold text-4xl sm:text-5xl text-gradient mb-4">
+                  {t('contact.title')}
+                </h2>
+                <p className={`text-lg ${darkTheme ? 'text-slate-400' : 'text-slate-600'}`}>
+                  {t('contact.cta')}
+                </p>
+              </motion.div>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+                {/* Email card */}
+                <motion.a
+                  href="mailto:awand795@gmail.com"
+                  variants={fadeUp}
+                  whileHover={{ y: -6, scale: 1.02 }}
+                  className={`flex items-center gap-4 p-5 rounded-2xl border transition-all duration-300 group col-span-full sm:col-span-1 ${darkTheme ? 'bg-white/[0.03] border-white/[0.07] hover:bg-violet-500/10 hover:border-violet-500/30' : 'bg-white border-slate-200 hover:border-violet-300 shadow-sm hover:shadow-md'}`}
+                >
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{ background: 'var(--gradient-primary)' }}>
+                    <Mail size={20} className="text-white" />
+                  </div>
+                  <div>
+                    <p className={`text-xs font-semibold uppercase tracking-widest mb-0.5 ${darkTheme ? 'text-slate-500' : 'text-slate-400'}`}>Email</p>
+                    <p className={`font-semibold text-sm ${darkTheme ? 'text-slate-200 group-hover:text-violet-300' : 'text-slate-800 group-hover:text-violet-700'} transition-colors`}>
+                      awand795@gmail.com
+                    </p>
+                  </div>
+                </motion.a>
+
+                {/* Phone card */}
+                <motion.a
+                  href="tel:+6282362851796"
+                  variants={fadeUp}
+                  whileHover={{ y: -6, scale: 1.02 }}
+                  className={`flex items-center gap-4 p-5 rounded-2xl border transition-all duration-300 group ${darkTheme ? 'bg-white/[0.03] border-white/[0.07] hover:bg-cyan-500/10 hover:border-cyan-500/30' : 'bg-white border-slate-200 hover:border-cyan-300 shadow-sm hover:shadow-md'}`}
+                >
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{ background: 'linear-gradient(135deg, #06b6d4, #10b981)' }}>
+                    <Phone size={20} className="text-white" />
+                  </div>
+                  <div>
+                    <p className={`text-xs font-semibold uppercase tracking-widest mb-0.5 ${darkTheme ? 'text-slate-500' : 'text-slate-400'}`}>Phone</p>
+                    <p className={`font-semibold text-sm ${darkTheme ? 'text-slate-200' : 'text-slate-800'}`}>
+                      +62 823-6285-1796
+                    </p>
+                  </div>
+                </motion.a>
+
+                {/* Location card */}
+                <motion.div
+                  variants={fadeUp}
+                  whileHover={{ y: -6, scale: 1.02 }}
+                  className={`flex items-center gap-4 p-5 rounded-2xl border transition-all duration-300 ${darkTheme ? 'bg-white/[0.03] border-white/[0.07]' : 'bg-white border-slate-200 shadow-sm'}`}
+                >
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{ background: 'linear-gradient(135deg, #f43f5e, #ec4899)' }}>
+                    <MapPin size={20} className="text-white" />
+                  </div>
+                  <div>
+                    <p className={`text-xs font-semibold uppercase tracking-widest mb-0.5 ${darkTheme ? 'text-slate-500' : 'text-slate-400'}`}>Location</p>
+                    <p className={`font-semibold text-sm ${darkTheme ? 'text-slate-200' : 'text-slate-800'}`}>
+                      {t('contact.location')}
+                    </p>
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Social links */}
+              <motion.div variants={fadeUp} className="flex items-center gap-4 flex-wrap">
+                {socials.map((s) => (
+                  <SocialButton key={s.label} {...s} darkTheme={darkTheme} />
+                ))}
+              </motion.div>
+            </motion.div>
+          </section>
+        </main>
+
+        {/* Footer */}
+        <footer className={`py-8 border-t ${darkTheme ? 'border-white/[0.06]' : 'border-slate-200'}`}>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className={`flex items-center gap-2 text-sm font-medium transition-colors ${darkTheme ? 'text-violet-400 hover:text-violet-300' : 'text-violet-600 hover:text-violet-800'}`}
+            >
+              <ArrowUp size={16} />
+              {t('footer.backToTop')}
+            </button>
+            <p className={`text-sm ${darkTheme ? 'text-slate-600' : 'text-slate-400'}`}>
+              © {new Date().getFullYear()} Awanda. {t('footer.builtWith')}
+            </p>
+          </div>
+        </footer>
+      </div>
+
+      {/* Back to Top FAB */}
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            aria-label={t('footer.backToTop')}
+            className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full flex items-center justify-center text-white shadow-[0_4px_20px_rgba(124,58,237,0.4)] hover:shadow-[0_6px_28px_rgba(124,58,237,0.6)] transition-all duration-300"
+            style={{ background: 'var(--gradient-primary)' }}
+          >
+            <ArrowUp size={20} />
+          </motion.button>
+        )}
+      </AnimatePresence>
+
+      <PWAInstallPrompt darkTheme={darkTheme} />
+    </div>
+  );
+};
 
 export default App;
-

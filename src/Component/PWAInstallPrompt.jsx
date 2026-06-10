@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Smartphone, Download, X } from 'lucide-react';
 
 const PWAInstallPrompt = ({ darkTheme }) => {
     const [deferredPrompt, setDeferredPrompt] = useState(null);
@@ -8,18 +10,15 @@ const PWAInstallPrompt = ({ darkTheme }) => {
         const handleBeforeInstallPrompt = (e) => {
             e.preventDefault();
             setDeferredPrompt(e);
-            
-            // Check if user has already dismissed
+
             const dismissed = localStorage.getItem('pwa-install-dismissed');
             const dismissedAt = dismissed ? parseInt(dismissed) : 0;
             const now = Date.now();
-            
-            // Don't show if dismissed in the last 7 days
+
             if (now - dismissedAt < 7 * 24 * 60 * 60 * 1000) {
                 return;
             }
-            
-            // Show prompt after 30 seconds
+
             setTimeout(() => {
                 setShowPrompt(true);
             }, 30000);
@@ -34,10 +33,8 @@ const PWAInstallPrompt = ({ darkTheme }) => {
 
     const handleInstall = async () => {
         if (!deferredPrompt) return;
-
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
-        
         if (outcome === 'accepted') {
             setShowPrompt(false);
             setDeferredPrompt(null);
@@ -49,103 +46,80 @@ const PWAInstallPrompt = ({ darkTheme }) => {
         localStorage.setItem('pwa-install-dismissed', Date.now().toString());
     };
 
-    if (!showPrompt) return null;
-
     return (
-        <div
-            className="pwa-install-prompt"
-            style={{
-                position: 'fixed',
-                bottom: '24px',
-                left: '24px',
-                right: '24px',
-                maxWidth: '400px',
-                zIndex: 1000,
-            }}
-        >
-            <div
-                className="glass-card p-4"
-                style={{
-                    background: darkTheme ? 'rgba(21, 25, 50, 0.95)' : 'rgba(255, 255, 255, 0.95)',
-                    backdropFilter: 'blur(20px)',
-                    borderRadius: '16px',
-                    border: '1px solid rgba(102, 126, 234, 0.3)',
-                    boxShadow: '0 8px 32px rgba(102, 126, 234, 0.2)',
-                }}
-            >
-                <div className="d-flex align-items-start mb-3">
-                    <div
-                        className="me-3"
-                        style={{
-                            width: '48px',
-                            height: '48px',
-                            borderRadius: '12px',
-                            background: 'var(--primary-gradient)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            flexShrink: 0,
-                        }}
-                    >
-                        <i className="bi bi-phone text-white" style={{ fontSize: '1.5rem' }}></i>
+        <AnimatePresence>
+            {showPrompt && (
+                <motion.div
+                    initial={{ opacity: 0, y: 100, scale: 0.9 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 100, scale: 0.9 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                    className="fixed bottom-6 left-6 right-6 max-w-sm z-50 mx-auto sm:mx-0"
+                >
+                    <div className={`
+                        p-5 rounded-2xl border shadow-2xl backdrop-blur-xl
+                        ${darkTheme
+                            ? 'bg-[#0f172a]/95 border-violet-500/30 shadow-violet-500/10'
+                            : 'bg-white/95 border-violet-200 shadow-lg'
+                        }
+                    `}>
+                        <div className="flex items-start gap-4 mb-4">
+                            <div
+                                className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                                style={{ background: 'var(--gradient-primary)' }}
+                            >
+                                <Smartphone size={22} className="text-white" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                                <h5 className={`font-bold text-base mb-1 ${darkTheme ? 'text-white' : 'text-slate-900'}`}>
+                                    Install App
+                                </h5>
+                                <p className={`text-sm leading-relaxed ${darkTheme ? 'text-slate-400' : 'text-slate-500'}`}>
+                                    Install this app on your device for quick access and better experience
+                                </p>
+                            </div>
+                            <button
+                                onClick={handleDismiss}
+                                aria-label="Dismiss install prompt"
+                                className={`
+                                    p-1.5 rounded-lg transition-colors flex-shrink-0
+                                    ${darkTheme ? 'text-slate-500 hover:bg-white/10' : 'text-slate-400 hover:bg-slate-100'}
+                                `}
+                            >
+                                <X size={18} />
+                            </button>
+                        </div>
+                        <div className="flex gap-3">
+                            <motion.button
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.97 }}
+                                onClick={handleInstall}
+                                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-white text-sm transition-all duration-300 shadow-[0_4px_16px_rgba(124,58,237,0.35)] hover:shadow-[0_6px_24px_rgba(124,58,237,0.5)]"
+                                style={{ background: 'var(--gradient-primary)' }}
+                            >
+                                <Download size={16} />
+                                Install
+                            </motion.button>
+                            <motion.button
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.97 }}
+                                onClick={handleDismiss}
+                                className={`
+                                    flex-1 px-4 py-2.5 rounded-xl font-semibold text-sm border-2 transition-all duration-300
+                                    ${darkTheme
+                                        ? 'border-violet-500/40 text-violet-400 hover:bg-violet-500/10'
+                                        : 'border-violet-500/30 text-violet-700 hover:bg-violet-50'
+                                    }
+                                `}
+                            >
+                                Later
+                            </motion.button>
+                        </div>
                     </div>
-                    <div className="flex-grow-1">
-                        <h5 className="fw-bold mb-1" style={{ color: darkTheme ? '#fff' : '#0f172a' }}>
-                            Install App
-                        </h5>
-                        <p className="mb-0" style={{ 
-                            color: darkTheme ? 'var(--text-secondary)' : '#475569',
-                            fontSize: '0.875rem',
-                            lineHeight: '1.5'
-                        }}>
-                            Install this app on your device for quick access and better experience
-                        </p>
-                    </div>
-                    <button
-                        onClick={handleDismiss}
-                        className="btn btn-link p-0 ms-2"
-                        aria-label="Dismiss install prompt"
-                        style={{ 
-                            color: darkTheme ? 'var(--text-muted)' : '#64748b',
-                            border: 'none',
-                            background: 'none',
-                            cursor: 'pointer',
-                        }}
-                    >
-                        <i className="bi bi-x-lg" style={{ fontSize: '1.25rem' }}></i>
-                    </button>
-                    </div>
-                    <div className="d-flex gap-2">
-                    <button
-                        className="btn btn-modern btn-gradient flex-grow-1"
-                        onClick={handleInstall}
-                        style={{
-                            padding: '10px 20px',
-                            fontSize: '0.875rem',
-                            fontWeight: '600',
-                            color: '#fff'
-                        }}
-                    >
-                        <i className="bi bi-download me-2"></i>
-                        Install
-                    </button>
-                    <button
-                        className="btn btn-outline-modern flex-grow-1"
-                        onClick={handleDismiss}
-                        style={{
-                            padding: '10px 20px',
-                            fontSize: '0.875rem',
-                            fontWeight: '600',
-                            color: darkTheme ? 'var(--brand-indigo)' : 'var(--brand-indigo-dark)',
-                            borderColor: darkTheme ? 'var(--brand-indigo)' : 'var(--brand-indigo-dark)'
-                        }}
-                    >
-                        Later
-                    </button>
-                    </div>            </div>
-        </div>
+                </motion.div>
+            )}
+        </AnimatePresence>
     );
 };
 
 export default PWAInstallPrompt;
-
