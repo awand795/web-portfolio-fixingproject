@@ -429,7 +429,7 @@ const App = () => {
                   className={`flex items-center gap-4 p-5 rounded-2xl border transition-all duration-300 group ${darkTheme ? 'bg-white/[0.03] border-white/[0.07] hover:bg-cyan-500/10 hover:border-cyan-500/30' : 'bg-white border-slate-200 hover:border-cyan-300 shadow-sm hover:shadow-md'}`}
                 >
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: 'linear-gradient(135deg, #06b6d4, #10b981)' }}>
+                    style={{ background: 'var(--gradient-accent)' }}>
                     <Phone size={20} className="text-white" />
                   </div>
                   <div>
@@ -447,7 +447,7 @@ const App = () => {
                   className={`flex items-center gap-4 p-5 rounded-2xl border transition-all duration-300 ${darkTheme ? 'bg-white/[0.03] border-white/[0.07]' : 'bg-white border-slate-200 shadow-sm'}`}
                 >
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: 'linear-gradient(135deg, #f43f5e, #ec4899)' }}>
+                    style={{ background: 'var(--gradient-secondary)' }}>
                     <MapPin size={20} className="text-white" />
                   </div>
                   <div>
