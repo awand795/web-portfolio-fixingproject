@@ -30,10 +30,10 @@ const id: Record<string, string> = {
 
     // Skills
     'skills.title': 'Keahlian & Kompetensi',
-    'skills.description.before': 'Saya berspesialisasi dalam pengembangan web modern dengan',
+    'skills.description.before': 'Saya garap web dan mobile dengan',
     'skills.description.mid': 'menggunakan framework seperti',
     'skills.description.and': 'dan',
-    'skills.description.after': 'untuk membangun pengalaman digital yang luar biasa.',
+    'skills.description.after': 'buat bikin sesuatu yang beneran kepake.',
 
     // Contact
     'contact.title': 'Mari Terhubung',

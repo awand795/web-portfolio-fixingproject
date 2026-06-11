@@ -2,11 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import picture from './image/imgprofile.webp';
 import reactLogo from './image/reactLogo.webp';
-import js from './image/js.webp';
-import mongoDbLogo from './image/mongoDbLogo.webp';
-import dockerLogo from './image/dockerLogo.webp';
-import nodeJSLogo from './image/nodeJsLogo.webp';
 import expressJs from './image/expressjs.webp';
+import dockerLogo from './image/dockerLogo.webp';
+import laravelLogo from './image/laravel.svg';
+import springBootLogo from './image/springboot.svg';
+import flutterLogo from './image/flutter.svg';
+import mysqlLogo from './image/mysql.svg';
+import postgreSqlLogo from './image/postgresql.svg';
+import gitLogo from './image/git.svg';
 import MyProject from './Component/MyProject';
 import NavBar from './Component/NavBar';
 import PWAInstallPrompt from './Component/PWAInstallPrompt';
@@ -141,12 +144,15 @@ const App = () => {
   }, [fullText]);
 
   const techs: Tech[] = [
-    { img: reactLogo, name: 'React', url: 'https://reactjs.org' },
-    { img: js, name: 'JavaScript', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
-    { img: mongoDbLogo, name: 'MongoDB', url: 'https://www.mongodb.com' },
-    { img: nodeJSLogo, name: 'Node.js', url: 'https://nodejs.org' },
-    { img: dockerLogo, name: 'Docker', url: 'https://www.docker.com' },
+    { img: reactLogo, name: 'React', url: 'https://react.dev' },
     { img: expressJs, name: 'Express.js', url: 'https://expressjs.com' },
+    { img: laravelLogo, name: 'Laravel', url: 'https://laravel.com' },
+    { img: springBootLogo, name: 'Spring Boot', url: 'https://spring.io' },
+    { img: flutterLogo, name: 'Flutter', url: 'https://flutter.dev' },
+    { img: mysqlLogo, name: 'MySQL', url: 'https://www.mysql.com' },
+    { img: postgreSqlLogo, name: 'PostgreSQL', url: 'https://www.postgresql.org' },
+    { img: dockerLogo, name: 'Docker', url: 'https://www.docker.com' },
+    { img: gitLogo, name: 'Git', url: 'https://git-scm.com' },
   ];
 
   const socials: Social[] = [
@@ -351,11 +357,11 @@ const App = () => {
                 </h2>
                 <p className={`text-base sm:text-lg max-w-xl mb-12 ${darkTheme ? 'text-slate-400' : 'text-slate-600'}`}>
                   {t('skills.description.before')}{' '}
-                  <span className={`font-semibold ${darkTheme ? 'text-violet-400' : 'text-violet-700'}`}>JavaScript</span>
+                  <span className={`font-semibold ${darkTheme ? 'text-violet-400' : 'text-violet-700'}`}>Web & Mobile</span>
                   {' '}{t('skills.description.mid')}{' '}
                   <span className={`font-semibold ${darkTheme ? 'text-cyan-400' : 'text-cyan-700'}`}>React</span>
                   {' '}{t('skills.description.and')}{' '}
-                  <span className={`font-semibold ${darkTheme ? 'text-emerald-400' : 'text-emerald-700'}`}>Express.js</span>
+                  <span className={`font-semibold ${darkTheme ? 'text-emerald-400' : 'text-emerald-700'}`}>Flutter</span>
                   {' '}{t('skills.description.after')}
                 </p>
               </motion.div>
