@@ -9,7 +9,7 @@ const en: Record<string, string> = {
     // Hero
     'hero.greeting': "Hi, I'm",
     'hero.title': 'Fullstack JavaScript Developer',
-    'hero.description': "Fullstack developer based in Medan with 2+ years building production web apps. I work across the full stack — REST APIs, database architecture, and responsive frontends — with a focus on clean code and shipping things that actually hold up.",
+    'hero.description': "I code stuff. Web apps, Android apps — fullstack. I enjoy building things from the ground up, from the database to the UI. Simple as that.",
     'hero.downloadCv': 'Download CV',
     'hero.getInTouch': 'Get in Touch',
 
