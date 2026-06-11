@@ -264,14 +264,17 @@ const App = () => {
                   ${darkTheme ? 'border-white/[0.06]' : 'border-slate-200'}
                 `}>
                   {[
-                    'Web + Mobile',
-                    'Clean Code',
-                    'Coffee',
+                    { num: 'Web + Mobile', label: 'Fullstack' },
+                    { num: 'Clean Code', label: 'Architecture' },
+                    { num: 'Coffee', label: 'Fuel' },
                   ].map((stat) => (
-                    <div key={stat}>
-                      <p className={`font-display font-extrabold text-xl leading-none
+                    <div key={stat.label}>
+                      <p className={`font-display font-extrabold text-2xl leading-none mb-1
                         ${darkTheme ? 'text-slate-100' : 'text-slate-900'}`}>
-                        {stat}
+                        {stat.num}
+                      </p>
+                      <p className={`text-xs ${darkTheme ? 'text-slate-500' : 'text-slate-600'}`}>
+                        {stat.label}
                       </p>
                     </div>
                   ))}
