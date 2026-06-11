@@ -188,22 +188,6 @@ const App = () => {
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 className="order-2 lg:order-1"
               >
-                {/* Availability badge — pengganti "HELLO I'M" */}
-                <div className={`
-                  inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full
-                  text-xs font-semibold tracking-wide mb-8 border
-                  ${darkTheme
-                    ? 'bg-emerald-500/[0.08] border-emerald-500/[0.18] text-emerald-400'
-                    : 'bg-emerald-50 border-emerald-200/80 text-emerald-700'
-                  }
-                `}>
-                  <span
-                    className="w-1.5 h-1.5 rounded-full bg-emerald-400"
-                    style={{ animation: 'pulse-dot 2.5s ease-in-out infinite' }}
-                  />
-                  Available for new projects
-                </div>
-
                 {/* Nama sebagai headline utama */}
                 <h1
                   className="font-display font-extrabold leading-[0.95] tracking-tight mb-5"
@@ -280,17 +264,14 @@ const App = () => {
                   ${darkTheme ? 'border-white/[0.06]' : 'border-slate-200'}
                 `}>
                   {[
-                    { num: '2+', label: 'Years experience' },
-                    { num: '6+', label: 'Projects shipped' },
-                    { num: 'Available', label: 'For hire' },
+                    'Web + Mobile',
+                    'Clean Code',
+                    'Coffee',
                   ].map((stat) => (
-                    <div key={stat.label}>
-                      <p className={`font-display font-extrabold text-2xl leading-none mb-1
+                    <div key={stat}>
+                      <p className={`font-display font-extrabold text-xl leading-none
                         ${darkTheme ? 'text-slate-100' : 'text-slate-900'}`}>
-                        {stat.num}
-                      </p>
-                      <p className={`text-xs ${darkTheme ? 'text-slate-500' : 'text-slate-600'}`}>
-                        {stat.label}
+                        {stat}
                       </p>
                     </div>
                   ))}
@@ -333,21 +314,7 @@ const App = () => {
                     `}
                   />
 
-                  <div className={`
-                    absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap
-                    flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold
-                    border shadow-lg z-20
-                    ${darkTheme
-                      ? 'bg-[#050a14] border-white/10 text-emerald-400'
-                      : 'bg-white border-slate-200 text-emerald-700 shadow-slate-200/60'
-                    }
-                  `}>
-                    <span
-                      className="w-1.5 h-1.5 rounded-full bg-emerald-400"
-                      style={{ animation: 'pulse-dot 2.5s ease-in-out infinite' }}
-                    />
-                    Available for work
-                  </div>
+
                 </div>
               </motion.div>
             </div>
