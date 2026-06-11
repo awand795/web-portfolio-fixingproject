@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { ArrowLeft } from 'lucide-react';
@@ -7,7 +8,23 @@ import { motion } from 'framer-motion';
 const NotFound = () => {
     const { darkTheme } = useTheme();
 
+    const siteUrl = 'https://awanda.eu.org';
+
     return (
+        <>
+        <Helmet>
+            <title>404 — Page Not Found | Awanda</title>
+            <meta property="og:title" content="404 — Page Not Found | Awanda" />
+            <meta property="og:description" content="The page you're looking for doesn't exist." />
+            <meta property="og:url" content={`${siteUrl}${window.location.pathname}`} />
+            <meta property="og:image" content={`${siteUrl}/awanda-profile.jpg`} />
+            <meta property="og:image:secure_url" content={`${siteUrl}/awanda-profile.jpg`} />
+            <meta property="og:image:width" content="300" />
+            <meta property="og:image:height" content="400" />
+            <meta property="og:image:type" content="image/jpeg" />
+            <meta property="og:type" content="website" />
+            <meta name="robots" content="noindex" />
+        </Helmet>
         <div
             className={`min-h-screen flex items-center justify-center flex-col text-center p-8 transition-colors duration-300 ${
                 darkTheme ? 'bg-[#020617] text-slate-100' : 'bg-slate-50 text-slate-900'
@@ -51,6 +68,7 @@ const NotFound = () => {
                 </Link>
             </motion.div>
         </div>
+        </>
     );
 };
 

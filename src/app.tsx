@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import picture from './image/imgprofile.webp';
 import MyProject from './Component/MyProject';
@@ -110,8 +111,6 @@ const App = () => {
   const typingRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
-    document.title = 'Awanda — Fullstack JavaScript Developer';
-
     const handleScroll = () => setShowBackToTop(window.scrollY > 300);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -161,8 +160,30 @@ const App = () => {
 
   const bg = darkTheme ? 'bg-[#050a14] text-slate-100' : 'bg-white text-slate-900';
 
+  const siteUrl = 'https://awanda.eu.org';
+
   return (
-    <div className={`${bg} min-h-screen transition-colors duration-300 relative overflow-x-hidden`}>
+    <>
+      <Helmet>
+        <title>Awanda — Fullstack JavaScript Developer</title>
+        <meta property="og:title" content="Awanda — Fullstack JavaScript Developer" />
+        <meta property="og:description" content="Fullstack developer building web and mobile apps. I code stuff." />
+        <meta property="og:url" content={siteUrl} />
+        <meta property="og:image" content={`${siteUrl}/awanda-profile.jpg`} />
+        <meta property="og:image:secure_url" content={`${siteUrl}/awanda-profile.jpg`} />
+        <meta property="og:image:width" content="300" />
+        <meta property="og:image:height" content="400" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:site_name" content="Awanda Portfolio" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Awanda — Fullstack JavaScript Developer" />
+        <meta name="twitter:description" content="Fullstack developer building web and mobile apps." />
+        <meta name="twitter:image" content={`${siteUrl}/awanda-profile.jpg`} />
+        <link rel="canonical" href={siteUrl} />
+      </Helmet>
+      <div className={`${bg} min-h-screen transition-colors duration-300 relative overflow-x-hidden`}>
       <a className="skip-link" href="#main-content">Skip to main content</a>
       <BackgroundCanvas darkTheme={darkTheme} />
 
@@ -493,6 +514,7 @@ const App = () => {
 
       <PWAInstallPrompt darkTheme={darkTheme} />
     </div>
+    </>
   );
 };
 

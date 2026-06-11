@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Globe, Mail, ArrowUpRight } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
@@ -117,12 +118,30 @@ const Socmed = () => {
   const { darkTheme, setDarkTheme } = useTheme();
   const currentYear = new Date().getFullYear();
 
-  React.useEffect(() => {
-    document.title = 'Awanda — Social Links';
-  }, []);
+  const siteUrl = 'https://awanda.eu.org';
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${darkTheme ? 'bg-[#050a14] text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
+    <>
+      <Helmet>
+        <title>Awanda — Social Links</title>
+        <meta property="og:title" content="Awanda — Social Links" />
+        <meta property="og:description" content="Connect with me on GitHub, LinkedIn, Instagram, Facebook, and more." />
+        <meta property="og:url" content={`${siteUrl}/socmed`} />
+        <meta property="og:image" content={`${siteUrl}/awanda-profile.jpg`} />
+        <meta property="og:image:secure_url" content={`${siteUrl}/awanda-profile.jpg`} />
+        <meta property="og:image:width" content="300" />
+        <meta property="og:image:height" content="400" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:type" content="profile" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:site_name" content="Awanda Portfolio" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Awanda — Social Links" />
+        <meta name="twitter:description" content="Connect with me on GitHub, LinkedIn, Instagram, Facebook, and more." />
+        <meta name="twitter:image" content={`${siteUrl}/awanda-profile.jpg`} />
+        <link rel="canonical" href={`${siteUrl}/socmed`} />
+      </Helmet>
+      <div className={`min-h-screen transition-colors duration-300 ${darkTheme ? 'bg-[#050a14] text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
       <header className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-50">
         <NavBar darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
       </header>
@@ -238,6 +257,7 @@ const Socmed = () => {
         </div>
       </main>
     </div>
+    </>
   );
 };
 
