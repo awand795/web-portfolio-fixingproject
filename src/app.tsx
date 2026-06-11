@@ -1,15 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import picture from './image/imgprofile.webp';
-import reactLogo from './image/reactLogo.webp';
-import expressJs from './image/expressjs.webp';
-import dockerLogo from './image/dockerLogo.webp';
-import laravelLogo from './image/laravel.svg';
-import springBootLogo from './image/springboot.svg';
-import flutterLogo from './image/flutter.svg';
-import mysqlLogo from './image/mysql.svg';
-import postgreSqlLogo from './image/postgresql.svg';
-import gitLogo from './image/git.svg';
 import MyProject from './Component/MyProject';
 import NavBar from './Component/NavBar';
 import PWAInstallPrompt from './Component/PWAInstallPrompt';
@@ -144,15 +135,15 @@ const App = () => {
   }, [fullText]);
 
   const techs: Tech[] = [
-    { img: reactLogo, name: 'React', url: 'https://react.dev' },
-    { img: expressJs, name: 'Express.js', url: 'https://expressjs.com' },
-    { img: laravelLogo, name: 'Laravel', url: 'https://laravel.com' },
-    { img: springBootLogo, name: 'Spring Boot', url: 'https://spring.io' },
-    { img: flutterLogo, name: 'Flutter', url: 'https://flutter.dev' },
-    { img: mysqlLogo, name: 'MySQL', url: 'https://www.mysql.com' },
-    { img: postgreSqlLogo, name: 'PostgreSQL', url: 'https://www.postgresql.org' },
-    { img: dockerLogo, name: 'Docker', url: 'https://www.docker.com' },
-    { img: gitLogo, name: 'Git', url: 'https://git-scm.com' },
+    { img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', name: 'React', url: 'https://react.dev' },
+    { img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg', name: 'Express.js', url: 'https://expressjs.com' },
+    { img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg', name: 'Laravel', url: 'https://laravel.com' },
+    { img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg', name: 'Spring Boot', url: 'https://spring.io' },
+    { img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg', name: 'Flutter', url: 'https://flutter.dev' },
+    { img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg', name: 'MySQL', url: 'https://www.mysql.com' },
+    { img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg', name: 'PostgreSQL', url: 'https://www.postgresql.org' },
+    { img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg', name: 'Docker', url: 'https://www.docker.com' },
+    { img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg', name: 'Git', url: 'https://git-scm.com' },
   ];
 
   const socials: Social[] = [
