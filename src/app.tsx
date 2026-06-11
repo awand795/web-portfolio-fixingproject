@@ -186,7 +186,7 @@ const App = () => {
                 initial={{ opacity: 0, y: 32 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="order-1"
+                className="order-2 lg:order-1"
               >
                 {/* Availability badge — pengganti "HELLO I'M" */}
                 <div className={`
@@ -302,7 +302,7 @@ const App = () => {
                 initial={{ opacity: 0, scale: 0.92 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-                className="flex justify-center order-2"
+                className="flex justify-center order-1 lg:order-2"
               >
                 <div className="relative">
                   <div className={`
