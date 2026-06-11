@@ -282,7 +282,7 @@ const App = () => {
                   {[
                     { num: '2+', label: 'Years experience' },
                     { num: '6+', label: 'Projects shipped' },
-                    { num: 'MERN', label: 'Core stack' },
+                    { num: 'Available', label: 'For hire' },
                   ].map((stat) => (
                     <div key={stat.label}>
                       <p className={`font-display font-extrabold text-2xl leading-none mb-1
