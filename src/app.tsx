@@ -165,9 +165,9 @@ const App = () => {
   return (
     <>
       <Helmet>
-        <title>Awanda — Fullstack JavaScript Developer</title>
-        <meta property="og:title" content="Awanda — Fullstack JavaScript Developer" />
-        <meta property="og:description" content="Fullstack developer building web and mobile apps. I code stuff." />
+        <title>Awanda — Software Developer</title>
+        <meta property="og:title" content="Awanda — Software Developer" />
+        <meta property="og:description" content="I code stuff. Web apps, Android apps — fullstack. I enjoy building things from the ground up, from the database to the UI. Simple as that." />
         <meta property="og:url" content={siteUrl} />
         <meta property="og:image" content={`${siteUrl}/awanda-profile.jpg`} />
         <meta property="og:image:secure_url" content={`${siteUrl}/awanda-profile.jpg`} />
@@ -178,8 +178,8 @@ const App = () => {
         <meta property="og:locale" content="en_US" />
         <meta property="og:site_name" content="Awanda Portfolio" />
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="Awanda — Fullstack JavaScript Developer" />
-        <meta name="twitter:description" content="Fullstack developer building web and mobile apps." />
+        <meta name="twitter:title" content="Awanda — Software Developer" />
+        <meta name="twitter:description" content="I code stuff. Web apps, Android apps — fullstack. I enjoy building things from the ground up, from the database to the UI. Simple as that." />
         <meta name="twitter:image" content={`${siteUrl}/awanda-profile.jpg`} />
         <link rel="canonical" href={siteUrl} />
       </Helmet>
@@ -323,7 +323,7 @@ const App = () => {
 
                   <img
                     src={picture}
-                    alt="Awanda — Fullstack JavaScript Developer"
+                    alt="Awanda — Software Developer"
                     fetchPriority="high"
                     width={400}
                     height={400}

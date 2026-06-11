@@ -13,9 +13,9 @@ export default defineConfig({
       injectRegister: 'inline',
       includeAssets: ['favicon.svg', 'og-image.svg'],
       manifest: {
-        name: 'Awanda - Fullstack JavaScript Developer',
+        name: 'Awanda - Software Developer',
         short_name: 'Awanda Portfolio',
-        description: 'Fullstack JavaScript Developer specializing in MERN Stack web development',
+        description: 'I code stuff. Web apps, Android apps — fullstack. Simple as that.',
         theme_color: '#7c3aed',
         background_color: '#020617',
         display: 'standalone',

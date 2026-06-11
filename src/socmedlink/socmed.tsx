@@ -206,7 +206,7 @@ const Socmed = () => {
             >
               <h1 className="font-display font-extrabold text-xl mb-1">Awanda</h1>
               <p className={`text-xs font-semibold ${darkTheme ? 'text-violet-400' : 'text-violet-600'}`}>
-                Fullstack JavaScript Developer
+                Software Developer
               </p>
             </motion.div>
 

@@ -8,7 +8,7 @@ const en: Record<string, string> = {
 
     // Hero
     'hero.greeting': "Hi, I'm",
-    'hero.title': 'Fullstack JavaScript Developer',
+    'hero.title': 'Software Developer',
     'hero.description': "I code stuff. Web apps, Android apps — fullstack. I enjoy building things from the ground up, from the database to the UI. Simple as that.",
     'hero.downloadCv': 'Download CV',
     'hero.getInTouch': 'Get in Touch',
@@ -50,7 +50,7 @@ const en: Record<string, string> = {
     'contact.location': 'Medan, Sumatera Utara, Indonesia',
 
     // Social page
-    'social.title': 'Fullstack JavaScript Developer & UI/UX Designer',
+    'social.title': 'Software Developer & UI/UX Designer',
     'social.copyright': 'Copyright',
     'social.madeWith': 'Made With ❤️ By Awanda',
     'social.backToHome': 'Back to Home',
