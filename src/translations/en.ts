@@ -30,10 +30,10 @@ const en: Record<string, string> = {
 
     // Skills
     'skills.title': 'Skills & Expertise',
-    'skills.description.before': 'I work across web and mobile with',
-    'skills.description.mid': 'using frameworks like',
-    'skills.description.and': 'and',
-    'skills.description.after': 'to build stuff that actually works.',
+    'skills.description.before': 'I build across',
+    'skills.description.mid': '— from',
+    'skills.description.and': 'to',
+    'skills.description.after': 'and everything in between. Backend APIs, databases, mobile UIs — I handle the full stack.',
 
     // Contact
     'contact.title': "Let's Connect",
