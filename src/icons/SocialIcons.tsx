@@ -1,6 +1,11 @@
 import React from 'react';
 
-export const Github = ({ size = 24, className = '' }) => (
+interface IconProps {
+  size?: number;
+  className?: string;
+}
+
+export const Github = ({ size = 24, className = '' }: IconProps) => (
   <svg
     width={size}
     height={size}
@@ -18,7 +23,7 @@ export const Github = ({ size = 24, className = '' }) => (
   </svg>
 );
 
-export const Linkedin = ({ size = 24, className = '' }) => (
+export const Linkedin = ({ size = 24, className = '' }: IconProps) => (
   <svg
     width={size}
     height={size}
@@ -37,7 +42,7 @@ export const Linkedin = ({ size = 24, className = '' }) => (
   </svg>
 );
 
-export const Facebook = ({ size = 24, className = '' }) => (
+export const Facebook = ({ size = 24, className = '' }: IconProps) => (
   <svg
     width={size}
     height={size}
@@ -54,7 +59,7 @@ export const Facebook = ({ size = 24, className = '' }) => (
   </svg>
 );
 
-export const Instagram = ({ size = 24, className = '' }) => (
+export const Instagram = ({ size = 24, className = '' }: IconProps) => (
   <svg
     width={size}
     height={size}

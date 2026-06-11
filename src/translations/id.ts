@@ -1,4 +1,4 @@
-const id = {
+const id: Record<string, string> = {
     // Nav
     'nav.home': 'Beranda',
     'nav.projects': 'Proyek',

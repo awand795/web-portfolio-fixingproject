@@ -17,7 +17,37 @@ import {
 } from 'lucide-react';
 import { Github, Linkedin, Facebook, Instagram } from './icons/SocialIcons';
 
-const TechLogo = ({ img, name, url, darkTheme }) => (
+interface Tech {
+  img: string;
+  name: string;
+  url: string;
+}
+
+interface Social {
+  href: string;
+  label: string;
+  icon: React.ComponentType<{ size?: number }>;
+}
+
+interface TechLogoProps {
+  img: string;
+  name: string;
+  url: string;
+  darkTheme: boolean;
+}
+
+interface BackgroundCanvasProps {
+  darkTheme: boolean;
+}
+
+interface SocialButtonProps {
+  href: string;
+  label: string;
+  icon: React.ComponentType<{ size?: number }>;
+  darkTheme: boolean;
+}
+
+const TechLogo = ({ img, name, url, darkTheme }: TechLogoProps) => (
   <motion.a
     href={url}
     target="_blank"
@@ -43,11 +73,10 @@ const TechLogo = ({ img, name, url, darkTheme }) => (
   </motion.a>
 );
 
-const BackgroundCanvas = ({ darkTheme }) => {
+const BackgroundCanvas = ({ darkTheme }: BackgroundCanvasProps) => {
   if (!darkTheme) return null;
   return (
     <div className="fixed inset-0 pointer-events-none z-0" aria-hidden="true">
-      {/* Dua glow sangat redup di pojok — bukan tengah layar */}
       <div className="absolute top-[-200px] right-[-100px] w-[600px] h-[600px]
         rounded-full bg-violet-600/[0.04] blur-[160px]" />
       <div className="absolute bottom-[-100px] left-[-200px] w-[500px] h-[500px]
@@ -56,7 +85,7 @@ const BackgroundCanvas = ({ darkTheme }) => {
   );
 };
 
-const SocialButton = ({ href, label, icon: Icon, darkTheme }) => (
+const SocialButton = ({ href, label, icon: Icon, darkTheme }: SocialButtonProps) => (
   <motion.a
     href={href}
     target="_blank"
@@ -84,7 +113,7 @@ const App = () => {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [typedText, setTypedText] = useState('');
   const fullText = t('hero.title');
-  const typingRef = useRef(null);
+  const typingRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     document.title = 'Awanda — Fullstack JavaScript Developer';
@@ -94,23 +123,24 @@ const App = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Typing animation
   useEffect(() => {
     setTypedText('');
     let i = 0;
-    clearInterval(typingRef.current);
+    if (typingRef.current) clearInterval(typingRef.current);
     typingRef.current = setInterval(() => {
       if (i < fullText.length) {
         setTypedText(fullText.slice(0, i + 1));
         i++;
       } else {
-        clearInterval(typingRef.current);
+        if (typingRef.current) clearInterval(typingRef.current);
       }
     }, 55);
-    return () => clearInterval(typingRef.current);
+    return () => {
+      if (typingRef.current) clearInterval(typingRef.current);
+    };
   }, [fullText]);
 
-  const techs = [
+  const techs: Tech[] = [
     { img: reactLogo, name: 'React', url: 'https://reactjs.org' },
     { img: js, name: 'JavaScript', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
     { img: mongoDbLogo, name: 'MongoDB', url: 'https://www.mongodb.com' },
@@ -119,7 +149,7 @@ const App = () => {
     { img: expressJs, name: 'Express.js', url: 'https://expressjs.com' },
   ];
 
-  const socials = [
+  const socials: Social[] = [
     { href: 'https://github.com/awand795', label: 'GitHub', icon: Github },
     { href: 'https://linkedin.com/in/awanda', label: 'LinkedIn', icon: Linkedin },
     { href: 'https://facebook.com/awandd6', label: 'Facebook', icon: Facebook },
@@ -139,7 +169,6 @@ const App = () => {
       <a className="skip-link" href="#main-content">Skip to main content</a>
       <BackgroundCanvas darkTheme={darkTheme} />
 
-      {/* Header di luar relative container supaya sticky bekerja */}
       <header className="relative z-50 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <NavBar darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
       </header>
@@ -276,7 +305,6 @@ const App = () => {
                 className="flex justify-center order-2"
               >
                 <div className="relative">
-                  {/* Ring luar — gradient statis, tidak berputar */}
                   <div className={`
                     absolute inset-[-3px] rounded-full
                     ${darkTheme
@@ -285,14 +313,12 @@ const App = () => {
                     }
                   `} aria-hidden="true" />
 
-                  {/* Glow di belakang foto */}
                   <div
                     className="absolute inset-0 rounded-full blur-2xl scale-90 -z-10"
                     style={{ background: 'rgba(124,58,237,0.12)' }}
                     aria-hidden="true"
                   />
 
-                  {/* Foto */}
                   <img
                     src={picture}
                     alt="Awanda — Fullstack JavaScript Developer"
@@ -307,7 +333,6 @@ const App = () => {
                     `}
                   />
 
-                  {/* Status badge di bawah foto */}
                   <div className={`
                     absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap
                     flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold
@@ -402,7 +427,6 @@ const App = () => {
               </motion.div>
 
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-                {/* Email card */}
                 <motion.a
                   href="mailto:awand795@gmail.com"
                   variants={fadeUp}
@@ -421,7 +445,6 @@ const App = () => {
                   </div>
                 </motion.a>
 
-                {/* Phone card */}
                 <motion.a
                   href="tel:+6282362851796"
                   variants={fadeUp}
@@ -440,7 +463,6 @@ const App = () => {
                   </div>
                 </motion.a>
 
-                {/* Location card */}
                 <motion.div
                   variants={fadeUp}
                   whileHover={{ y: -6, scale: 1.02 }}
@@ -459,7 +481,6 @@ const App = () => {
                 </motion.div>
               </div>
 
-              {/* Social links */}
               <motion.div variants={fadeUp} className="flex items-center gap-4 flex-wrap">
                 {socials.map((s) => (
                   <SocialButton key={s.label} {...s} darkTheme={darkTheme} />
@@ -469,7 +490,6 @@ const App = () => {
           </section>
         </main>
 
-        {/* Footer */}
         <footer className={`py-8 border-t ${darkTheme ? 'border-white/[0.06]' : 'border-slate-200'}`}>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <button
@@ -486,7 +506,6 @@ const App = () => {
         </footer>
       </div>
 
-      {/* Back to Top FAB */}
       <AnimatePresence>
         {showBackToTop && (
           <motion.button

@@ -1,7 +1,11 @@
 import React from 'react';
 
-const LoadingSpinner = ({ darkTheme }) => (
-  <div className={`flex items-center justify-center min-h-screen ${darkTheme !== false ? 'bg-[#020617]' : 'bg-slate-50'}`}>
+interface LoadingSpinnerProps {
+  darkTheme?: boolean;
+}
+
+const LoadingSpinner = ({ darkTheme = true }: LoadingSpinnerProps) => (
+  <div className={`flex items-center justify-center min-h-screen ${darkTheme ? 'bg-[#020617]' : 'bg-slate-50'}`}>
     <div className="relative w-14 h-14">
       <div
         className="absolute inset-0 rounded-full border-4 border-transparent animate-spin"

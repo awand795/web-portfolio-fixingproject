@@ -4,27 +4,38 @@ import { ArrowUpRight, Play, Image as ImageIcon } from 'lucide-react';
 import { Github } from '../icons/SocialIcons';
 import { useLanguage } from '../context/LanguageContext';
 
-/*
-  ─────────────────────────────────────────────────────
-  DATA PROJECTS
-  Tambahkan field `media` untuk setiap project:
+interface Media {
+  type: 'image' | 'video';
+  src: string;
+  poster?: string;
+}
 
-  media: {
-    type: 'image',           // 'image' | 'video' | null
-    src: '/previews/absensi.png',  // path dari folder /public/previews/
-    poster: '/previews/pos.jpg',   // (opsional, untuk video: thumbnail sebelum play)
-  }
+interface Project {
+  id: number;
+  title: string;
+  githubUrl: string;
+  tags: string[];
+  accent: string;
+  accentLight: string;
+  media: Media | null;
+}
 
-  Untuk menambahkan file media:
-  1. Buat folder: /public/previews/
-  2. Masukkan file gambar/video ke sana (jpg, png, webp, mp4)
-  3. Referensikan dengan path: '/previews/nama-file.ext'
+interface CardMediaProps {
+  project: Project;
+  darkTheme: boolean;
+}
 
-  Jika `media: null` atau field tidak ada, card akan tampil dengan
-  placeholder gradien + nomor proyek.
-  ─────────────────────────────────────────────────────
-*/
-const projects = [
+interface ProjectCardProps {
+  project: Project;
+  index: number;
+  darkTheme: boolean;
+}
+
+interface MyProjectProps {
+  darkTheme: boolean;
+}
+
+const projects: Project[] = [
   {
     id: 1,
     title: 'Web Absensi Online',
@@ -81,13 +92,11 @@ const projects = [
   },
 ];
 
-/* ── Media area di atas card ── */
-const CardMedia = ({ project, darkTheme }) => {
-  const videoRef = useRef(null);
+const CardMedia = ({ project, darkTheme }: CardMediaProps) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [videoPlaying, setVideoPlaying] = useState(false);
   const num = String(project.id).padStart(2, '0');
 
-  // ── Video ──
   if (project.media?.type === 'video') {
     return (
       <div className="relative h-40 overflow-hidden bg-black group">
@@ -103,7 +112,6 @@ const CardMedia = ({ project, darkTheme }) => {
           onMouseEnter={() => { videoRef.current?.play(); setVideoPlaying(true); }}
           onMouseLeave={() => { videoRef.current?.pause(); setVideoPlaying(false); }}
         />
-        {/* Play hint saat belum hover */}
         {!videoPlaying && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:opacity-0 transition-opacity duration-300">
             <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center backdrop-blur-sm">
@@ -111,7 +119,6 @@ const CardMedia = ({ project, darkTheme }) => {
             </div>
           </div>
         )}
-        {/* Label */}
         <div className="absolute top-2.5 right-2.5 flex items-center gap-1.5 px-2.5 py-1 rounded-md
           bg-black/50 border border-white/10 backdrop-blur-sm">
           <Play size={9} className="text-slate-300" />
@@ -121,7 +128,6 @@ const CardMedia = ({ project, darkTheme }) => {
     );
   }
 
-  // ── Image ──
   if (project.media?.type === 'image') {
     return (
       <div className="relative h-40 overflow-hidden group">
@@ -131,9 +137,7 @@ const CardMedia = ({ project, darkTheme }) => {
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           loading="lazy"
         />
-        {/* Gradient overlay bawah untuk readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-        {/* Label */}
         <div className="absolute top-2.5 right-2.5 flex items-center gap-1.5 px-2.5 py-1 rounded-md
           bg-black/50 border border-white/10 backdrop-blur-sm">
           <ImageIcon size={9} className="text-slate-300" />
@@ -143,13 +147,11 @@ const CardMedia = ({ project, darkTheme }) => {
     );
   }
 
-  // ── Placeholder (belum ada media) ──
   return (
     <div
       className={`relative h-40 flex items-end p-4 overflow-hidden
         ${darkTheme ? 'bg-[#0a0f1c]' : 'bg-slate-50'}`}
     >
-      {/* Angka besar sebagai latar belakang */}
       <span
         className="absolute right-4 top-1/2 -translate-y-1/2 font-display font-extrabold
           select-none leading-none text-[80px] opacity-[0.06]"
@@ -158,13 +160,11 @@ const CardMedia = ({ project, darkTheme }) => {
       >
         {num}
       </span>
-      {/* Glow lingkaran kecil di sudut */}
       <div
         className="absolute top-[-20px] left-[-20px] w-28 h-28 rounded-full blur-2xl opacity-[0.15]"
         style={{ background: project.accent }}
         aria-hidden="true"
       />
-      {/* Label placeholder */}
       <div className={`
         relative z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-md border
         ${darkTheme
@@ -179,8 +179,7 @@ const CardMedia = ({ project, darkTheme }) => {
   );
 };
 
-/* ── Project Card ── */
-const ProjectCard = ({ project, index, darkTheme }) => {
+const ProjectCard = ({ project, index, darkTheme }: ProjectCardProps) => {
   const { t } = useLanguage();
   const num = String(project.id).padStart(2, '0');
 
@@ -207,19 +206,15 @@ const ProjectCard = ({ project, index, darkTheme }) => {
           }
         `}
       >
-        {/* Top accent bar — muncul saat hover */}
         <div
           className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
           style={{ background: `linear-gradient(90deg, ${project.accent}, transparent)` }}
         />
 
-        {/* ── MEDIA AREA ── */}
         <CardMedia project={project} darkTheme={darkTheme} />
 
-        {/* ── CARD BODY ── */}
         <div className="flex flex-col flex-1 p-5">
 
-          {/* Nomor project kecil */}
           <div
             className="text-xs font-bold font-display tracking-widest mb-3 opacity-40"
             style={{ color: project.accent }}
@@ -227,19 +222,16 @@ const ProjectCard = ({ project, index, darkTheme }) => {
             {num}
           </div>
 
-          {/* Title */}
           <h3 className={`font-display font-bold text-[15px] mb-2.5 leading-tight
             ${darkTheme ? 'text-slate-100' : 'text-slate-900'}`}>
             {project.title}
           </h3>
 
-          {/* Description */}
           <p className={`text-xs leading-relaxed flex-grow mb-4
             ${darkTheme ? 'text-slate-500' : 'text-slate-600'}`}>
             {t(`projects.desc.${project.id}`)}
           </p>
 
-          {/* Tags */}
           <div className="flex flex-wrap gap-1.5 mb-4">
             {project.tags.map((tag) => (
               <span
@@ -256,7 +248,6 @@ const ProjectCard = ({ project, index, darkTheme }) => {
             ))}
           </div>
 
-          {/* Footer */}
           <div className={`flex items-center justify-between text-xs font-semibold
             border-t pt-3.5 mt-auto
             ${darkTheme ? 'border-white/[0.06]' : 'border-slate-100'}`}>
@@ -276,8 +267,7 @@ const ProjectCard = ({ project, index, darkTheme }) => {
   );
 };
 
-/* ── Section wrapper ── */
-const MyProject = ({ darkTheme }) => {
+const MyProject = ({ darkTheme }: MyProjectProps) => {
   const { t } = useLanguage();
 
   return (
@@ -310,7 +300,6 @@ const MyProject = ({ darkTheme }) => {
         </p>
       </motion.div>
 
-      {/* Grid 3 kolom */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
         {projects.map((project, index) => (
           <ProjectCard
@@ -322,7 +311,6 @@ const MyProject = ({ darkTheme }) => {
         ))}
       </div>
 
-      {/* CTA GitHub */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

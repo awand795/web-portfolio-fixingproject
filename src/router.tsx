@@ -13,7 +13,7 @@ const Router = () => {
         <ScrollToTop />
         <Suspense fallback={<LoadingSpinner />}>
           <Routes>
-            <Route exact path='/' element={<App/>}/>
+            <Route path='/' element={<App/>}/>
             <Route path='/socmed' element={<Socmed/>}/>
             <Route path="*" element={<NotFound/>}/>
           </Routes>

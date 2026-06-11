@@ -6,7 +6,22 @@ import NavBar from '../Component/NavBar';
 import picture from '../image/imgprofile.webp';
 import { Github, Linkedin, Facebook, Instagram } from '../icons/SocialIcons';
 
-const socialLinks = [
+interface SocialLink {
+  name: string;
+  handle: string;
+  url: string;
+  icon: React.ComponentType<{ size?: number; className?: string; color?: string; style?: React.CSSProperties }>;
+  iconBg: string;
+  iconBorder: string;
+}
+
+interface SocialRowProps {
+  link: SocialLink;
+  index: number;
+  darkTheme: boolean;
+}
+
+const socialLinks: SocialLink[] = [
   {
     name: 'GitHub',
     handle: '@awand795',
@@ -49,7 +64,7 @@ const socialLinks = [
   },
 ];
 
-const SocialRow = ({ link, index, darkTheme }) => (
+const SocialRow = ({ link, index, darkTheme }: SocialRowProps) => (
   <motion.a
     href={link.url}
     target="_blank"
@@ -67,7 +82,6 @@ const SocialRow = ({ link, index, darkTheme }) => (
       }
     `}
   >
-    {/* Icon */}
     <span
       className="flex items-center justify-center w-9 h-9 rounded-lg flex-shrink-0"
       style={{
@@ -82,7 +96,6 @@ const SocialRow = ({ link, index, darkTheme }) => (
       />
     </span>
 
-    {/* Text */}
     <div className="flex-1 min-w-0">
       <p className={`text-sm font-semibold leading-tight ${darkTheme ? 'text-slate-200' : 'text-slate-800'}`}>
         {link.name}
@@ -92,7 +105,6 @@ const SocialRow = ({ link, index, darkTheme }) => (
       </p>
     </div>
 
-    {/* Arrow */}
     <ArrowUpRight
       size={14}
       className={`flex-shrink-0 transition-transform duration-200 group-hover:translate-x-0.5
@@ -116,7 +128,6 @@ const Socmed = () => {
       </header>
 
       <main className="flex flex-col items-center px-4 pb-16 pt-4">
-        {/* Card container — lebar max 400px, terasa seperti mobile card di desktop */}
         <div className={`
           w-full max-w-[400px] rounded-2xl overflow-hidden border
           ${darkTheme
@@ -127,14 +138,12 @@ const Socmed = () => {
 
           {/* ── BANNER ── */}
           <div className="relative h-[100px]">
-            {/* Gradient banner */}
             <div
               className="absolute inset-0"
               style={{
                 background: 'linear-gradient(135deg, #4c1d95 0%, #3730a3 50%, #0e7490 100%)',
               }}
             />
-            {/* Noise texture overlay */}
             <div
               className="absolute inset-0 opacity-[0.07]"
               style={{
@@ -142,7 +151,6 @@ const Socmed = () => {
               }}
             />
 
-            {/* Avatar — posisi absolute di bawah banner, overlap ke body */}
             <motion.div
               initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -150,7 +158,6 @@ const Socmed = () => {
               className="absolute -bottom-10 left-1/2 -translate-x-1/2 z-10"
             >
               <div className="relative">
-                {/* Ring gradient di sekeliling avatar */}
                 <div className={`
                   absolute inset-[-2px] rounded-full
                   bg-gradient-to-br from-violet-500/70 via-indigo-500/50 to-cyan-400/60
@@ -172,7 +179,6 @@ const Socmed = () => {
           {/* ── PROFILE BODY ── */}
           <div className="px-6 pb-6 pt-14">
 
-            {/* Name & role */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -185,7 +191,6 @@ const Socmed = () => {
               </p>
             </motion.div>
 
-            {/* Quick links — website & email */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -212,17 +217,14 @@ const Socmed = () => {
               </a>
             </motion.div>
 
-            {/* Divider */}
             <div className={`h-px mb-5 ${darkTheme ? 'bg-white/[0.06]' : 'bg-slate-100'}`} />
 
-            {/* Social link rows */}
             <div className="flex flex-col gap-2">
               {socialLinks.map((link, i) => (
                 <SocialRow key={link.name} link={link} index={i} darkTheme={darkTheme} />
               ))}
             </div>
 
-            {/* Footer */}
             <div className={`mt-6 pt-5 border-t text-center
               ${darkTheme ? 'border-white/[0.05]' : 'border-slate-100'}`}>
               <p className={`text-xs ${darkTheme ? 'text-slate-600' : 'text-slate-500'}`}>

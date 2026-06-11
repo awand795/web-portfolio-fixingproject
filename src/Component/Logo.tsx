@@ -1,4 +1,8 @@
-export function Logo({ className = "w-8 h-8" }) {
+interface LogoProps {
+  className?: string;
+}
+
+export function Logo({ className = "w-8 h-8" }: LogoProps) {
   return (
     <svg
       className={className}

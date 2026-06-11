@@ -2,14 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Smartphone, Download, X } from 'lucide-react';
 
-const PWAInstallPrompt = ({ darkTheme }) => {
-    const [deferredPrompt, setDeferredPrompt] = useState(null);
+interface PWAInstallPromptProps {
+  darkTheme: boolean;
+}
+
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => void;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
+
+const PWAInstallPrompt = ({ darkTheme }: PWAInstallPromptProps) => {
+    const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
     const [showPrompt, setShowPrompt] = useState(false);
 
     useEffect(() => {
-        const handleBeforeInstallPrompt = (e) => {
+        const handleBeforeInstallPrompt = (e: Event) => {
             e.preventDefault();
-            setDeferredPrompt(e);
+            setDeferredPrompt(e as BeforeInstallPromptEvent);
 
             const dismissed = localStorage.getItem('pwa-install-dismissed');
             const dismissedAt = dismissed ? parseInt(dismissed) : 0;

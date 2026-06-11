@@ -1,4 +1,4 @@
-const en = {
+const en: Record<string, string> = {
     // Nav
     'nav.home': 'Home',
     'nav.projects': 'Projects',

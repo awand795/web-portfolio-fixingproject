@@ -6,7 +6,19 @@ import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
 import { Logo } from './Logo';
 
-const NavBar = ({ darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme } = {}) => {
+interface NavBarProps {
+  darkTheme?: boolean;
+  setDarkTheme?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+interface MenuItem {
+  name: string;
+  target: string;
+  scrollTo: string | null;
+  section: string;
+}
+
+const NavBar = ({ darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme }: NavBarProps = {}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -18,7 +30,7 @@ const NavBar = ({ darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme } = {
   const setDarkTheme = propSetDarkTheme || theme.setDarkTheme;
   const isSocmedPage = location.pathname === '/socmed';
 
-  const menuItems = [
+  const menuItems: MenuItem[] = [
     { name: t('nav.home'), target: '/', scrollTo: null, section: 'home' },
     { name: t('nav.projects'), target: '/', scrollTo: 'project', section: 'project' },
     { name: t('nav.skills'), target: '/', scrollTo: 'skill', section: 'skill' },
@@ -43,7 +55,7 @@ const NavBar = ({ darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme } = {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isSocmedPage]);
 
-  const handleNavClick = (scrollTarget) => {
+  const handleNavClick = (scrollTarget: string | null) => {
     if (scrollTarget) {
       const el = document.getElementById(scrollTarget);
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -51,7 +63,7 @@ const NavBar = ({ darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme } = {
     setIsOpen(false);
   };
 
-  const isActive = (item) => isSocmedPage ? item.section === 'social' : activeSection === item.section;
+  const isActive = (item: MenuItem) => isSocmedPage ? item.section === 'social' : activeSection === item.section;
 
   const navBg = scrolled
     ? darkTheme
@@ -123,7 +135,7 @@ const NavBar = ({ darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme } = {
           <motion.button
             whileHover={{ scale: 1.08, rotate: 180 }}
             whileTap={{ scale: 0.92 }}
-            onClick={() => setDarkTheme(prev => !prev)}
+            onClick={() => setDarkTheme((prev: boolean) => !prev)}
             aria-label={darkTheme ? t('theme.light') : t('theme.dark')}
             className={`
               flex items-center justify-center w-10 h-10 rounded-full
