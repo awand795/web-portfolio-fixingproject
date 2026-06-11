@@ -71,6 +71,9 @@ function generateNetlifyRedirects() {
 /sitemap.xml    /sitemap.xml    200!
 /robots.txt     /robots.txt     200!
 
+# Social media page (OG tags for crawlers)
+/socmed    /socmed/index.html    200
+
 # React Router SPA fallback
 /*    /index.html    200
 `;
