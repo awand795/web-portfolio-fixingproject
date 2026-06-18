@@ -52,7 +52,11 @@ const projects: Project[] = [
     tags: ['React', 'Laravel', 'Full-Stack'],
     accent: '#f43f5e',
     accentLight: 'rgba(244,63,94,0.15)',
-    media: null,
+    media: {
+      type: 'video',
+      src: '/pos-preview.mp4',
+      poster: '/pos-poster.png',
+    },
   },
   {
     id: 3,
