@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Play, Image as ImageIcon } from 'lucide-react';
 import { Github } from '../icons/SocialIcons';
@@ -97,7 +97,6 @@ const projects: Project[] = [
 ];
 
 const CardMedia = ({ project, darkTheme }: CardMediaProps) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
   const [videoPlaying, setVideoPlaying] = useState(false);
   const num = String(project.id).padStart(2, '0');
 
@@ -105,19 +104,19 @@ const CardMedia = ({ project, darkTheme }: CardMediaProps) => {
     return (
       <div className="relative h-40 overflow-hidden bg-black group">
         <video
-          ref={videoRef}
           src={project.media.src}
           poster={project.media.poster}
           muted
           loop
+          autoPlay
           playsInline
           preload="metadata"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-          onMouseEnter={() => { videoRef.current?.play(); setVideoPlaying(true); }}
-          onMouseLeave={() => { videoRef.current?.pause(); setVideoPlaying(false); }}
+          onPlay={() => setVideoPlaying(true)}
+          onPause={() => setVideoPlaying(false)}
         />
         {!videoPlaying && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:opacity-0 transition-opacity duration-300">
+          <div className="absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity duration-300">
             <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center backdrop-blur-sm">
               <Play size={14} className="text-white ml-0.5" />
             </div>
