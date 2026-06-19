@@ -43,7 +43,11 @@ const projects: Project[] = [
     tags: ['PHP', 'MySQL', 'Bootstrap'],
     accent: '#7c3aed',
     accentLight: 'rgba(124,58,237,0.15)',
-    media: null,
+    media: {
+      type: 'video',
+      src: '/absensi-preview.mp4',
+      poster: '/absensi-wide.png',
+    },
   },
   {
     id: 2,
