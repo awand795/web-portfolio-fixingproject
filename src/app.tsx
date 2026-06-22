@@ -204,7 +204,7 @@ const App = () => {
                 initial={{ opacity: 0, y: 32 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="order-2 lg:order-1"
+                className="order-2 lg:order-1 text-center lg:text-left"
               >
                 {/* Nama sebagai headline utama */}
                 <h1
@@ -221,7 +221,7 @@ const App = () => {
                 </h1>
 
                 {/* Role dengan typing effect — ukuran lebih kecil dari nama */}
-                <div className="mb-6 h-9 flex items-center">
+                <div className="mb-6 h-9 flex items-center justify-center lg:justify-start">
                   <h2
                     className={`text-lg sm:text-xl font-semibold border-r-2 pr-1 leading-none
                       ${darkTheme ? 'text-slate-300 border-violet-500' : 'text-slate-600 border-violet-600'}`}
@@ -233,14 +233,14 @@ const App = () => {
 
                 {/* Bio — 2 kalimat, tidak ada kata hiperbola */}
                 <p className={`
-                  text-base sm:text-lg leading-relaxed mb-10 max-w-[520px]
+                  text-base sm:text-lg leading-relaxed mb-10 max-w-[520px] mx-auto lg:mx-0
                   ${darkTheme ? 'text-slate-400' : 'text-slate-600'}
                 `}>
                   {t('hero.description')}
                 </p>
 
                 {/* CTA buttons */}
-                <div className="flex flex-wrap gap-3 mb-14">
+                <div className="flex flex-wrap gap-3 mb-14 justify-center lg:justify-start">
                   <motion.a
                     href="/files/CV Fullstack Developer - Awanda.pdf"
                     target="_blank"
@@ -278,7 +278,7 @@ const App = () => {
 
                 {/* Stats baris — 3 angka kecil yang informatif */}
                 <div className={`
-                  flex items-center gap-8 pt-8 border-t
+                  flex items-center justify-center lg:justify-start gap-8 pt-8 border-t
                   ${darkTheme ? 'border-white/[0.06]' : 'border-slate-200'}
                 `}>
                   {[
