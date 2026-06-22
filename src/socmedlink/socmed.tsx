@@ -6,6 +6,7 @@ import { useTheme } from '../context/ThemeContext';
 import NavBar from '../Component/NavBar';
 import picture from '../image/imgprofile.webp';
 import { Github, Linkedin, Facebook, Instagram } from '../icons/SocialIcons';
+import { siteUrl } from '../constants';
 
 interface SocialLink {
   name: string;
@@ -65,7 +66,7 @@ const socialLinks: SocialLink[] = [
   },
 ];
 
-const SocialRow = ({ link, index, darkTheme }: SocialRowProps) => (
+const SocialRow = React.memo(({ link, index, darkTheme }: SocialRowProps) => (
   <motion.a
     href={link.url}
     target="_blank"
@@ -112,13 +113,11 @@ const SocialRow = ({ link, index, darkTheme }: SocialRowProps) => (
         ${darkTheme ? 'text-slate-600' : 'text-slate-400'}`}
     />
   </motion.a>
-);
+));
 
 const Socmed = () => {
   const { darkTheme, setDarkTheme } = useTheme();
   const currentYear = new Date().getFullYear();
-
-  const siteUrl = 'https://awanda.eu.org';
 
   return (
     <>

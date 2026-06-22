@@ -4,11 +4,10 @@ import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { siteUrl } from '../constants';
 
 const NotFound = () => {
     const { darkTheme } = useTheme();
-
-    const siteUrl = 'https://awanda.eu.org';
 
     return (
         <>
@@ -60,8 +59,7 @@ const NotFound = () => {
             >
                 <Link
                     to="/"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white text-sm shadow-[0_4px_20px_rgba(124,58,237,0.4)] hover:shadow-[0_6px_28px_rgba(124,58,237,0.6)] transition-all duration-300"
-                    style={{ background: 'var(--gradient-primary)' }}
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white text-sm shadow-[0_4px_20px_rgba(124,58,237,0.4)] hover:shadow-[0_6px_28px_rgba(124,58,237,0.6)] transition-all duration-300 bg-gradient-primary"
                 >
                     <ArrowLeft size={18} />
                     Back to Home

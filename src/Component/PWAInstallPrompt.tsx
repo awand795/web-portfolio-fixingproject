@@ -73,10 +73,7 @@ const PWAInstallPrompt = ({ darkTheme }: PWAInstallPromptProps) => {
                         }
                     `}>
                         <div className="flex items-start gap-4 mb-4">
-                            <div
-                                className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                                style={{ background: 'var(--gradient-primary)' }}
-                            >
+                            <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-gradient-primary">
                                 <Smartphone size={22} className="text-white" />
                             </div>
                             <div className="flex-1 min-w-0">
@@ -103,8 +100,7 @@ const PWAInstallPrompt = ({ darkTheme }: PWAInstallPromptProps) => {
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.97 }}
                                 onClick={handleInstall}
-                                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-white text-sm transition-all duration-300 shadow-[0_4px_16px_rgba(124,58,237,0.35)] hover:shadow-[0_6px_24px_rgba(124,58,237,0.5)]"
-                                style={{ background: 'var(--gradient-primary)' }}
+                                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-white text-sm transition-all duration-300 shadow-[0_4px_16px_rgba(124,58,237,0.35)] hover:shadow-[0_6px_24px_rgba(124,58,237,0.5)] bg-gradient-primary"
                             >
                                 <Download size={16} />
                                 Install

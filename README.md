@@ -1,36 +1,35 @@
-# 🌟 Awanda's Portfolio Website
+# Awanda's Portfolio Website
 
-A modern, responsive portfolio website built with React and Vite, showcasing my skills and projects as a Fullstack JavaScript Developer.
+A modern, responsive portfolio website built with React and Vite, showcasing my skills and projects as a Fullstack Developer.
 
 ![React](https://img.shields.io/badge/React-19.2.4-blue)
 ![Vite](https://img.shields.io/badge/Vite-6.3.5-purple)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.3-violet)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.3.0-cyan)
 ![PWA](https://img.shields.io/badge/PWA-Enabled-green)
 
-## ✨ Features
+## Features
 
-- 🎨 **Modern UI/UX** - Clean and professional design with smooth animations
-- 🌓 **Dark Mode** - Toggle between light and dark themes (persistent with localStorage)
-- 📱 **Fully Responsive** - Optimized for mobile, tablet, and desktop
-- 📲 **PWA Support** - Install as app on your device with offline support
-- 🚀 **Performance** - Built with Vite for lightning-fast development and builds
-- ♿ **Accessible** - ARIA labels and semantic HTML for better accessibility
-- 🔍 **SEO Optimized** - Meta tags for better search engine visibility
-- 🌐 **Multi-language Ready** - Translation support structure in place
+- **Modern UI/UX** - Clean and professional design with smooth animations
+- **Dark Mode** - Toggle between light and dark themes (persistent with localStorage)
+- **Fully Responsive** - Optimized for mobile, tablet, and desktop
+- **PWA Support** - Install as app on your device with offline support
+- **Performance** - Built with Vite for lightning-fast development and builds
+- **Accessible** - ARIA labels, skip link, and semantic HTML for better accessibility
+- **SEO Optimized** - Meta tags, Open Graph, Twitter Cards, JSON-LD structured data
+- **Multi-language** - English and Indonesian with extensible translation system
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend Framework:** React 19.2.4
 - **Build Tool:** Vite 6.3.5
-- **Styling:** Bootstrap 5.3.3 + React Bootstrap 2.10.10
-- **Animations:** Framer Motion 12.35.2
-- **Icons:** Bootstrap Icons 1.11.3
+- **Styling:** Tailwind CSS 4.3.0
+- **Animations:** Framer Motion 12.40.0
+- **Icons:** Lucide React + Custom SVG Icons
 - **Routing:** React Router DOM 7.13.1
-- **Scroll:** React Scroll 1.9.3
-- **Intersection Observer:** React Intersection Observer 9.16.0
-- **PWA:** vite-plugin-pwa 1.2.0
+- **SEO:** React Helmet Async
+- **PWA:** vite-plugin-pwa 1.2.0 with Workbox
 
-## 📦 Installation
+## Installation
 
 1. Clone the repository:
 ```bash
@@ -58,7 +57,7 @@ npm run build
 npm run preview
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 web-portfolio-fixingproject/
@@ -66,101 +65,107 @@ web-portfolio-fixingproject/
 │   ├── favicon.svg
 │   ├── manifest.json
 │   ├── og-image.svg
-│   ├── pwa-192x192.png
-│   ├── pwa-512x512.png
-│   └── vite.svg
+│   └── files/
+│       └── CV Fullstack Developer - Awanda.pdf
 ├── src/
-│   ├── assets/              # Static assets
-│   ├── Component/
-│   │   ├── animate/
-│   │   │   ├── FadeFromSide.jsx
-│   │   │   └── FadeInWhenVisible.jsx
-│   │   ├── LoadingSpinner.jsx
-│   │   ├── MyProject.jsx
-│   │   ├── NavBar.jsx
-│   │   ├── NotFound.jsx
-│   │   ├── PWAInstallPrompt.jsx
-│   │   └── ScrollToTop.jsx
-│   ├── context/             # React context providers
-│   ├── image/               # Images and logos
-│   ├── socmedlink/
-│   │   ├── socmed.css
-│   │   └── socmed.jsx
-│   ├── translations/        # Multi-language support
-│   ├── App.css
-│   ├── app.jsx
-│   ├── index.css
-│   ├── main.jsx
-│   └── router.jsx
+│   ├── components/           # Extracted page sections
+│   │   ├── BackToTop.tsx
+│   │   ├── ContactSection.tsx
+│   │   ├── HeroSection.tsx
+│   │   └── SkillsSection.tsx
+│   ├── Component/            # Reusable components
+│   │   ├── LoadingSpinner.tsx
+│   │   ├── Logo.tsx
+│   │   ├── MyProject.tsx
+│   │   ├── NavBar.tsx
+│   │   ├── NotFound.tsx
+│   │   ├── PWAInstallPrompt.tsx
+│   │   └── ScrollToTop.tsx
+│   ├── context/              # React context providers
+│   ├── icons/                # Custom SVG icon components
+│   ├── image/                # Images and logos
+│   ├── socmedlink/           # Social media link-in-bio page
+│   ├── translations/         # Multi-language support
+│   ├── app.tsx               # Main landing page
+│   ├── constants.ts          # Shared constants
+│   ├── index.css             # Global styles (Tailwind v4)
+│   ├── main.tsx              # React entry point
+│   └── router.tsx            # Route configuration
 ├── index.html
 ├── package.json
 ├── vite.config.js
 └── netlify.toml
 ```
 
-## 🎯 Key Features
+## Key Features
 
-### 1. **SEO Enhancement**
+### 1. SEO Enhancement
 - Comprehensive meta tags (description, keywords, author)
 - Open Graph tags for social media sharing
 - Twitter Card meta tags
-- Optimized page title with keywords
+- JSON-LD structured data
+- Sitemap and robots.txt
 
-### 2. **Accessibility**
-- Descriptive alt text for all images
-- ARIA labels for links and buttons
-- Keyboard navigation support
+### 2. Accessibility
+- Skip to main content link
+- ARIA labels on all interactive elements
+- Keyboard navigation support with focus trap on mobile menu
 - Semantic HTML structure
+- `prefers-reduced-motion` support
+- Visible `:focus-visible` outlines
 
-### 3. **Performance**
-- Optimized image loading with preconnect
-- Hover transitions for better UX
-- Lazy loading with Framer Motion
-- Code splitting with Vite
+### 3. Performance
+- Code splitting with React.lazy and Vite manual chunks
+- WebP images with 99.3% size reduction
+- IntersectionObserver-based scroll tracking
+- CSS transitions over JS animations
+- Lazy loading for images and videos
+- PWA with Workbox runtime caching
 
-### 4. **PWA Capabilities**
+### 4. PWA Capabilities
 - Installable as a standalone app
 - Offline support with service workers
 - Custom manifest configuration
 - App icons for all device sizes
 - Runtime caching for fonts and CDN assets
 
-### 5. **User Experience**
-- **Persistent Dark Mode** - Theme preference saved in localStorage
+### 5. User Experience
+- Persistent Dark Mode with localStorage
 - Responsive design for all screen sizes
-- Smooth animations and transitions
-- Better mobile navigation
-- Loading spinner for better feedback
-- Scroll to top functionality
+- Smooth spring-based animations (Framer Motion)
+- Typing effect on hero subtitle
+- Mobile hamburger menu with focus trap
+- Floating back-to-top button
 - 404 Not Found page
+- Language toggle visible on all viewports
 
-### 6. **Modern Practices**
-- Component modularity with reusable components
-- Data separation (projects array, social links array)
-- React Router for navigation
-- Context API for state management
-- Improved code organization
+### 6. Modern Practices
+- Component modularity with extracted sections
+- Data-driven project cards and social links
+- React Context API for theme and language state
+- TypeScript interfaces throughout
+- React.memo on leaf components
 
-## 🎨 Customization
+## Customization
 
 ### Update Personal Information
 
-Edit the data in `src/app.jsx`:
-```jsx
-<p className="h1 fw-bold fs-1">Hello I'm Awanda</p>
-<p className="text fs-5 text-justify mx-4 mt-4">Your bio here...</p>
+Edit the hero section in `src/components/HeroSection.tsx`:
+```tsx
+<h1 className="font-display font-extrabold ...">Awanda</h1>
+<p className="...">I code stuff. Web apps, Android apps...</p>
 ```
 
 ### Update Projects
 
-Edit the `projects` array in `src/Component/MyProject.jsx`:
-```jsx
+Edit the `projects` array in `src/Component/MyProject.tsx`:
+```tsx
 const projects = [
     {
         id: 1,
         title: "Your Project",
-        description: "Project description",
         githubUrl: "https://github.com/yourusername/project",
+        demoUrl: "https://your-demo.vercel.app",
         tags: ["React", "Node.js"]
     }
 ];
@@ -168,25 +173,21 @@ const projects = [
 
 ### Update Social Links
 
-Edit the `socialLinks` array in `src/socmedlink/socmed.jsx`:
-```jsx
-const socialLinks = [
-    { name: 'Facebook', url: 'https://facebook.com/yourprofile', icon: 'bi-facebook', className: 'btn-fb' }
-];
-```
+Edit the `socials` array in `src/components/ContactSection.tsx` or the `socialLinks` array in `src/socmedlink/socmed.tsx`.
 
 ### Add Translations
 
-Add new language files in `src/translations/`:
-```js
-// src/translations/es.js
-export default {
-  greeting: "Hola, soy Awanda",
+Add new language files in `src/translations/` and update `LanguageContext.tsx`:
+```ts
+// src/translations/es.ts
+const es: Record<string, string> = {
+  'hero.title': 'Desarrollador de Software',
   // ... other translations
 };
+export default es;
 ```
 
-## 🚀 Deployment
+## Deployment
 
 ### Netlify (Recommended)
 
@@ -217,73 +218,21 @@ vercel
 ```
 3. Run: `npm run deploy`
 
-## 📝 TODO / Future Improvements
+## TODO / Future Improvements
 
 - [ ] Add blog section
 - [ ] Implement contact form with backend
-- [ ] Add more projects dynamically from GitHub API
-- [ ] Add testimonials section
-- [ ] Implement multi-language support (complete translations)
+- [ ] Fetch projects dynamically from GitHub API
 - [ ] Add unit tests
-- [ ] Optimize images (WebP format, lazy loading)
-- [ ] Implement analytics (Google Analytics / Plausible)
+- [ ] Add testimonial section
 
-## 📋 Changelog
-
-### [2026-03-12] - Major Dependencies Update
-
-#### Updated Packages
-| Package | Previous Version | New Version |
-|---------|-----------------|-------------|
-| **Vite** | 4.1.4 | 6.3.5 |
-| **React** | 18.2.0 | 19.2.4 |
-| **React DOM** | 18.2.0 | 19.2.4 |
-| **@vitejs/plugin-react** | 3.1.0 | 5.1.4 |
-| **@types/react** | 18.0.28 | 19.1.0 |
-| **@types/react-dom** | 18.0.11 | 19.1.2 |
-| **Bootstrap** | 5.2.3 | 5.3.3 |
-| **Bootstrap Icons** | 1.10.3 | 1.11.3 |
-| **React Bootstrap** | 2.7.2 | 2.10.10 |
-| **Framer Motion** | 10.8.5 | 12.35.2 |
-| **React Router DOM** | 6.9.0 | 7.13.1 |
-| **React Scroll** | 1.8.9 | 1.9.3 |
-| **React Intersection Observer** | 9.4.3 | 9.16.0 |
-
-#### Key Improvements
-- ⚡ **Vite 6** - Faster build times, improved HMR, better tree-shaking
-- ⚛️ **React 19** - Latest React features, improved performance, new hooks
-- 🎨 **Bootstrap 5.3** - Latest UI components and bug fixes
-- 🎬 **Framer Motion 12** - Better animations with improved performance
-- 🛣️ **React Router 7** - Enhanced routing capabilities and data APIs
-- 📦 **TypeScript Types** - Updated type definitions for React 19
-
-#### Migration Notes
-- Build tested and verified working
-- No breaking changes detected in current implementation
-- All existing features remain functional
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 👤 Author
+## Author
 
 **Awanda**
 - Website: [awanda.eu.org](https://awanda.eu.org)
 - Email: awand795@gmail.com
 - GitHub: [@awand795](https://github.com/awand795)
 - LinkedIn: [/in/awanda](https://linkedin.com/in/awanda)
-
-## 🙏 Acknowledgments
-
-- Bootstrap for the UI framework
-- Framer Motion for smooth animations
-- React team for the amazing framework
-- Vite for the blazing fast build tool
 
 ---
 

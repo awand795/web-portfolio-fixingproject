@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Play, Image as ImageIcon } from 'lucide-react';
+import { ArrowUpRight, Globe, Play, Image as ImageIcon } from 'lucide-react';
 import { Github } from '../icons/SocialIcons';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -14,6 +14,7 @@ interface Project {
   id: number;
   title: string;
   githubUrl: string;
+  demoUrl?: string;
   tags: string[];
   accent: string;
   accentLight: string;
@@ -40,6 +41,7 @@ const projects: Project[] = [
     id: 1,
     title: 'Web Absensi Online',
     githubUrl: 'https://github.com/awand795/web-absensi',
+    demoUrl: 'https://bikin-absensi.vercel.app',
     tags: ['PHP', 'MySQL', 'Bootstrap'],
     accent: '#7c3aed',
     accentLight: 'rgba(124,58,237,0.15)',
@@ -53,6 +55,7 @@ const projects: Project[] = [
     id: 2,
     title: 'Point of Sale',
     githubUrl: 'https://github.com/awand795/point-of-sale',
+    demoUrl: 'https://pos.awanda.eu.org',
     tags: ['React', 'Laravel', 'Full-Stack'],
     accent: '#f43f5e',
     accentLight: 'rgba(244,63,94,0.15)',
@@ -75,6 +78,7 @@ const projects: Project[] = [
     id: 4,
     title: 'Web Notes App',
     githubUrl: 'https://github.com/awand795/MevnStack-NotesApp',
+    demoUrl: 'https://notes.awanda.eu.org',
     tags: ['Vue.js', 'Express.js', 'MongoDB'],
     accent: '#10b981',
     accentLight: 'rgba(16,185,129,0.15)',
@@ -100,9 +104,10 @@ const projects: Project[] = [
   },
 ];
 
-const CardMedia = ({ project, darkTheme }: CardMediaProps) => {
+const CardMedia = React.memo(({ project, darkTheme }: CardMediaProps) => {
   const [videoPlaying, setVideoPlaying] = useState(false);
   const num = String(project.id).padStart(2, '0');
+  const setVideoPlayingMemo = React.useCallback((v: boolean) => setVideoPlaying(v), []);
 
   if (project.media?.type === 'video') {
     return (
@@ -116,8 +121,8 @@ const CardMedia = ({ project, darkTheme }: CardMediaProps) => {
           playsInline
           preload="metadata"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-          onPlay={() => setVideoPlaying(true)}
-          onPause={() => setVideoPlaying(false)}
+          onPlay={() => setVideoPlayingMemo(true)}
+          onPause={() => setVideoPlayingMemo(false)}
         />
         {!videoPlaying && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity duration-300">
@@ -184,7 +189,7 @@ const CardMedia = ({ project, darkTheme }: CardMediaProps) => {
       </div>
     </div>
   );
-};
+});
 
 const ProjectCard = ({ project, index, darkTheme }: ProjectCardProps) => {
   const { t } = useLanguage();
@@ -236,10 +241,25 @@ const ProjectCard = ({ project, index, darkTheme }: ProjectCardProps) => {
 
           <p className={`text-xs leading-relaxed flex-grow mb-4
             ${darkTheme ? 'text-slate-500' : 'text-slate-600'}`}>
-            {t(`projects.desc.${project.id}`)}
-          </p>
+              {t(`projects.desc.${project.id}`)}
+            </p>
 
-          <div className="flex flex-wrap gap-1.5 mb-4">
+            {project.demoUrl && (
+              <a
+                href={project.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold mb-3 transition-colors"
+                style={{ color: project.accent }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Globe size={12} />
+                {t('projects.liveDemo')}
+                <ArrowUpRight size={10} />
+              </a>
+            )}
+
+            <div className="flex flex-wrap gap-1.5 mb-4">
             {project.tags.map((tag) => (
               <span
                 key={tag}
@@ -332,8 +352,7 @@ const MyProject = ({ darkTheme }: MyProjectProps) => {
           whileTap={{ scale: 0.97 }}
           className="flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white text-sm
             shadow-[0_2px_16px_rgba(124,58,237,0.35)] hover:shadow-[0_4px_24px_rgba(124,58,237,0.55)]
-            transition-all duration-300"
-          style={{ background: 'var(--gradient-primary)' }}
+            transition-all duration-300 bg-gradient-primary"
         >
           <Github size={16} />
           {t('projects.exploreMore')}

@@ -17,6 +17,7 @@ const id: Record<string, string> = {
     'projects.title': 'Proyek Unggulan',
     'projects.subtitle': 'Kumpulan karya terbaru saya yang menampilkan pengembangan web modern dengan teknologi terkini',
     'projects.viewProject': 'Lihat Proyek',
+    'projects.liveDemo': 'Demo Langsung',
     'projects.exploreMore': 'Jelajahi Lainnya di GitHub',
     'projects.moreText': 'Lihat lebih banyak proyek dan kontribusi di profil GitHub saya',
 

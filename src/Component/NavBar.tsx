@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -25,6 +25,7 @@ const NavBar = ({ darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme }: Na
   const { language, toggleLanguage, t } = useLanguage();
   const theme = useTheme();
   const location = useLocation();
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const darkTheme = propDarkTheme !== undefined ? propDarkTheme : theme.darkTheme;
   const setDarkTheme = propSetDarkTheme || theme.setDarkTheme;
@@ -39,21 +40,54 @@ const NavBar = ({ darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme }: Na
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-      if (isSocmedPage) { setActiveSection('social'); return; }
-      const sections = ['contact', 'skill', 'project'];
-      const y = window.scrollY + 150;
-      for (const id of sections) {
-        const el = document.getElementById(id);
-        if (el && y >= el.offsetTop) { setActiveSection(id); return; }
-      }
-      setActiveSection('home');
-    };
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    if (isSocmedPage) { setActiveSection('social'); return; }
+    const sectionIds = ['home', 'project', 'skill', 'contact'];
+    const observers: IntersectionObserver[] = [];
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id === 'home' ? 'home' : id);
+      if (!el) return;
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveSection(id);
+        },
+        { rootMargin: '-40% 0px -55% 0px' }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+    return () => observers.forEach((o) => o.disconnect());
   }, [isSocmedPage]);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const menu = menuRef.current;
+    if (!menu) return;
+    const focusable = menu.querySelectorAll<HTMLElement>(
+      'a, button, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const trap = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    menu.addEventListener('keydown', trap);
+    first.focus();
+    return () => menu.removeEventListener('keydown', trap);
+  }, [isOpen]);
 
   const handleNavClick = (scrollTarget: string | null) => {
     if (scrollTarget) {
@@ -84,8 +118,7 @@ const NavBar = ({ darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme }: Na
           <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.6 }}>
             <Logo className="w-9 h-9" />
           </motion.div>
-          <span className="font-display font-extrabold text-xl tracking-tight"
-            style={{ background: 'var(--gradient-primary)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+          <span className="font-display font-extrabold text-xl tracking-tight text-gradient">
             Awanda
           </span>
         </Link>
@@ -123,7 +156,7 @@ const NavBar = ({ darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme }: Na
             onClick={toggleLanguage}
             aria-label={language === 'id' ? 'Switch to English' : 'Ganti ke Bahasa Indonesia'}
             className={`
-              hidden sm:flex items-center justify-center w-10 h-10 rounded-full text-xs font-bold
+              flex items-center justify-center w-10 h-10 rounded-full text-xs font-bold
               border transition-all duration-200
               ${darkTheme ? 'bg-white/5 border-white/10 text-violet-400 hover:bg-violet-500/15 hover:border-violet-500/40' : 'bg-black/5 border-black/10 text-violet-700 hover:bg-violet-50 hover:border-violet-300'}
             `}
@@ -165,6 +198,7 @@ const NavBar = ({ darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme }: Na
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            ref={menuRef}
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -210,4 +244,4 @@ const NavBar = ({ darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme }: Na
   );
 };
 
-export default NavBar;
+export default React.memo(NavBar);

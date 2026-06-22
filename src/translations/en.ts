@@ -17,6 +17,7 @@ const en: Record<string, string> = {
     'projects.title': 'Featured Projects',
     'projects.subtitle': 'A collection of my recent work showcasing modern web development with cutting-edge technologies',
     'projects.viewProject': 'View Project',
+    'projects.liveDemo': 'Live Demo',
     'projects.exploreMore': 'Explore More on GitHub',
     'projects.moreText': 'Check out more projects and contributions on my GitHub profile',
 
