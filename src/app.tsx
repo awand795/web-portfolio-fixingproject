@@ -16,19 +16,26 @@ interface BackgroundCanvasProps {
 }
 
 const BackgroundCanvas = ({ darkTheme }: BackgroundCanvasProps) => {
-  if (!darkTheme) return null;
   return (
-    <div className="fixed inset-0 pointer-events-none z-0" aria-hidden="true">
-      <div className="absolute top-[-200px] right-[-100px] w-[600px] h-[600px]
-        rounded-full bg-violet-600/[0.04] blur-[160px]" />
-      <div className="absolute bottom-[-100px] left-[-200px] w-[500px] h-[500px]
-        rounded-full bg-cyan-500/[0.03] blur-[140px]" />
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+      {/* Premium Grid overlay */}
+      <div className={`absolute inset-0 ${darkTheme ? 'bg-grid-pattern-dark' : 'bg-grid-pattern-light'}`} />
+      
+      {/* Soft structural ambient lights */}
+      {darkTheme && (
+        <>
+          <div className="absolute top-[-10%] right-[-10%] w-[50%] aspect-square
+            rounded-full bg-blue-500/[0.03] blur-[120px]" />
+          <div className="absolute bottom-[-10%] left-[-10%] w-[50%] aspect-square
+            rounded-full bg-indigo-500/[0.02] blur-[120px]" />
+        </>
+      )}
     </div>
   );
 };
 
 const Divider = ({ darkTheme }: { darkTheme: boolean }) => (
-  <div className={`w-2/3 max-w-xl mx-auto h-px mb-4 ${darkTheme ? 'bg-gradient-to-r from-transparent via-white/10 to-transparent' : 'bg-gradient-to-r from-transparent via-slate-200 to-transparent'}`} />
+  <div className={`w-full h-px my-16 ${darkTheme ? 'bg-white/[0.06]' : 'bg-black/[0.06]'}`} />
 );
 
 const App = () => {
@@ -36,7 +43,9 @@ const App = () => {
   const { darkTheme, setDarkTheme } = useTheme();
   const [showBackToTop, setShowBackToTop] = React.useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
-  const bg = darkTheme ? 'bg-[#050a14] text-slate-100' : 'bg-white text-slate-900';
+  
+  // Custom 2026 Neutral Base: Obsidian and Alabaster Sand
+  const bg = darkTheme ? 'bg-[#08080a] text-neutral-100' : 'bg-[#FAF9F6] text-neutral-900';
 
   useEffect(() => {
     const el = sentinelRef.current;
@@ -70,7 +79,7 @@ const App = () => {
         <meta name="twitter:image" content={`${siteUrl}/awanda-profile.jpg`} />
         <link rel="canonical" href={siteUrl} />
       </Helmet>
-      <div className={`${bg} min-h-screen transition-colors duration-300 relative overflow-x-hidden`}>
+      <div className={`${bg} min-h-screen transition-colors duration-500 relative overflow-x-hidden`}>
       <a className="skip-link" href="#main-content">Skip to main content</a>
       <BackgroundCanvas darkTheme={darkTheme} />
 
@@ -87,7 +96,7 @@ const App = () => {
 
           <Divider darkTheme={darkTheme} />
 
-          <section className="py-20">
+          <section className="py-8">
             <MyProject darkTheme={darkTheme} />
           </section>
 

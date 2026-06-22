@@ -140,30 +140,30 @@ const Socmed = () => {
         <meta name="twitter:image" content={`${siteUrl}/awanda-profile.jpg`} />
         <link rel="canonical" href={`${siteUrl}/socmed`} />
       </Helmet>
-      <div className={`min-h-screen transition-colors duration-300 ${darkTheme ? 'bg-[#050a14] text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
+      <div className={`min-h-screen transition-colors duration-500 bg-grid-pattern relative overflow-x-hidden ${darkTheme ? 'bg-[#08080a] text-neutral-100' : 'bg-[#FAF9F6] text-neutral-900'}`}>
+      {/* Dynamic Grid Background */}
+      <div className={`absolute inset-0 pointer-events-none -z-10 ${darkTheme ? 'bg-grid-pattern-dark opacity-100' : 'bg-grid-pattern-light opacity-100'}`} />
+
       <header className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-50">
         <NavBar darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
       </header>
 
-      <main className="flex flex-col items-center px-4 pb-16 pt-4">
+      <main className="flex flex-col items-center px-4 pb-16 pt-8 relative z-10">
         <div className={`
-          w-full max-w-[400px] rounded-2xl overflow-hidden border
+          w-full max-w-[400px] rounded-[2rem] overflow-hidden border shadow-2xl transition-all duration-300
           ${darkTheme
-            ? 'bg-[#0d1420] border-white/[0.07]'
-            : 'bg-white border-slate-200 shadow-xl shadow-slate-200/40'
+            ? 'bg-[#0f1013]/60 border-neutral-900'
+            : 'bg-white border-neutral-200/80 shadow-[0_15px_40px_rgba(0,0,0,0.06)]'
           }
         `}>
 
           {/* ── BANNER ── */}
-          <div className="relative h-[100px]">
+          <div className="relative h-[110px]">
             <div
-              className="absolute inset-0"
-              style={{
-                background: 'linear-gradient(135deg, #4c1d95 0%, #3730a3 50%, #0e7490 100%)',
-              }}
+              className="absolute inset-0 bg-gradient-primary"
             />
             <div
-              className="absolute inset-0 opacity-[0.07]"
+              className="absolute inset-0 opacity-[0.06] pointer-events-none"
               style={{
                 backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
               }}
@@ -172,13 +172,13 @@ const Socmed = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="absolute -bottom-10 left-1/2 -translate-x-1/2 z-10"
             >
               <div className="relative">
                 <div className={`
                   absolute inset-[-2px] rounded-full
-                  bg-gradient-to-br from-violet-500/70 via-indigo-500/50 to-cyan-400/60
+                  bg-gradient-to-br from-indigo-500/70 via-blue-500/50 to-emerald-450/60
                 `} />
                 <img
                   src={picture}
@@ -187,7 +187,7 @@ const Socmed = () => {
                   height={80}
                   className={`
                     relative z-10 w-20 h-20 rounded-full object-cover
-                    ${darkTheme ? 'border-[3px] border-[#0d1420]' : 'border-[3px] border-white'}
+                    ${darkTheme ? 'border-[3px] border-[#0f1013]' : 'border-[3px] border-white'}
                   `}
                 />
               </div>
@@ -198,13 +198,13 @@ const Socmed = () => {
           <div className="px-6 pb-6 pt-14">
 
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
               className="text-center mb-4"
             >
-              <h1 className="font-display font-extrabold text-xl mb-1">Awanda</h1>
-              <p className={`text-xs font-semibold ${darkTheme ? 'text-violet-400' : 'text-violet-600'}`}>
+              <h1 className="font-display font-black text-xl mb-1.5 tracking-tight">Awanda</h1>
+              <p className={`text-[10px] font-mono tracking-widest uppercase ${darkTheme ? 'text-indigo-400' : 'text-indigo-600'}`}>
                 Software Developer
               </p>
             </motion.div>
@@ -212,44 +212,44 @@ const Socmed = () => {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.28, duration: 0.45 }}
-              className="flex justify-center gap-4 mb-5"
+              transition={{ delay: 0.25, duration: 0.4 }}
+              className="flex justify-center gap-4 mb-6"
             >
               <a
                 href="https://awanda.eu.org"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex items-center gap-1.5 text-xs transition-colors
-                  ${darkTheme ? 'text-slate-500 hover:text-violet-400' : 'text-slate-600 hover:text-violet-700'}`}
+                className={`flex items-center gap-1.5 text-xs font-mono tracking-wide transition-colors
+                  ${darkTheme ? 'text-neutral-500 hover:text-indigo-400' : 'text-neutral-500 hover:text-indigo-600'}`}
               >
-                <Globe size={12} />
+                <Globe size={11} />
                 awanda.eu.org
               </a>
               <a
                 href="mailto:awand795@gmail.com"
-                className={`flex items-center gap-1.5 text-xs transition-colors
-                  ${darkTheme ? 'text-slate-500 hover:text-violet-400' : 'text-slate-600 hover:text-violet-700'}`}
+                className={`flex items-center gap-1.5 text-xs font-mono tracking-wide transition-colors
+                  ${darkTheme ? 'text-neutral-500 hover:text-indigo-400' : 'text-neutral-500 hover:text-indigo-600'}`}
               >
-                <Mail size={12} />
+                <Mail size={11} />
                 awand795@gmail.com
               </a>
             </motion.div>
 
-            <div className={`h-px mb-5 ${darkTheme ? 'bg-white/[0.06]' : 'bg-slate-100'}`} />
+            <div className={`h-px mb-6 ${darkTheme ? 'bg-neutral-900' : 'bg-neutral-100'}`} />
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2.5">
               {socialLinks.map((link, i) => (
                 <SocialRow key={link.name} link={link} index={i} darkTheme={darkTheme} />
               ))}
             </div>
 
-            <div className={`mt-6 pt-5 border-t text-center
-              ${darkTheme ? 'border-white/[0.05]' : 'border-slate-100'}`}>
-              <p className={`text-xs ${darkTheme ? 'text-slate-600' : 'text-slate-500'}`}>
+            <div className={`mt-8 pt-6 border-t text-center
+              ${darkTheme ? 'border-neutral-900' : 'border-neutral-100'}`}>
+              <p className={`text-[10px] font-mono tracking-wider ${darkTheme ? 'text-neutral-600' : 'text-neutral-500'}`}>
                 © {currentYear} Awanda
               </p>
-              <p className={`text-xs mt-0.5 ${darkTheme ? 'text-slate-700' : 'text-slate-400'}`}>
-                Made with ♥ in Medan
+              <p className={`text-[9px] font-mono tracking-widest uppercase mt-1 ${darkTheme ? 'text-neutral-700' : 'text-neutral-400'}`}>
+                Medan, Indonesia
               </p>
             </div>
           </div>
