@@ -71,6 +71,7 @@ const NavBar = ({ darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme }: Na
     { name: t('nav.home'), target: '/', scrollTo: null, section: 'home' },
     { name: t('nav.projects'), target: '/', scrollTo: 'project', section: 'project' },
     { name: t('nav.skills'), target: '/', scrollTo: 'skill', section: 'skill' },
+    { name: t('nav.blog') || 'Blog', target: '/blog', scrollTo: null, section: 'blog' },
     { name: t('nav.contact'), target: '/', scrollTo: 'contact', section: 'contact' },
     { name: t('nav.social'), target: '/socmed', scrollTo: null, section: 'social' },
   ];

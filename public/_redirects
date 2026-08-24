@@ -1,4 +1,5 @@
 # Netlify _redirects file
+/api/*    /.netlify/functions/api/:splat    200!
 
 # React Router SPA fallback - all other routes to index.html
 /*    /index.html    200

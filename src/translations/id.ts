@@ -3,6 +3,7 @@ const id: Record<string, string> = {
     'nav.home': 'Beranda',
     'nav.projects': 'Proyek',
     'nav.skills': 'Keahlian',
+    'nav.blog': 'Blog',
     'nav.contact': 'Kontak',
     'nav.social': 'Sosial',
 

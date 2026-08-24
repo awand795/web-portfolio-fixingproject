@@ -28,3 +28,10 @@ dist-ssr
 # Screenshots
 screenshot*.png
 screenshot.png
+
+# Environment & local scripts
+.env
+.env.*
+scripts/clean-db.js
+scripts/init-db.js
+

@@ -14,6 +14,11 @@ const routes = [
     changefreq: 'monthly'
   },
   {
+    url: '/blog',
+    priority: '0.9',
+    changefreq: 'weekly'
+  },
+  {
     url: '/socmed',
     priority: '0.7',
     changefreq: 'monthly'
@@ -68,6 +73,7 @@ Sitemap: ${SITE_URL}/sitemap.xml
 // Generate _redirects file for Netlify
 function generateNetlifyRedirects() {
   const redirectsContent = `# Netlify redirects file
+/api/*    /.netlify/functions/api/:splat    200!
 
 # Social media page (OG tags for crawlers)
 /socmed    /socmed/index.html    200
