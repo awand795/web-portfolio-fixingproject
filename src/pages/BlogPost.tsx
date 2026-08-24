@@ -192,6 +192,60 @@ export default function BlogPost() {
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`${siteUrl}/blog/${post.slug}`} />
         <link rel="canonical" href={`${siteUrl}/blog/${post.slug}`} />
+        
+        {/* JSON-LD Schema for Google Rich Snippets */}
+        <script type="application/ld+json">
+          {JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "TechArticle",
+              "headline": post.title,
+              "description": post.summary,
+              "image": post.cover_image ? [post.cover_image] : [`${siteUrl}/og-image.svg`],
+              "datePublished": post.created_at,
+              "dateModified": post.created_at,
+              "author": {
+                "@type": "Person",
+                "name": "Awanda",
+                "url": siteUrl,
+                "jobTitle": "Software Engineer"
+              },
+              "publisher": {
+                "@type": "Person",
+                "name": "Awanda",
+                "url": siteUrl
+              },
+              "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": `${siteUrl}/blog/${post.slug}`
+              }
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": siteUrl
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Blog",
+                  "item": `${siteUrl}/blog`
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": post.title,
+                  "item": `${siteUrl}/blog/${post.slug}`
+                }
+              ]
+            }
+          ])}
+        </script>
       </Helmet>
 
       <div className={`${bg} min-h-screen transition-colors duration-500 selection:bg-indigo-500 selection:text-white relative overflow-hidden flex flex-col justify-between`}>
