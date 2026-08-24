@@ -5,9 +5,11 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { 
   ArrowLeft, Calendar, Eye, Clock, Share2, 
-  Check, Copy, MessageCircle, ChevronRight, Bookmark, Sparkles
+  Check, Copy, MessageCircle, ChevronRight, Bookmark, Sparkles, User
 } from 'lucide-react';
 import { Twitter, Linkedin } from '../icons/SocialIcons';
+import NavBar from '../Component/NavBar';
+import Footer from '../Component/Footer';
 import { useTheme } from '../context/ThemeContext';
 import { siteUrl } from '../constants';
 import avatarImg from '../image/imgprofile.webp';
@@ -38,8 +40,8 @@ function CodeBlock({ node, inline, className, children, ...props }: any) {
 
   if (!inline && match) {
     return (
-      <div className="relative group/code my-6 rounded-2xl overflow-hidden border border-neutral-800 bg-[#0b0b10] shadow-2xl">
-        <div className="flex items-center justify-between px-4 py-2.5 bg-neutral-900/80 border-b border-neutral-800/80 text-[11px] font-mono text-neutral-400">
+      <div className="relative group/code my-8 rounded-2xl overflow-hidden border border-neutral-800 bg-[#0c0c12] shadow-2xl">
+        <div className="flex items-center justify-between px-4 py-2.5 bg-neutral-900/90 border-b border-neutral-800 text-[11px] font-mono text-neutral-400">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
             <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
@@ -49,7 +51,7 @@ function CodeBlock({ node, inline, className, children, ...props }: any) {
 
           <button
             onClick={handleCopy}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white transition-colors"
           >
             {copied ? (
               <>
@@ -65,7 +67,7 @@ function CodeBlock({ node, inline, className, children, ...props }: any) {
           </button>
         </div>
 
-        <div className="p-4 sm:p-5 overflow-x-auto text-sm leading-relaxed font-mono">
+        <div className="p-5 sm:p-6 overflow-x-auto text-sm leading-relaxed font-mono">
           <code className={className} {...props}>
             {children}
           </code>
@@ -152,16 +154,20 @@ export default function BlogPost() {
 
   if (!post) {
     return (
-      <div className={`${bg} min-h-screen flex flex-col items-center justify-center px-4 text-center`}>
-        <h1 className="text-2xl font-bold mb-2">Artikel Tidak Ditemukan</h1>
-        <p className="text-neutral-500 mb-6 text-sm">Artikel yang Anda cari mungkin telah dihapus atau belum dipublikasikan.</p>
-        <Link
-          to="/blog"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-600/20"
-        >
-          <ArrowLeft size={16} />
-          Kembali ke Blog
-        </Link>
+      <div className={`${bg} min-h-screen flex flex-col justify-between`}>
+        <NavBar />
+        <div className="flex flex-col items-center justify-center px-4 py-32 text-center">
+          <h1 className="text-2xl font-bold font-display mb-2">Artikel Tidak Ditemukan</h1>
+          <p className="text-neutral-500 mb-6 text-sm">Artikel yang Anda cari mungkin telah dihapus atau belum dipublikasikan.</p>
+          <Link
+            to="/blog"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-600/20"
+          >
+            <ArrowLeft size={16} />
+            Kembali ke Katalog Blog
+          </Link>
+        </div>
+        <Footer />
       </div>
     );
   }
@@ -185,8 +191,8 @@ export default function BlogPost() {
         <link rel="canonical" href={`${siteUrl}/blog/${post.slug}`} />
       </Helmet>
 
-      <div className={`${bg} min-h-screen transition-colors duration-500 selection:bg-indigo-500 selection:text-white relative overflow-hidden pb-32`}>
-        {/* Scroll Progress Bar at the Top */}
+      <div className={`${bg} min-h-screen transition-colors duration-500 selection:bg-indigo-500 selection:text-white relative overflow-hidden flex flex-col justify-between`}>
+        {/* Scroll Progress Bar */}
         <div className="fixed top-0 left-0 right-0 h-1 z-50 bg-neutral-800/40">
           <div 
             className="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 transition-all duration-150"
@@ -198,45 +204,27 @@ export default function BlogPost() {
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
           <div className={`absolute inset-0 ${darkTheme ? 'bg-grid-pattern-dark' : 'bg-grid-pattern-light'}`} />
           {darkTheme && (
-            <div className="absolute top-[-5%] right-[20%] w-[40vw] aspect-square rounded-full bg-indigo-600/[0.04] blur-[150px]" />
+            <div className="absolute top-0 right-[15%] w-[45vw] aspect-square rounded-full bg-indigo-600/[0.05] blur-[150px]" />
           )}
         </div>
 
-        {/* ── Sticky Top Bar ── */}
-        <header className="sticky top-1 z-40 backdrop-blur-xl border-b bg-neutral-900/60 dark:bg-black/60 border-neutral-200/40 dark:border-neutral-800/40">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
-            <div className="flex items-center gap-2 text-xs font-mono text-neutral-400">
-              <Link to="/blog" className="hover:text-white transition-colors flex items-center gap-1.5">
-                <ArrowLeft size={14} />
-                <span>Blog</span>
-              </Link>
-              <ChevronRight size={12} className="text-neutral-600" />
-              <span className="truncate max-w-[200px] sm:max-w-[350px] text-neutral-300 font-sans font-medium">
-                {post.title}
-              </span>
-            </div>
+        {/* Global Navigation */}
+        <NavBar />
 
-            <div className="flex items-center gap-2">
-              <button
-                onClick={copyToClipboard}
-                title="Salin link artikel"
-                className={`px-3 py-1.5 rounded-xl border text-xs font-mono transition-all flex items-center gap-1.5
-                  ${darkTheme 
-                    ? 'border-neutral-800 bg-neutral-900/80 text-neutral-300 hover:text-white hover:border-neutral-700' 
-                    : 'border-neutral-200 bg-white text-neutral-600 hover:text-black shadow-sm'}`}
-              >
-                {copied ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
-                <span className="hidden sm:inline">{copied ? 'Tersalin' : 'Salin Link'}</span>
-              </button>
-            </div>
+        {/* ── Article Content Wrapper ── */}
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 pt-28 sm:pt-36 pb-16 w-full">
+          {/* Breadcrumb Navigation */}
+          <div className="flex items-center gap-2 text-xs font-mono text-neutral-400 mb-8">
+            <Link to="/" className="hover:text-white transition-colors">Home</Link>
+            <ChevronRight size={12} className="text-neutral-600" />
+            <Link to="/blog" className="hover:text-white transition-colors">Blog</Link>
+            <ChevronRight size={12} className="text-neutral-600" />
+            <span className="truncate max-w-[200px] text-neutral-300 font-medium">{post.title}</span>
           </div>
-        </header>
 
-        {/* ── Article Header ── */}
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 pt-12 pb-8">
-          {/* Tag Pills */}
+          {/* Tags */}
           {post.tags && post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-5">
+            <div className="flex flex-wrap gap-2 mb-6">
               {post.tags.map((tag) => (
                 <span
                   key={tag}
@@ -248,18 +236,18 @@ export default function BlogPost() {
             </div>
           )}
 
-          {/* Article Title */}
+          {/* Title */}
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black font-display tracking-tight leading-[1.15] mb-6">
             {post.title}
           </h1>
 
           {/* Author & Meta Row */}
-          <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-neutral-800/60 text-xs font-mono text-neutral-400">
+          <div className="flex flex-wrap items-center justify-between gap-4 py-5 border-y border-neutral-800/60 text-xs font-mono text-neutral-400 mb-8">
             <div className="flex items-center gap-3">
               <img
                 src={avatarImg}
                 alt="Awanda"
-                className="w-10 h-10 rounded-full object-cover border-2 border-indigo-500/40"
+                className="w-10 h-10 rounded-full object-cover border-2 border-indigo-500/40 shadow-md"
               />
               <div>
                 <div className="font-sans font-bold text-neutral-200 text-sm">Awanda</div>
@@ -285,7 +273,7 @@ export default function BlogPost() {
 
           {/* Featured Cover Image */}
           {post.cover_image && (
-            <div className="mt-8 rounded-3xl overflow-hidden aspect-[16/9] bg-neutral-900 border border-neutral-800 shadow-2xl relative">
+            <div className="mb-12 rounded-3xl overflow-hidden aspect-[16/9] bg-neutral-900 border border-neutral-800 shadow-2xl">
               <img
                 src={post.cover_image}
                 alt={post.title}
@@ -293,15 +281,13 @@ export default function BlogPost() {
               />
             </div>
           )}
-        </div>
 
-        {/* ── Article Body Content ── */}
-        <main className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
+          {/* Article Body Content */}
           <article className={`prose max-w-none prose-base sm:prose-lg prose-neutral ${darkTheme ? 'prose-invert' : ''}
             prose-headings:font-display prose-headings:tracking-tight prose-headings:font-bold
             prose-h2:text-2xl sm:prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:pb-3 prose-h2:border-b prose-h2:border-neutral-800/50
             prose-h3:text-xl sm:prose-h3:text-2xl prose-h3:mt-8
-            prose-p:leading-[1.8] prose-p:text-neutral-300 dark:prose-p:text-neutral-300 prose-p:my-5
+            prose-p:leading-[1.85] prose-p:text-neutral-300 dark:prose-p:text-neutral-300 prose-p:my-5
             prose-blockquote:border-l-4 prose-blockquote:border-indigo-500 prose-blockquote:bg-indigo-500/[0.04] prose-blockquote:py-3 prose-blockquote:px-5 prose-blockquote:rounded-r-2xl prose-blockquote:not-italic prose-blockquote:text-neutral-300
             prose-img:rounded-3xl prose-img:border prose-img:border-neutral-800/80 prose-img:shadow-xl
             prose-ul:my-5 prose-li:my-1.5
@@ -318,7 +304,7 @@ export default function BlogPost() {
           </article>
 
           {/* ── Author Bio Box & Sharing ── */}
-          <div className={`mt-16 p-8 rounded-3xl border ${darkTheme ? 'bg-[#0e0e12] border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'}`}>
+          <div className={`mt-16 p-8 rounded-3xl border ${darkTheme ? 'bg-[#0f0f14] border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'}`}>
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
               <img
                 src={avatarImg}
@@ -402,7 +388,10 @@ export default function BlogPost() {
               </div>
             </div>
           </div>
-        </main>
+        </div>
+
+        {/* Global Footer */}
+        <Footer />
       </div>
     </>
   );

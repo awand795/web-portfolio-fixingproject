@@ -78,6 +78,7 @@ const NavBar = ({ darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme }: Na
 
   useEffect(() => {
     if (isSocmedPage) { setActiveSection('social'); return; }
+    if (location.pathname.startsWith('/blog')) { setActiveSection('blog'); return; }
     const sectionIds = ['home', 'project', 'skill', 'contact'];
     const observers: IntersectionObserver[] = [];
     sectionIds.forEach((id) => {

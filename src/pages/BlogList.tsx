@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  ArrowLeft, Search, Calendar, Eye, Tag, BookOpen, 
-  Clock, Sparkles, ArrowUpRight, X, ChevronRight, Filter, Bookmark
+  Search, Calendar, Eye, Tag, BookOpen, 
+  Clock, Sparkles, ArrowUpRight, X, ChevronRight, 
+  SlidersHorizontal, Flame, TrendingUp, Send, Check
 } from 'lucide-react';
+import NavBar from '../Component/NavBar';
+import Footer from '../Component/Footer';
 import { useTheme } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
 import { siteUrl } from '../constants';
@@ -29,6 +32,7 @@ export default function BlogList() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [sortBy, setSortBy] = useState<'latest' | 'popular'>('latest');
 
   const bg = darkTheme ? 'bg-[#08080a] text-neutral-100' : 'bg-[#FAF9F6] text-neutral-900';
 
@@ -54,319 +58,253 @@ export default function BlogList() {
     }
   };
 
-  // Filter posts client-side for instant search feedback
-  const filteredPosts = useMemo(() => {
-    if (!searchQuery.trim()) return posts;
-    const q = searchQuery.toLowerCase();
-    return posts.filter(
-      p => p.title.toLowerCase().includes(q) || 
-           (p.summary && p.summary.toLowerCase().includes(q)) ||
-           (p.tags && p.tags.some(tag => tag.toLowerCase().includes(q)))
-    );
-  }, [posts, searchQuery]);
+  // Filter & Sort
+  const filteredAndSortedPosts = useMemo(() => {
+    let result = [...posts];
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter(
+        p => p.title.toLowerCase().includes(q) || 
+             (p.summary && p.summary.toLowerCase().includes(q)) ||
+             (p.tags && p.tags.some(tag => tag.toLowerCase().includes(q)))
+      );
+    }
+
+    if (sortBy === 'popular') {
+      result.sort((a, b) => (b.views || 0) - (a.views || 0));
+    } else {
+      result.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    }
+
+    return result;
+  }, [posts, searchQuery, sortBy]);
 
   // Unique tags
   const allTags = useMemo(() => {
     return Array.from(new Set(posts.flatMap(p => p.tags || [])));
   }, [posts]);
 
-  // Featured post (latest post)
-  const featuredPost = filteredPosts.length > 0 && !searchQuery && !selectedTag ? filteredPosts[0] : null;
-  const standardPosts = featuredPost ? filteredPosts.slice(1) : filteredPosts;
+  const featuredPost = filteredAndSortedPosts.length > 0 && !searchQuery && !selectedTag && sortBy === 'latest' 
+    ? filteredAndSortedPosts[0] 
+    : null;
+  const listPosts = featuredPost ? filteredAndSortedPosts.slice(1) : filteredAndSortedPosts;
 
   return (
     <>
       <Helmet>
-        <title>Blog & Tech Articles — Awanda | Software Engineer</title>
-        <meta name="description" content="Kumpulan artikel, catatan teknis, tutorial, dan studi kasus arsitektur sistem oleh Awanda, Software Engineer." />
-        <meta property="og:title" content="Blog & Tech Articles — Awanda" />
-        <meta property="og:description" content="Kumpulan artikel, catatan teknis, tutorial, dan studi kasus arsitektur sistem oleh Awanda." />
+        <title>Blog & Tech Insights — Awanda | Software Engineer</title>
+        <meta name="description" content="Kumpulan artikel, catatan teknis arsitektur sistem, fullstack development, database cloud, dan tutorial oleh Awanda." />
+        <meta property="og:title" content="Blog & Tech Insights — Awanda" />
+        <meta property="og:description" content="Kumpulan artikel, catatan teknis arsitektur sistem, fullstack development, dan database cloud oleh Awanda." />
         <meta property="og:url" content={`${siteUrl}/blog`} />
         <link rel="canonical" href={`${siteUrl}/blog`} />
       </Helmet>
 
-      <div className={`${bg} min-h-screen transition-colors duration-500 selection:bg-indigo-500 selection:text-white relative overflow-hidden pb-24`}>
-        {/* Ambient structural glow */}
+      <div className={`${bg} min-h-screen transition-colors duration-500 selection:bg-indigo-500 selection:text-white relative overflow-hidden flex flex-col justify-between`}>
+        {/* Ambient background atmosphere */}
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
           <div className={`absolute inset-0 ${darkTheme ? 'bg-grid-pattern-dark' : 'bg-grid-pattern-light'}`} />
           {darkTheme && (
             <>
-              <div className="absolute top-[-10%] right-[10%] w-[45vw] aspect-square rounded-full bg-indigo-600/[0.04] blur-[140px]" />
-              <div className="absolute top-[40%] left-[-10%] w-[40vw] aspect-square rounded-full bg-blue-600/[0.03] blur-[140px]" />
+              <div className="absolute -top-40 right-0 w-[55vw] h-[55vw] rounded-full bg-gradient-to-br from-indigo-600/10 via-purple-600/5 to-transparent blur-[140px]" />
+              <div className="absolute top-[35%] -left-32 w-[45vw] h-[45vw] rounded-full bg-gradient-to-tr from-blue-600/10 via-cyan-600/5 to-transparent blur-[140px]" />
             </>
           )}
         </div>
 
-        {/* ── Top Navigation Bar ── */}
-        <header className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.06]">
-          <Link
-            to="/"
-            className={`group inline-flex items-center gap-2 text-xs sm:text-sm font-medium transition-colors
-              ${darkTheme ? 'text-neutral-400 hover:text-white' : 'text-neutral-600 hover:text-black'}`}
-          >
-            <span className={`p-1.5 rounded-lg border transition-transform duration-300 group-hover:-translate-x-1
-              ${darkTheme ? 'border-neutral-800 bg-neutral-900/80' : 'border-neutral-200 bg-white'}`}>
-              <ArrowLeft size={14} />
-            </span>
-            <span>{t('social.backToHome') || 'Kembali ke Portofolio'}</span>
-          </Link>
+        {/* Global Navigation Bar */}
+        <NavBar />
 
-          <div className="flex items-center gap-3">
-            <Link
-              to="/admin/dashboard"
-              className={`text-xs font-mono px-3.5 py-1.5 rounded-xl border transition-all duration-300 flex items-center gap-1.5
-                ${darkTheme 
-                  ? 'border-neutral-800 bg-neutral-900/60 text-neutral-400 hover:text-white hover:border-indigo-500/50 hover:bg-neutral-900' 
-                  : 'border-neutral-200 bg-white text-neutral-600 hover:text-black hover:border-indigo-400 shadow-sm'}`}
+        {/* ── Main Hero Section ── */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-12 w-full">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono tracking-widest uppercase mb-6 border bg-indigo-500/10 border-indigo-500/30 text-indigo-400 backdrop-blur-md shadow-sm"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Admin Studio</span>
-            </Link>
+              <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
+              <span>Awanda Tech Journal</span>
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-4xl sm:text-6xl font-extrabold tracking-tight font-display mb-6 leading-[1.1]"
+            >
+              Catatan Teknis,{' '}
+              <span className="text-gradient">Arsitektur</span> & Rekayasa Kode.
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className={`text-base sm:text-lg leading-relaxed ${darkTheme ? 'text-neutral-400' : 'text-neutral-600'}`}
+            >
+              Berbagi studi kasus dunia nyata, eksplorasi teknologi web modern, performa sistem, dan pengalaman seputar *software engineering*.
+            </motion.p>
           </div>
-        </header>
 
-        {/* ── Header Hero Section ── */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-10">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider uppercase mb-5 border bg-indigo-500/10 border-indigo-500/20 text-indigo-400">
-              <Sparkles size={13} className="animate-spin-slow" />
-              <span>Developer Journal & Insights</span>
-            </div>
+          {/* ── Search & Filter Command Center ── */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className={`p-3 sm:p-4 rounded-3xl border backdrop-blur-xl mb-12 max-w-4xl mx-auto shadow-xl
+              ${darkTheme ? 'bg-[#0f0f14]/80 border-neutral-800 shadow-indigo-500/5' : 'bg-white/90 border-neutral-200 shadow-neutral-200/50'}`}
+          >
+            <div className="flex flex-col md:flex-row items-center gap-3">
+              {/* Search Box */}
+              <div className="relative flex-1 w-full">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400" size={17} />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Cari judul, topik, atau kata kunci..."
+                  className={`w-full pl-11 pr-10 py-3 rounded-2xl text-sm border outline-none transition-all
+                    ${darkTheme 
+                      ? 'bg-neutral-900/90 border-neutral-800 text-white placeholder:text-neutral-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20' 
+                      : 'bg-neutral-50 border-neutral-200 text-black placeholder:text-neutral-400 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10'}`}
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-neutral-400 hover:text-white"
+                  >
+                    <X size={15} />
+                  </button>
+                )}
+              </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-display mb-5 leading-[1.1]">
-              Refleksi Kode,{' '}
-              <span className="text-gradient">Arsitektur</span> & Sistem.
-            </h1>
-
-            <p className={`text-base sm:text-lg leading-relaxed ${darkTheme ? 'text-neutral-400' : 'text-neutral-600'}`}>
-              Dokumentasi perjalanan teknis, eksplorasi teknologi modern, dan studi kasus pengembangan perangkat lunak berskala produksi.
-            </p>
-          </div>
-
-          {/* ── Search & Filter Controls ── */}
-          <div className="mt-10 flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between">
-            {/* Search Input */}
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400" size={17} />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Cari judul, tag, atau isi topik..."
-                className={`w-full pl-11 pr-10 py-3 rounded-2xl text-sm border outline-none transition-all duration-300
-                  ${darkTheme 
-                    ? 'bg-[#0e0e12]/80 border-neutral-800 text-white placeholder:text-neutral-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20' 
-                    : 'bg-white border-neutral-200 text-black placeholder:text-neutral-400 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 shadow-sm'}`}
-              />
-              {searchQuery && (
+              {/* Sort Switcher */}
+              <div className="flex items-center gap-1.5 w-full md:w-auto justify-end">
                 <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-neutral-400 hover:text-white"
+                  onClick={() => setSortBy('latest')}
+                  className={`flex-1 md:flex-initial px-4 py-2.5 rounded-xl text-xs font-mono flex items-center justify-center gap-1.5 transition-all
+                    ${sortBy === 'latest' 
+                      ? 'bg-indigo-600 text-white font-semibold shadow-md shadow-indigo-600/30' 
+                      : darkTheme ? 'text-neutral-400 hover:text-white bg-neutral-900/60' : 'text-neutral-600 bg-neutral-100 hover:text-black'}`}
                 >
-                  <X size={15} />
+                  <Sparkles size={13} />
+                  <span>Terbaru</span>
                 </button>
-              )}
+
+                <button
+                  onClick={() => setSortBy('popular')}
+                  className={`flex-1 md:flex-initial px-4 py-2.5 rounded-xl text-xs font-mono flex items-center justify-center gap-1.5 transition-all
+                    ${sortBy === 'popular' 
+                      ? 'bg-indigo-600 text-white font-semibold shadow-md shadow-indigo-600/30' 
+                      : darkTheme ? 'text-neutral-400 hover:text-white bg-neutral-900/60' : 'text-neutral-600 bg-neutral-100 hover:text-black'}`}
+                >
+                  <Flame size={13} />
+                  <span>Populer</span>
+                </button>
+              </div>
             </div>
 
-            {/* Tag Pills */}
+            {/* Tag Pills Carousel */}
             {allTags.length > 0 && (
-              <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
+              <div className="flex items-center gap-2 overflow-x-auto pt-3 border-t border-neutral-800/40 mt-3 pb-1 scrollbar-none">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-500 shrink-0 ml-1">
+                  Topik:
+                </span>
                 <button
                   onClick={() => setSelectedTag(null)}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-mono whitespace-nowrap transition-all duration-300
+                  className={`px-3 py-1 rounded-xl text-xs font-mono whitespace-nowrap transition-all
                     ${selectedTag === null
-                      ? 'bg-gradient-primary text-white shadow-lg shadow-indigo-600/25 font-semibold'
-                      : darkTheme 
-                        ? 'bg-neutral-900/80 text-neutral-400 hover:text-white border border-neutral-800 hover:border-neutral-700' 
-                        : 'bg-white text-neutral-600 hover:text-black border border-neutral-200 shadow-sm'}`}
+                      ? 'bg-neutral-200 text-black dark:bg-white dark:text-black font-bold'
+                      : darkTheme ? 'text-neutral-400 hover:text-white bg-neutral-900/60 border border-neutral-800' : 'text-neutral-600 bg-neutral-100 border border-neutral-200'}`}
                 >
-                  Semua Topik ({posts.length})
+                  Semua ({posts.length})
                 </button>
                 {allTags.map((tag) => (
                   <button
                     key={tag}
                     onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
-                    className={`px-3.5 py-2 rounded-xl text-xs font-mono whitespace-nowrap transition-all duration-300
+                    className={`px-3 py-1 rounded-xl text-xs font-mono whitespace-nowrap transition-all
                       ${selectedTag === tag
-                        ? 'bg-gradient-primary text-white shadow-lg shadow-indigo-600/25 font-semibold'
-                        : darkTheme 
-                          ? 'bg-neutral-900/80 text-neutral-400 hover:text-white border border-neutral-800 hover:border-neutral-700' 
-                          : 'bg-white text-neutral-600 hover:text-black border border-neutral-200 shadow-sm'}`}
+                        ? 'bg-indigo-600 text-white font-bold'
+                        : darkTheme ? 'text-neutral-400 hover:text-white bg-neutral-900/60 border border-neutral-800' : 'text-neutral-600 bg-neutral-100 border border-neutral-200'}`}
                   >
                     #{tag}
                   </button>
                 ))}
               </div>
             )}
-          </div>
-        </div>
+          </motion.div>
 
-        {/* ── Main Content Area ── */}
-        <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          {loading ? (
-            <div className="space-y-8">
-              <div className={`h-96 rounded-3xl animate-pulse ${darkTheme ? 'bg-neutral-900/60' : 'bg-neutral-200'}`} />
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[1, 2, 3].map((n) => (
-                  <div key={n} className={`h-80 rounded-3xl animate-pulse ${darkTheme ? 'bg-neutral-900/60' : 'bg-neutral-200'}`} />
-                ))}
+          {/* ── Main Articles Section ── */}
+          <main className="w-full">
+            {loading ? (
+              <div className="space-y-8 max-w-6xl mx-auto">
+                <div className={`h-[420px] rounded-3xl animate-pulse ${darkTheme ? 'bg-neutral-900/70' : 'bg-neutral-200'}`} />
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[1, 2, 3].map((n) => (
+                    <div key={n} className={`h-80 rounded-3xl animate-pulse ${darkTheme ? 'bg-neutral-900/70' : 'bg-neutral-200'}`} />
+                  ))}
+                </div>
               </div>
-            </div>
-          ) : filteredPosts.length === 0 ? (
-            <div className={`text-center py-24 rounded-3xl border ${darkTheme ? 'bg-[#0e0e12]/40 border-neutral-800/60' : 'bg-white border-neutral-200'}`}>
-              <BookOpen className="mx-auto text-neutral-400 mb-4 animate-bounce" size={44} />
-              <h3 className="text-xl font-bold font-display mb-2">Tidak ada artikel yang cocok</h3>
-              <p className="text-sm text-neutral-500 max-w-md mx-auto">
-                Coba gunakan kata kunci lain atau pilih filter topik di atas untuk menjelajahi tulisan lainnya.
-              </p>
-              {(searchQuery || selectedTag) && (
+            ) : filteredAndSortedPosts.length === 0 ? (
+              <div className={`text-center py-24 rounded-3xl border max-w-3xl mx-auto
+                ${darkTheme ? 'bg-[#0f0f14]/60 border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'}`}>
+                <BookOpen className="mx-auto text-indigo-400 mb-4" size={48} />
+                <h3 className="text-2xl font-bold font-display mb-2">Belum ada artikel yang cocok</h3>
+                <p className="text-sm text-neutral-400 max-w-md mx-auto mb-6">
+                  Tidak menemukan tulisan dengan kata kunci "{searchQuery}". Coba kata kunci lain atau reset filter.
+                </p>
                 <button
                   onClick={() => { setSearchQuery(''); setSelectedTag(null); }}
-                  className="mt-6 px-4 py-2 rounded-xl text-xs font-mono bg-indigo-600 hover:bg-indigo-700 text-white transition-colors"
+                  className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-mono font-semibold transition-all shadow-lg shadow-indigo-600/20"
                 >
-                  Reset Filter
+                  Tampilkan Semua Artikel
                 </button>
-              )}
-            </div>
-          ) : (
-            <div className="space-y-12">
-              {/* ── Highlighted Featured Post ── */}
-              {featuredPost && (
-                <motion.article
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className={`group relative rounded-3xl border overflow-hidden transition-all duration-500 hover:shadow-2xl
-                    ${darkTheme 
-                      ? 'bg-gradient-to-b from-[#111118] to-[#0a0a0f] border-neutral-800/80 hover:border-indigo-500/40 hover:shadow-indigo-500/5' 
-                      : 'bg-white border-neutral-200 hover:border-indigo-400 hover:shadow-indigo-500/10'}`}
-                >
-                  <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-center p-6 sm:p-8 lg:p-10">
-                    {/* Cover image side */}
-                    {featuredPost.cover_image && (
-                      <Link 
-                        to={`/blog/${featuredPost.slug}`}
-                        className="lg:col-span-7 block relative aspect-[16/10] rounded-2xl overflow-hidden bg-neutral-900 shadow-inner group/img"
-                      >
-                        <img
-                          src={featuredPost.cover_image}
-                          alt={featuredPost.title}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-105"
-                          loading="eager"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/90 text-black text-xs font-semibold backdrop-blur-md">
-                            Baca Artikel <ArrowUpRight size={14} />
-                          </span>
-                        </div>
-                      </Link>
-                    )}
-
-                    {/* Text info side */}
-                    <div className={featuredPost.cover_image ? 'lg:col-span-5 flex flex-col justify-between h-full' : 'lg:col-span-12'}>
-                      <div>
-                        <div className="flex items-center gap-2 mb-4">
-                          <span className="px-3 py-1 rounded-full text-[10px] font-mono tracking-widest uppercase font-bold bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
-                            ⭐ FEATURED
-                          </span>
-                          {featuredPost.tags && featuredPost.tags[0] && (
-                            <span className="px-2.5 py-1 rounded-full text-[10px] font-mono text-neutral-400 border border-neutral-800">
-                              #{featuredPost.tags[0]}
-                            </span>
-                          )}
-                        </div>
-
-                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-display tracking-tight mb-4 group-hover:text-indigo-400 transition-colors leading-snug">
-                          <Link to={`/blog/${featuredPost.slug}`}>
-                            {featuredPost.title}
-                          </Link>
-                        </h2>
-
-                        <p className={`text-sm sm:text-base line-clamp-3 mb-6 leading-relaxed ${darkTheme ? 'text-neutral-400' : 'text-neutral-600'}`}>
-                          {featuredPost.summary}
-                        </p>
-                      </div>
-
-                      {/* Footer author & stats */}
-                      <div className="pt-6 border-t border-neutral-800/40 flex items-center justify-between text-xs font-mono text-neutral-400">
-                        <div className="flex items-center gap-2.5">
+              </div>
+            ) : (
+              <div className="max-w-6xl mx-auto space-y-12">
+                {/* ── Featured Magazine Hero ── */}
+                {featuredPost && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 25 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <Link
+                      to={`/blog/${featuredPost.slug}`}
+                      className={`group block relative rounded-3xl border overflow-hidden transition-all duration-500 hover:shadow-2xl
+                        ${darkTheme 
+                          ? 'bg-[#0f0f14] border-neutral-800 hover:border-indigo-500/50 hover:shadow-indigo-500/10' 
+                          : 'bg-white border-neutral-200 hover:border-indigo-400 hover:shadow-indigo-500/10'}`}
+                    >
+                      <div className="grid lg:grid-cols-12 gap-8 items-center p-6 sm:p-8 lg:p-10">
+                        {/* Featured Image */}
+                        <div className="lg:col-span-7 relative aspect-[16/10] rounded-2xl overflow-hidden bg-neutral-900 shadow-xl">
                           <img
-                            src={avatarImg}
-                            alt="Awanda"
-                            className="w-7 h-7 rounded-full object-cover border border-indigo-500/40"
+                            src={featuredPost.cover_image || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&auto=format&fit=crop&q=80'}
+                            alt={featuredPost.title}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                           />
-                          <span className="font-sans font-medium text-neutral-200">Awanda</span>
-                        </div>
-
-                        <div className="flex items-center gap-4 text-[11px]">
-                          <div className="flex items-center gap-1">
-                            <Calendar size={13} />
-                            <span>
-                              {new Date(featuredPost.created_at).toLocaleDateString('id-ID', {
-                                day: 'numeric',
-                                month: 'short',
-                                year: 'numeric'
-                              })}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                          <div className="absolute top-4 left-4">
+                            <span className="px-3.5 py-1.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-indigo-600 text-white shadow-lg shadow-indigo-600/40">
+                              ⭐ Highlighted Article
                             </span>
                           </div>
-                          <div className="flex items-center gap-1">
-                            <Eye size={13} />
-                            <span>{featuredPost.views}</span>
-                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.article>
-              )}
 
-              {/* ── Standard Posts Grid ── */}
-              {standardPosts.length > 0 && (
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                  {standardPosts.map((post, index) => {
-                    const dateStr = new Date(post.created_at).toLocaleDateString('id-ID', {
-                      day: 'numeric',
-                      month: 'short',
-                      year: 'numeric'
-                    });
-
-                    return (
-                      <motion.article
-                        key={post.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.05, duration: 0.4 }}
-                        className={`group flex flex-col rounded-3xl border overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl
-                          ${darkTheme 
-                            ? 'bg-[#0d0d12]/90 border-neutral-800/80 hover:border-indigo-500/50 hover:shadow-indigo-500/5' 
-                            : 'bg-white border-neutral-200 hover:border-indigo-400 hover:shadow-indigo-500/10'}`}
-                      >
-                        {/* Cover Image */}
-                        {post.cover_image && (
-                          <Link to={`/blog/${post.slug}`} className="block relative aspect-[16/9] overflow-hidden bg-neutral-900">
-                            <img
-                              src={post.cover_image}
-                              alt={post.title}
-                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                              loading="lazy"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                              <span className="text-xs font-mono font-medium text-white flex items-center gap-1">
-                                Baca Artikel <ChevronRight size={13} />
-                              </span>
-                            </div>
-                          </Link>
-                        )}
-
-                        <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+                        {/* Featured Info */}
+                        <div className="lg:col-span-5 flex flex-col justify-between">
                           <div>
-                            {/* Tags */}
-                            {post.tags && post.tags.length > 0 && (
-                              <div className="flex flex-wrap gap-1.5 mb-3.5">
-                                {post.tags.slice(0, 3).map((tag) => (
+                            {featuredPost.tags && featuredPost.tags.length > 0 && (
+                              <div className="flex flex-wrap gap-2 mb-4">
+                                {featuredPost.tags.slice(0, 3).map((tag) => (
                                   <span
                                     key={tag}
-                                    className="text-[11px] font-mono px-2.5 py-0.5 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
+                                    className="text-xs font-mono px-2.5 py-1 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
                                   >
                                     #{tag}
                                   </span>
@@ -374,40 +312,134 @@ export default function BlogList() {
                               </div>
                             )}
 
-                            {/* Title */}
-                            <h3 className="text-xl font-bold font-display tracking-tight mb-2.5 group-hover:text-indigo-400 transition-colors leading-snug">
-                              <Link to={`/blog/${post.slug}`} className="line-clamp-2">
-                                {post.title}
-                              </Link>
-                            </h3>
+                            <h2 className="text-2xl sm:text-3xl font-extrabold font-display tracking-tight mb-4 group-hover:text-indigo-400 transition-colors leading-snug">
+                              {featuredPost.title}
+                            </h2>
 
-                            {/* Summary */}
-                            <p className={`text-xs sm:text-sm line-clamp-3 mb-6 leading-relaxed ${darkTheme ? 'text-neutral-400' : 'text-neutral-600'}`}>
-                              {post.summary}
+                            <p className={`text-sm sm:text-base line-clamp-3 mb-6 leading-relaxed ${darkTheme ? 'text-neutral-400' : 'text-neutral-600'}`}>
+                              {featuredPost.summary}
                             </p>
                           </div>
 
-                          {/* Card Footer */}
-                          <div className={`pt-4 border-t flex items-center justify-between text-[11px] font-mono
-                            ${darkTheme ? 'border-neutral-800 text-neutral-500' : 'border-neutral-100 text-neutral-400'}`}>
-                            <div className="flex items-center gap-1.5">
-                              <Calendar size={12} />
-                              <span>{dateStr}</span>
+                          <div className="pt-6 border-t border-neutral-800/60 flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <img
+                                src={avatarImg}
+                                alt="Awanda"
+                                className="w-8 h-8 rounded-full object-cover border border-indigo-500/40"
+                              />
+                              <div className="text-xs">
+                                <div className="font-bold text-neutral-200">Awanda</div>
+                                <div className="text-[10px] font-mono text-neutral-500">
+                                  {new Date(featuredPost.created_at).toLocaleDateString('id-ID', {
+                                    day: 'numeric',
+                                    month: 'short',
+                                    year: 'numeric'
+                                  })}
+                                </div>
+                              </div>
                             </div>
-                            <div className="flex items-center gap-1.5 text-neutral-400">
-                              <Eye size={12} />
-                              <span>{post.views} views</span>
+
+                            <div className="flex items-center gap-1 text-xs font-mono text-indigo-400 font-semibold group-hover:translate-x-1 transition-transform">
+                              <span>Baca</span>
+                              <ArrowUpRight size={15} />
                             </div>
                           </div>
                         </div>
-                      </motion.article>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          )}
-        </main>
+                      </div>
+                    </Link>
+                  </motion.div>
+                )}
+
+                {/* ── Standard Grid Cards ── */}
+                {listPosts.length > 0 && (
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                    {listPosts.map((post, idx) => {
+                      const dateFormatted = new Date(post.created_at).toLocaleDateString('id-ID', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric'
+                      });
+
+                      return (
+                        <motion.article
+                          key={post.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.4, delay: idx * 0.05 }}
+                        >
+                          <Link
+                            to={`/blog/${post.slug}`}
+                            className={`group flex flex-col h-full rounded-3xl border overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl
+                              ${darkTheme 
+                                ? 'bg-[#0f0f14]/90 border-neutral-800/80 hover:border-indigo-500/50 hover:shadow-indigo-500/10' 
+                                : 'bg-white border-neutral-200 hover:border-indigo-400 hover:shadow-indigo-500/10'}`}
+                          >
+                            {/* Card Image */}
+                            <div className="relative aspect-[16/9] overflow-hidden bg-neutral-900">
+                              <img
+                                src={post.cover_image || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&auto=format&fit=crop&q=80'}
+                                alt={post.title}
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                loading="lazy"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                <span className="text-xs font-mono font-medium text-white flex items-center gap-1">
+                                  Buka Tulisan <ArrowUpRight size={13} />
+                                </span>
+                              </div>
+                            </div>
+
+                            {/* Card Body */}
+                            <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+                              <div>
+                                {post.tags && post.tags.length > 0 && (
+                                  <div className="flex flex-wrap gap-1.5 mb-3.5">
+                                    {post.tags.slice(0, 2).map((tag) => (
+                                      <span
+                                        key={tag}
+                                        className="text-[11px] font-mono px-2.5 py-0.5 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
+                                      >
+                                        #{tag}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+
+                                <h3 className="text-lg sm:text-xl font-bold font-display tracking-tight mb-2.5 group-hover:text-indigo-400 transition-colors leading-snug line-clamp-2">
+                                  {post.title}
+                                </h3>
+
+                                <p className={`text-xs sm:text-sm line-clamp-3 mb-6 leading-relaxed ${darkTheme ? 'text-neutral-400' : 'text-neutral-600'}`}>
+                                  {post.summary}
+                                </p>
+                              </div>
+
+                              <div className={`pt-4 border-t flex items-center justify-between text-[11px] font-mono
+                                ${darkTheme ? 'border-neutral-800 text-neutral-500' : 'border-neutral-100 text-neutral-400'}`}>
+                                <div className="flex items-center gap-1.5">
+                                  <Calendar size={12} />
+                                  <span>{dateFormatted}</span>
+                                </div>
+                                <div className="flex items-center gap-1.5 text-neutral-400">
+                                  <Eye size={12} />
+                                  <span>{post.views} views</span>
+                                </div>
+                              </div>
+                            </div>
+                          </Link>
+                        </motion.article>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            )}
+          </main>
+        </div>
+
+        {/* Global Footer */}
+        <Footer />
       </div>
     </>
   );
