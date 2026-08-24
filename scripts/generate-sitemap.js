@@ -31,9 +31,9 @@ function generateSitemap() {
     return `
   <url>
     <loc>${SITE_URL}${route.url}</loc>
-    <priority>${route.priority}</priority>
-    <changefreq>${route.changefreq}</changefreq>
     <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>${route.changefreq}</changefreq>
+    <priority>${route.priority}</priority>
   </url>`;
   }).join('');
 
@@ -68,8 +68,6 @@ Sitemap: ${SITE_URL}/sitemap.xml
 // Generate _redirects file for Netlify
 function generateNetlifyRedirects() {
   const redirectsContent = `# Netlify redirects file
-/sitemap.xml    /sitemap.xml    200!
-/robots.txt     /robots.txt     200!
 
 # Social media page (OG tags for crawlers)
 /socmed    /socmed/index.html    200
