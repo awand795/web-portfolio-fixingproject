@@ -5,11 +5,12 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { 
   ArrowLeft, Calendar, Eye, Clock, Share2, 
-  Check, Copy, MessageCircle 
+  Check, Copy, MessageCircle, ChevronRight, Bookmark, Sparkles
 } from 'lucide-react';
 import { Twitter, Linkedin } from '../icons/SocialIcons';
 import { useTheme } from '../context/ThemeContext';
 import { siteUrl } from '../constants';
+import avatarImg from '../image/imgprofile.webp';
 
 interface Post {
   id: number;
@@ -23,6 +24,63 @@ interface Post {
   created_at: string;
 }
 
+// Custom code block with Copy button
+function CodeBlock({ node, inline, className, children, ...props }: any) {
+  const [copied, setCopied] = useState(false);
+  const match = /language-(\w+)/.exec(className || '');
+  const codeContent = String(children).replace(/\n$/, '');
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(codeContent);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  if (!inline && match) {
+    return (
+      <div className="relative group/code my-6 rounded-2xl overflow-hidden border border-neutral-800 bg-[#0b0b10] shadow-2xl">
+        <div className="flex items-center justify-between px-4 py-2.5 bg-neutral-900/80 border-b border-neutral-800/80 text-[11px] font-mono text-neutral-400">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+            <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+            <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+            <span className="ml-2 uppercase tracking-widest text-indigo-400 font-bold">{match[1]}</span>
+          </div>
+
+          <button
+            onClick={handleCopy}
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white transition-colors"
+          >
+            {copied ? (
+              <>
+                <Check size={12} className="text-emerald-400" />
+                <span className="text-emerald-400">Copied!</span>
+              </>
+            ) : (
+              <>
+                <Copy size={12} />
+                <span>Copy</span>
+              </>
+            )}
+          </button>
+        </div>
+
+        <div className="p-4 sm:p-5 overflow-x-auto text-sm leading-relaxed font-mono">
+          <code className={className} {...props}>
+            {children}
+          </code>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <code className="px-1.5 py-0.5 rounded-md bg-indigo-500/10 text-indigo-400 font-mono text-[13px] border border-indigo-500/20" {...props}>
+      {children}
+    </code>
+  );
+}
+
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
@@ -31,8 +89,20 @@ export default function BlogPost() {
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   const bg = darkTheme ? 'bg-[#08080a] text-neutral-100' : 'bg-[#FAF9F6] text-neutral-900';
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        setScrollProgress((window.scrollY / totalHeight) * 100);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     if (!slug) return;
@@ -68,7 +138,6 @@ export default function BlogPost() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  // Estimate reading time
   const readingTime = post 
     ? Math.max(1, Math.ceil(post.content.split(/\s+/).length / 200))
     : 1;
@@ -88,7 +157,7 @@ export default function BlogPost() {
         <p className="text-neutral-500 mb-6 text-sm">Artikel yang Anda cari mungkin telah dihapus atau belum dipublikasikan.</p>
         <Link
           to="/blog"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-colors"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-600/20"
         >
           <ArrowLeft size={16} />
           Kembali ke Blog
@@ -116,42 +185,62 @@ export default function BlogPost() {
         <link rel="canonical" href={`${siteUrl}/blog/${post.slug}`} />
       </Helmet>
 
-      <div className={`${bg} min-h-screen transition-colors duration-500 selection:bg-indigo-500 selection:text-white pb-24`}>
-        {/* Navigation header */}
-        <div className="sticky top-0 z-30 backdrop-blur-md border-b bg-neutral-900/40 dark:bg-black/40 border-neutral-200/40 dark:border-neutral-800/40">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-            <Link
-              to="/blog"
-              className={`inline-flex items-center gap-2 text-xs sm:text-sm font-medium transition-colors
-                ${darkTheme ? 'text-neutral-400 hover:text-white' : 'text-neutral-600 hover:text-black'}`}
-            >
-              <ArrowLeft size={16} />
-              Semua Artikel
-            </Link>
+      <div className={`${bg} min-h-screen transition-colors duration-500 selection:bg-indigo-500 selection:text-white relative overflow-hidden pb-32`}>
+        {/* Scroll Progress Bar at the Top */}
+        <div className="fixed top-0 left-0 right-0 h-1 z-50 bg-neutral-800/40">
+          <div 
+            className="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 transition-all duration-150"
+            style={{ width: `${scrollProgress}%` }}
+          />
+        </div>
+
+        {/* Ambient Glow */}
+        <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+          <div className={`absolute inset-0 ${darkTheme ? 'bg-grid-pattern-dark' : 'bg-grid-pattern-light'}`} />
+          {darkTheme && (
+            <div className="absolute top-[-5%] right-[20%] w-[40vw] aspect-square rounded-full bg-indigo-600/[0.04] blur-[150px]" />
+          )}
+        </div>
+
+        {/* ── Sticky Top Bar ── */}
+        <header className="sticky top-1 z-40 backdrop-blur-xl border-b bg-neutral-900/60 dark:bg-black/60 border-neutral-200/40 dark:border-neutral-800/40">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+            <div className="flex items-center gap-2 text-xs font-mono text-neutral-400">
+              <Link to="/blog" className="hover:text-white transition-colors flex items-center gap-1.5">
+                <ArrowLeft size={14} />
+                <span>Blog</span>
+              </Link>
+              <ChevronRight size={12} className="text-neutral-600" />
+              <span className="truncate max-w-[200px] sm:max-w-[350px] text-neutral-300 font-sans font-medium">
+                {post.title}
+              </span>
+            </div>
 
             <div className="flex items-center gap-2">
               <button
                 onClick={copyToClipboard}
-                title="Salin tautan artikel"
-                className={`p-2 rounded-lg border text-xs font-mono transition-colors flex items-center gap-1.5
-                  ${darkTheme ? 'border-neutral-800 text-neutral-400 hover:text-white hover:border-neutral-700' : 'border-neutral-200 text-neutral-600 hover:text-black'}`}
+                title="Salin link artikel"
+                className={`px-3 py-1.5 rounded-xl border text-xs font-mono transition-all flex items-center gap-1.5
+                  ${darkTheme 
+                    ? 'border-neutral-800 bg-neutral-900/80 text-neutral-300 hover:text-white hover:border-neutral-700' 
+                    : 'border-neutral-200 bg-white text-neutral-600 hover:text-black shadow-sm'}`}
               >
-                {copied ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
+                {copied ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
                 <span className="hidden sm:inline">{copied ? 'Tersalin' : 'Salin Link'}</span>
               </button>
             </div>
           </div>
-        </div>
+        </header>
 
-        {/* Article Header */}
-        <header className="max-w-4xl mx-auto px-4 sm:px-6 pt-10 pb-8">
-          {/* Tags */}
+        {/* ── Article Header ── */}
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 pt-12 pb-8">
+          {/* Tag Pills */}
           {post.tags && post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-4">
+            <div className="flex flex-wrap gap-2 mb-5">
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-xs font-mono px-2.5 py-1 rounded-md bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
+                  className="text-xs font-mono px-3 py-1 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
                 >
                   #{tag}
                 </span>
@@ -159,31 +248,44 @@ export default function BlogPost() {
             </div>
           )}
 
-          {/* Title */}
-          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight font-display mb-6 leading-tight">
+          {/* Article Title */}
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black font-display tracking-tight leading-[1.15] mb-6">
             {post.title}
           </h1>
 
-          {/* Meta bar */}
-          <div className={`flex flex-wrap items-center gap-4 sm:gap-6 text-xs font-mono pb-6 border-b
-            ${darkTheme ? 'border-neutral-800 text-neutral-400' : 'border-neutral-200 text-neutral-500'}`}>
-            <div className="flex items-center gap-1.5">
-              <Calendar size={13} />
-              <span>{dateFormatted}</span>
+          {/* Author & Meta Row */}
+          <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-neutral-800/60 text-xs font-mono text-neutral-400">
+            <div className="flex items-center gap-3">
+              <img
+                src={avatarImg}
+                alt="Awanda"
+                className="w-10 h-10 rounded-full object-cover border-2 border-indigo-500/40"
+              />
+              <div>
+                <div className="font-sans font-bold text-neutral-200 text-sm">Awanda</div>
+                <div className="text-[11px] text-neutral-500">Software Engineer</div>
+              </div>
             </div>
-            <div className="flex items-center gap-1.5">
-              <Clock size={13} />
-              <span>{readingTime} menit membaca</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Eye size={13} />
-              <span>{post.views} pembaca</span>
+
+            <div className="flex items-center gap-4 text-[11px] sm:text-xs">
+              <div className="flex items-center gap-1.5">
+                <Calendar size={13} className="text-neutral-500" />
+                <span>{dateFormatted}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Clock size={13} className="text-neutral-500" />
+                <span>{readingTime} min read</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Eye size={13} className="text-neutral-500" />
+                <span>{post.views} views</span>
+              </div>
             </div>
           </div>
 
-          {/* Cover Image */}
+          {/* Featured Cover Image */}
           {post.cover_image && (
-            <div className="mt-8 rounded-2xl overflow-hidden aspect-[16/9] bg-neutral-900 border border-neutral-800/80 shadow-2xl">
+            <div className="mt-8 rounded-3xl overflow-hidden aspect-[16/9] bg-neutral-900 border border-neutral-800 shadow-2xl relative">
               <img
                 src={post.cover_image}
                 alt={post.title}
@@ -191,59 +293,113 @@ export default function BlogPost() {
               />
             </div>
           )}
-        </header>
+        </div>
 
-        {/* Article Content / Markdown Renderer */}
-        <main className="max-w-4xl mx-auto px-4 sm:px-6">
-          <article className={`prose max-w-none prose-neutral ${darkTheme ? 'prose-invert' : ''}
+        {/* ── Article Body Content ── */}
+        <main className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
+          <article className={`prose max-w-none prose-base sm:prose-lg prose-neutral ${darkTheme ? 'prose-invert' : ''}
             prose-headings:font-display prose-headings:tracking-tight prose-headings:font-bold
-            prose-h1:text-3xl prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:pb-2 prose-h2:border-b prose-h2:border-neutral-800/40
-            prose-h3:text-xl prose-h3:mt-8
-            prose-p:leading-relaxed prose-p:text-base prose-p:my-4
-            prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:bg-indigo-500/10 prose-code:text-indigo-400 prose-code:font-mono prose-code:text-sm
-            prose-pre:bg-[#0d0d12] prose-pre:border prose-pre:border-neutral-800 prose-pre:rounded-xl prose-pre:p-4 prose-pre:shadow-xl
-            prose-blockquote:border-l-4 prose-blockquote:border-indigo-500 prose-blockquote:bg-indigo-500/5 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg
-            prose-img:rounded-2xl prose-img:border prose-img:border-neutral-800/80 prose-img:shadow-lg
-            prose-ul:my-4 prose-ol:my-4
+            prose-h2:text-2xl sm:prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:pb-3 prose-h2:border-b prose-h2:border-neutral-800/50
+            prose-h3:text-xl sm:prose-h3:text-2xl prose-h3:mt-8
+            prose-p:leading-[1.8] prose-p:text-neutral-300 dark:prose-p:text-neutral-300 prose-p:my-5
+            prose-blockquote:border-l-4 prose-blockquote:border-indigo-500 prose-blockquote:bg-indigo-500/[0.04] prose-blockquote:py-3 prose-blockquote:px-5 prose-blockquote:rounded-r-2xl prose-blockquote:not-italic prose-blockquote:text-neutral-300
+            prose-img:rounded-3xl prose-img:border prose-img:border-neutral-800/80 prose-img:shadow-xl
+            prose-ul:my-5 prose-li:my-1.5
+            prose-a:text-indigo-400 prose-a:underline hover:prose-a:text-indigo-300
           `}>
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            <ReactMarkdown 
+              remarkPlugins={[remarkGfm]}
+              components={{
+                code: CodeBlock
+              }}
+            >
               {post.content}
             </ReactMarkdown>
           </article>
 
-          {/* Share Section */}
-          <div className={`mt-16 pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-4
-            ${darkTheme ? 'border-neutral-800' : 'border-neutral-200'}`}>
-            <div>
-              <h4 className="text-sm font-semibold mb-1">Bagikan artikel ini</h4>
-              <p className="text-xs text-neutral-500">Bantu sebarkan wawasan ini ke rekan developer lainnya.</p>
+          {/* ── Author Bio Box & Sharing ── */}
+          <div className={`mt-16 p-8 rounded-3xl border ${darkTheme ? 'bg-[#0e0e12] border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'}`}>
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+              <img
+                src={avatarImg}
+                alt="Awanda"
+                className="w-16 h-16 rounded-2xl object-cover border-2 border-indigo-500/40 shrink-0 shadow-lg"
+              />
+              <div className="flex-1 text-center sm:text-left">
+                <h3 className="text-lg font-bold font-display mb-1">Ditulis oleh Awanda</h3>
+                <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed mb-4">
+                  Fullstack Software Engineer yang berfokus pada arsitektur web modern, aplikasi Android, dan rekayasa data sistem. Menulis seputar pengalaman praktis dan teknologi cloud.
+                </p>
+                <div className="flex items-center justify-center sm:justify-start gap-3">
+                  <a
+                    href="https://github.com/awand795"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-mono px-3 py-1.5 rounded-lg border border-neutral-800 hover:border-neutral-700 text-neutral-300 hover:text-white transition-colors"
+                  >
+                    GitHub
+                  </a>
+                  <a
+                    href="https://linkedin.com/in/awanda"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-mono px-3 py-1.5 rounded-lg border border-neutral-800 hover:border-neutral-700 text-neutral-300 hover:text-white transition-colors"
+                  >
+                    LinkedIn
+                  </a>
+                  <Link
+                    to="/"
+                    className="text-xs font-mono px-3 py-1.5 rounded-lg bg-indigo-600/20 border border-indigo-500/30 text-indigo-400 hover:bg-indigo-600/30 transition-colors"
+                  >
+                    Portofolio
+                  </Link>
+                </div>
+              </div>
             </div>
 
-            <div className="flex items-center gap-2">
-              <a
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(shareUrl)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`p-2.5 rounded-xl border transition-colors ${darkTheme ? 'border-neutral-800 hover:border-indigo-500 hover:text-indigo-400' : 'border-neutral-200 hover:border-indigo-600 hover:text-indigo-600'}`}
-              >
-                <Twitter size={16} />
-              </a>
-              <a
-                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`p-2.5 rounded-xl border transition-colors ${darkTheme ? 'border-neutral-800 hover:border-indigo-500 hover:text-indigo-400' : 'border-neutral-200 hover:border-indigo-600 hover:text-indigo-600'}`}
-              >
-                <Linkedin size={16} />
-              </a>
-              <a
-                href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`${post.title} - ${shareUrl}`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`p-2.5 rounded-xl border transition-colors ${darkTheme ? 'border-neutral-800 hover:border-indigo-500 hover:text-indigo-400' : 'border-neutral-200 hover:border-indigo-600 hover:text-indigo-600'}`}
-              >
-                <MessageCircle size={16} />
-              </a>
+            {/* Social Share Bar */}
+            <div className="mt-8 pt-6 border-t border-neutral-800/60 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <span className="text-xs font-mono text-neutral-400 flex items-center gap-2">
+                <Share2 size={14} className="text-indigo-400" />
+                <span>Bagikan artikel ini:</span>
+              </span>
+
+              <div className="flex items-center gap-2">
+                <a
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(shareUrl)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2.5 rounded-xl border border-neutral-800 hover:border-indigo-500 hover:text-indigo-400 text-neutral-400 transition-colors"
+                  title="Share to Twitter / X"
+                >
+                  <Twitter size={15} />
+                </a>
+                <a
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2.5 rounded-xl border border-neutral-800 hover:border-indigo-500 hover:text-indigo-400 text-neutral-400 transition-colors"
+                  title="Share to LinkedIn"
+                >
+                  <Linkedin size={15} />
+                </a>
+                <a
+                  href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`${post.title} - ${shareUrl}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2.5 rounded-xl border border-neutral-800 hover:border-indigo-500 hover:text-indigo-400 text-neutral-400 transition-colors"
+                  title="Share to WhatsApp"
+                >
+                  <MessageCircle size={15} />
+                </a>
+                <button
+                  onClick={copyToClipboard}
+                  className="p-2.5 rounded-xl border border-neutral-800 hover:border-indigo-500 hover:text-indigo-400 text-neutral-400 transition-colors"
+                  title="Copy link"
+                >
+                  {copied ? <Check size={15} className="text-emerald-400" /> : <Copy size={15} />}
+                </button>
+              </div>
             </div>
           </div>
         </main>

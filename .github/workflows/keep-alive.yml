@@ -1,18 +1,41 @@
-name: Keep Alive & Periodic Sitemap Ping
+name: Keep Aiven Database & Website Alive 24/7
+
 on:
   schedule:
-    # Run every 2 days at midnight UTC
-    - cron: '0 0 */2 * *'
+    # Run twice every day (at 00:00 UTC and 12:00 UTC)
+    - cron: '0 0,12 * * *'
   workflow_dispatch:
 
 jobs:
-  ping:
+  keep_alive:
+    name: Ping Aiven Database & Web Endpoints
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Website & Blog Endpoints
+      - name: Ping Aiven Database via Netlify Functions
         run: |
-          echo "Pinging Awanda Portfolio & Blog..."
-          curl -s -o /dev/null -w "%{http_code}\n" https://awanda.web.id/
-          curl -s -o /dev/null -w "%{http_code}\n" https://awanda.web.id/blog
-          curl -s -o /dev/null -w "%{http_code}\n" https://awanda.web.id/api/posts
-          echo "Ping completed successfully!"
+          echo "========================================================"
+          echo "🚀 Pinging Awanda Blog API (Forces Aiven DB Query)..."
+          echo "========================================================"
+
+          # Ping the /api/posts endpoint which executes a SELECT query on Aiven PostgreSQL
+          RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}\nTIME_TOTAL:%{time_total}s" https://awanda.web.id/api/posts)
+          
+          HTTP_CODE=$(echo "$RESPONSE" | grep "HTTP_STATUS" | cut -d':' -f2)
+          TIME_TOTAL=$(echo "$RESPONSE" | grep "TIME_TOTAL" | cut -d':' -f2)
+          
+          echo "Database API Status: HTTP $HTTP_CODE"
+          echo "Database Response Time: $TIME_TOTAL"
+          
+          if [ "$HTTP_CODE" -eq 200 ]; then
+            echo "✅ Aiven PostgreSQL is ACTIVE, RESPONSIVE, and ALIVE!"
+          else
+            echo "⚠️ Warning: Returned HTTP $HTTP_CODE"
+          fi
+
+      - name: Ping Blog & Homepage Endpoints
+        run: |
+          echo "Pinging Homepage & Blog Pages..."
+          curl -s -o /dev/null -w "Homepage Status: %{http_code}\n" https://awanda.web.id/
+          curl -s -o /dev/null -w "Blog Page Status: %{http_code}\n" https://awanda.web.id/blog
+          curl -s -o /dev/null -w "Sitemap Status: %{http_code}\n" https://awanda.web.id/sitemap.xml
+          echo "🎉 All endpoints refreshed and keep-alive signal sent successfully!"
