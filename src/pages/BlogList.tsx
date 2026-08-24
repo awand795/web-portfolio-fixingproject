@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, Calendar, Eye, Tag, BookOpen, 
   Clock, Sparkles, ArrowUpRight, X, ChevronRight, 
-  SlidersHorizontal, Flame, TrendingUp, Send, Check
+  Flame, ArrowRight, MessageSquare, Send, Mail, Check,
+  Layers, Compass, Rss
 } from 'lucide-react';
 import NavBar from '../Component/NavBar';
 import Footer from '../Component/Footer';
@@ -33,12 +34,25 @@ export default function BlogList() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<'latest' | 'popular'>('latest');
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const bg = darkTheme ? 'bg-[#08080a] text-neutral-100' : 'bg-[#FAF9F6] text-neutral-900';
 
   useEffect(() => {
     fetchPosts();
   }, [selectedTag]);
+
+  // Keyboard shortcut '/' to focus search
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === '/' && document.activeElement !== searchInputRef.current) {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const fetchPosts = async () => {
     try {
@@ -93,101 +107,105 @@ export default function BlogList() {
   return (
     <>
       <Helmet>
-        <title>Blog & Tech Insights — Awanda | Software Engineer</title>
-        <meta name="description" content="Kumpulan artikel, catatan teknis arsitektur sistem, fullstack development, database cloud, dan tutorial oleh Awanda." />
-        <meta property="og:title" content="Blog & Tech Insights — Awanda" />
-        <meta property="og:description" content="Kumpulan artikel, catatan teknis arsitektur sistem, fullstack development, dan database cloud oleh Awanda." />
+        <title>Awanda Journal — Software Engineering & Insights</title>
+        <meta name="description" content="Kumpulan artikel, catatan arsitektur sistem, fullstack web development, database cloud, dan tutorial mendalam oleh Awanda." />
+        <meta property="og:title" content="Awanda Journal — Software Engineering & Insights" />
+        <meta property="og:description" content="Kumpulan artikel, catatan arsitektur sistem, fullstack web development, database cloud, dan tutorial mendalam oleh Awanda." />
         <meta property="og:url" content={`${siteUrl}/blog`} />
         <link rel="canonical" href={`${siteUrl}/blog`} />
       </Helmet>
 
       <div className={`${bg} min-h-screen transition-colors duration-500 selection:bg-indigo-500 selection:text-white relative overflow-hidden flex flex-col justify-between`}>
-        {/* Ambient background atmosphere */}
+        {/* Ambient Glow Atmosphere */}
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
           <div className={`absolute inset-0 ${darkTheme ? 'bg-grid-pattern-dark' : 'bg-grid-pattern-light'}`} />
           {darkTheme && (
             <>
-              <div className="absolute -top-40 right-0 w-[55vw] h-[55vw] rounded-full bg-gradient-to-br from-indigo-600/10 via-purple-600/5 to-transparent blur-[140px]" />
-              <div className="absolute top-[35%] -left-32 w-[45vw] h-[45vw] rounded-full bg-gradient-to-tr from-blue-600/10 via-cyan-600/5 to-transparent blur-[140px]" />
+              <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[70vw] h-[40vw] rounded-full bg-gradient-to-b from-indigo-600/10 via-purple-600/5 to-transparent blur-[160px]" />
+              <div className="absolute top-[45%] -left-40 w-[45vw] h-[45vw] rounded-full bg-gradient-to-tr from-blue-600/10 via-cyan-600/5 to-transparent blur-[160px]" />
             </>
           )}
         </div>
 
-        {/* Global Navigation Bar */}
+        {/* Global Navigation */}
         <NavBar />
 
-        {/* ── Main Hero Section ── */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-12 w-full">
+        {/* ── Top Hero Editorial Section ── */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-8 w-full">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono tracking-widest uppercase mb-6 border bg-indigo-500/10 border-indigo-500/30 text-indigo-400 backdrop-blur-md shadow-sm"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono tracking-widest uppercase mb-5 border bg-indigo-500/10 border-indigo-500/25 text-indigo-400 backdrop-blur-xl"
             >
-              <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
-              <span>Awanda Tech Journal</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Engineering Publications</span>
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-6xl font-extrabold tracking-tight font-display mb-6 leading-[1.1]"
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight font-display mb-5 leading-[1.12]"
             >
-              Catatan Teknis,{' '}
-              <span className="text-gradient">Arsitektur</span> & Rekayasa Kode.
+              Thoughts on <span className="text-gradient">building & scaling</span> software.
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className={`text-base sm:text-lg leading-relaxed ${darkTheme ? 'text-neutral-400' : 'text-neutral-600'}`}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className={`text-sm sm:text-base leading-relaxed ${darkTheme ? 'text-neutral-400' : 'text-neutral-600'}`}
             >
-              Berbagi studi kasus dunia nyata, eksplorasi teknologi web modern, performa sistem, dan pengalaman seputar *software engineering*.
+              Catatan praktis arsitektur perangkat lunak, optimalisasi basis data relasional, dan studi kasus pengembangan web modern oleh Awanda.
             </motion.p>
           </div>
 
           {/* ── Search & Filter Command Center ── */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className={`p-3 sm:p-4 rounded-3xl border backdrop-blur-xl mb-12 max-w-4xl mx-auto shadow-xl
-              ${darkTheme ? 'bg-[#0f0f14]/80 border-neutral-800 shadow-indigo-500/5' : 'bg-white/90 border-neutral-200 shadow-neutral-200/50'}`}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className={`p-3 sm:p-4 rounded-3xl border backdrop-blur-2xl mb-12 max-w-4xl mx-auto shadow-2xl transition-all
+              ${darkTheme ? 'bg-[#0f0f14]/85 border-neutral-800/90 shadow-indigo-500/5' : 'bg-white/90 border-neutral-200 shadow-neutral-200/60'}`}
           >
             <div className="flex flex-col md:flex-row items-center gap-3">
               {/* Search Box */}
               <div className="relative flex-1 w-full">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400" size={17} />
                 <input
+                  ref={searchInputRef}
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Cari judul, topik, atau kata kunci..."
-                  className={`w-full pl-11 pr-10 py-3 rounded-2xl text-sm border outline-none transition-all
+                  placeholder="Cari artikel, topik, atau kata kunci..."
+                  className={`w-full pl-11 pr-14 py-3 rounded-2xl text-sm border outline-none transition-all
                     ${darkTheme 
-                      ? 'bg-neutral-900/90 border-neutral-800 text-white placeholder:text-neutral-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20' 
+                      ? 'bg-neutral-900/80 border-neutral-800 text-white placeholder:text-neutral-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20' 
                       : 'bg-neutral-50 border-neutral-200 text-black placeholder:text-neutral-400 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10'}`}
                 />
-                {searchQuery && (
+                {searchQuery ? (
                   <button
                     onClick={() => setSearchQuery('')}
                     className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-neutral-400 hover:text-white"
                   >
                     <X size={15} />
                   </button>
+                ) : (
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-mono px-1.5 py-0.5 rounded border border-neutral-700/60 text-neutral-500 hidden sm:inline">
+                    /
+                  </span>
                 )}
               </div>
 
               {/* Sort Switcher */}
-              <div className="flex items-center gap-1.5 w-full md:w-auto justify-end">
+              <div className="flex items-center gap-2 w-full md:w-auto justify-end">
                 <button
                   onClick={() => setSortBy('latest')}
-                  className={`flex-1 md:flex-initial px-4 py-2.5 rounded-xl text-xs font-mono flex items-center justify-center gap-1.5 transition-all
+                  className={`flex-1 md:flex-initial px-4 py-2.5 rounded-2xl text-xs font-mono flex items-center justify-center gap-1.5 transition-all duration-300
                     ${sortBy === 'latest' 
-                      ? 'bg-indigo-600 text-white font-semibold shadow-md shadow-indigo-600/30' 
+                      ? 'bg-indigo-600 text-white font-bold shadow-lg shadow-indigo-600/30' 
                       : darkTheme ? 'text-neutral-400 hover:text-white bg-neutral-900/60' : 'text-neutral-600 bg-neutral-100 hover:text-black'}`}
                 >
                   <Sparkles size={13} />
@@ -196,9 +214,9 @@ export default function BlogList() {
 
                 <button
                   onClick={() => setSortBy('popular')}
-                  className={`flex-1 md:flex-initial px-4 py-2.5 rounded-xl text-xs font-mono flex items-center justify-center gap-1.5 transition-all
+                  className={`flex-1 md:flex-initial px-4 py-2.5 rounded-2xl text-xs font-mono flex items-center justify-center gap-1.5 transition-all duration-300
                     ${sortBy === 'popular' 
-                      ? 'bg-indigo-600 text-white font-semibold shadow-md shadow-indigo-600/30' 
+                      ? 'bg-indigo-600 text-white font-bold shadow-lg shadow-indigo-600/30' 
                       : darkTheme ? 'text-neutral-400 hover:text-white bg-neutral-900/60' : 'text-neutral-600 bg-neutral-100 hover:text-black'}`}
                 >
                   <Flame size={13} />
@@ -211,7 +229,7 @@ export default function BlogList() {
             {allTags.length > 0 && (
               <div className="flex items-center gap-2 overflow-x-auto pt-3 border-t border-neutral-800/40 mt-3 pb-1 scrollbar-none">
                 <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-500 shrink-0 ml-1">
-                  Topik:
+                  Filter:
                 </span>
                 <button
                   onClick={() => setSelectedTag(null)}
@@ -238,14 +256,14 @@ export default function BlogList() {
             )}
           </motion.div>
 
-          {/* ── Main Articles Section ── */}
+          {/* ── Main Content Grid ── */}
           <main className="w-full">
             {loading ? (
               <div className="space-y-8 max-w-6xl mx-auto">
-                <div className={`h-[420px] rounded-3xl animate-pulse ${darkTheme ? 'bg-neutral-900/70' : 'bg-neutral-200'}`} />
+                <div className={`h-[420px] rounded-3xl animate-pulse ${darkTheme ? 'bg-neutral-900/80' : 'bg-neutral-200'}`} />
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {[1, 2, 3].map((n) => (
-                    <div key={n} className={`h-80 rounded-3xl animate-pulse ${darkTheme ? 'bg-neutral-900/70' : 'bg-neutral-200'}`} />
+                    <div key={n} className={`h-80 rounded-3xl animate-pulse ${darkTheme ? 'bg-neutral-900/80' : 'bg-neutral-200'}`} />
                   ))}
                 </div>
               </div>
@@ -255,7 +273,7 @@ export default function BlogList() {
                 <BookOpen className="mx-auto text-indigo-400 mb-4" size={48} />
                 <h3 className="text-2xl font-bold font-display mb-2">Belum ada artikel yang cocok</h3>
                 <p className="text-sm text-neutral-400 max-w-md mx-auto mb-6">
-                  Tidak menemukan tulisan dengan kata kunci "{searchQuery}". Coba kata kunci lain atau reset filter.
+                  Tidak menemukan tulisan dengan kata kunci "{searchQuery}". Coba gunakan istilah lain atau reset filter.
                 </p>
                 <button
                   onClick={() => { setSearchQuery(''); setSelectedTag(null); }}
@@ -266,29 +284,29 @@ export default function BlogList() {
               </div>
             ) : (
               <div className="max-w-6xl mx-auto space-y-12">
-                {/* ── Featured Magazine Hero ── */}
+                {/* ── Highlighted Magazine Bento Hero ── */}
                 {featuredPost && (
                   <motion.div
                     initial={{ opacity: 0, y: 25 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
+                    transition={{ duration: 0.5 }}
                   >
                     <Link
                       to={`/blog/${featuredPost.slug}`}
                       className={`group block relative rounded-3xl border overflow-hidden transition-all duration-500 hover:shadow-2xl
                         ${darkTheme 
-                          ? 'bg-[#0f0f14] border-neutral-800 hover:border-indigo-500/50 hover:shadow-indigo-500/10' 
+                          ? 'bg-[#0e0e14] border-neutral-800/90 hover:border-indigo-500/40 hover:shadow-indigo-500/10' 
                           : 'bg-white border-neutral-200 hover:border-indigo-400 hover:shadow-indigo-500/10'}`}
                     >
                       <div className="grid lg:grid-cols-12 gap-8 items-center p-6 sm:p-8 lg:p-10">
-                        {/* Featured Image */}
+                        {/* Cover Image */}
                         <div className="lg:col-span-7 relative aspect-[16/10] rounded-2xl overflow-hidden bg-neutral-900 shadow-xl">
                           <img
                             src={featuredPost.cover_image || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&auto=format&fit=crop&q=80'}
                             alt={featuredPost.title}
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                           <div className="absolute top-4 left-4">
                             <span className="px-3.5 py-1.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-indigo-600 text-white shadow-lg shadow-indigo-600/40">
                               ⭐ Highlighted Article
@@ -296,8 +314,8 @@ export default function BlogList() {
                           </div>
                         </div>
 
-                        {/* Featured Info */}
-                        <div className="lg:col-span-5 flex flex-col justify-between">
+                        {/* Article Info */}
+                        <div className="lg:col-span-5 flex flex-col justify-between h-full">
                           <div>
                             {featuredPost.tags && featuredPost.tags.length > 0 && (
                               <div className="flex flex-wrap gap-2 mb-4">
@@ -326,7 +344,7 @@ export default function BlogList() {
                               <img
                                 src={avatarImg}
                                 alt="Awanda"
-                                className="w-8 h-8 rounded-full object-cover border border-indigo-500/40"
+                                className="w-9 h-9 rounded-full object-cover border-2 border-indigo-500/40"
                               />
                               <div className="text-xs">
                                 <div className="font-bold text-neutral-200">Awanda</div>
@@ -340,9 +358,9 @@ export default function BlogList() {
                               </div>
                             </div>
 
-                            <div className="flex items-center gap-1 text-xs font-mono text-indigo-400 font-semibold group-hover:translate-x-1 transition-transform">
-                              <span>Baca</span>
-                              <ArrowUpRight size={15} />
+                            <div className="flex items-center gap-1.5 text-xs font-mono text-indigo-400 font-bold group-hover:translate-x-1 transition-transform">
+                              <span>Baca Artikel</span>
+                              <ArrowRight size={15} />
                             </div>
                           </div>
                         </div>
@@ -351,7 +369,7 @@ export default function BlogList() {
                   </motion.div>
                 )}
 
-                {/* ── Standard Grid Cards ── */}
+                {/* ── Standard 3-Column Grid ── */}
                 {listPosts.length > 0 && (
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                     {listPosts.map((post, idx) => {
@@ -372,7 +390,7 @@ export default function BlogList() {
                             to={`/blog/${post.slug}`}
                             className={`group flex flex-col h-full rounded-3xl border overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl
                               ${darkTheme 
-                                ? 'bg-[#0f0f14]/90 border-neutral-800/80 hover:border-indigo-500/50 hover:shadow-indigo-500/10' 
+                                ? 'bg-[#0e0e14]/90 border-neutral-800/80 hover:border-indigo-500/40 hover:shadow-indigo-500/10' 
                                 : 'bg-white border-neutral-200 hover:border-indigo-400 hover:shadow-indigo-500/10'}`}
                           >
                             {/* Card Image */}
@@ -433,6 +451,38 @@ export default function BlogList() {
                     })}
                   </div>
                 )}
+
+                {/* ── Connect & Discussion Banner ── */}
+                <div className={`p-8 sm:p-10 rounded-3xl border text-center max-w-4xl mx-auto relative overflow-hidden shadow-2xl
+                  ${darkTheme ? 'bg-gradient-to-b from-[#12121c] to-[#0a0a0f] border-indigo-500/20' : 'bg-gradient-to-b from-indigo-50/50 to-white border-indigo-100'}`}>
+                  <div className="inline-flex p-3 rounded-2xl bg-indigo-600 text-white mb-4 shadow-lg shadow-indigo-600/30">
+                    <MessageSquare size={22} />
+                  </div>
+                  <h3 className="text-2xl font-bold font-display tracking-tight mb-2">
+                    Ingin Berdiskusi atau Berkolaborasi?
+                  </h3>
+                  <p className={`text-xs sm:text-sm max-w-xl mx-auto mb-6 leading-relaxed ${darkTheme ? 'text-neutral-400' : 'text-neutral-600'}`}>
+                    Saya selalu terbuka untuk mendiskusikan arsitektur sistem, lowongan kerja fullstack/mobile, atau eksplorasi teknologi baru.
+                  </p>
+                  <div className="flex flex-wrap items-center justify-center gap-3">
+                    <a
+                      href="mailto:awand795@gmail.com"
+                      className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold flex items-center gap-2 transition-all shadow-lg shadow-indigo-600/25"
+                    >
+                      <Mail size={14} />
+                      <span>Kirim Email</span>
+                    </a>
+                    <a
+                      href="https://linkedin.com/in/awanda"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`px-5 py-2.5 rounded-xl border text-xs font-semibold transition-all
+                        ${darkTheme ? 'border-neutral-700 bg-neutral-900 text-neutral-200 hover:text-white hover:border-neutral-600' : 'border-neutral-300 bg-white text-neutral-700 hover:text-black shadow-sm'}`}
+                    >
+                      Hubungkan di LinkedIn
+                    </a>
+                  </div>
+                </div>
               </div>
             )}
           </main>
