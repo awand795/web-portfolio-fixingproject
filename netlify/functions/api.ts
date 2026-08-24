@@ -60,8 +60,17 @@ export const handler = async (event: any, context: any) => {
     };
   }
 
+  // Check if DB credentials exist
+  const dbHost = process.env.DB_HOST;
+  const dbPassword = process.env.DB_PASSWORD;
+
+  if (!dbHost || !dbPassword) {
+    return jsonResponse(500, {
+      error: 'Environment Variables Database belum diset di Netlify. Harap tambahkan DB_HOST, DB_USER, DB_PASSWORD, DB_PORT, DB_NAME di Netlify Site Settings.'
+    });
+  }
+
   // Normalize path
-  // In Netlify functions, path might be /.netlify/functions/api/... or /api/...
   let path = event.path || '';
   path = path.replace('/.netlify/functions/api', '').replace('/api', '');
   if (!path.startsWith('/')) {
@@ -69,9 +78,11 @@ export const handler = async (event: any, context: any) => {
   }
 
   const method = event.httpMethod;
-  const client = await pool.connect();
+  let client: any = null;
 
   try {
+    client = await pool.connect();
+
     // ----------------------------------------------------
     // AUTH ROUTES
     // ----------------------------------------------------
@@ -273,6 +284,6 @@ export const handler = async (event: any, context: any) => {
     console.error('API Error:', err);
     return jsonResponse(500, { error: 'Internal Server Error', details: err.message });
   } finally {
-    client.release();
+    if (client) client.release();
   }
 };
