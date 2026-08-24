@@ -34,4 +34,6 @@ screenshot.png
 .env.*
 scripts/clean-db.js
 scripts/init-db.js
+scripts/update-posts.js
+
 
