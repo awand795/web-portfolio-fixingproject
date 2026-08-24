@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 const { Pool } = pg;
 
-const JWT_SECRET = process.env.JWT_SECRET || 'awanda_super_secret_jwt_key_2026_secure!';
+const JWT_SECRET = process.env.JWT_SECRET || 'jwt_dev_fallback';
 
 // Connection pool to Aiven PostgreSQL
 const pool = new Pool({
