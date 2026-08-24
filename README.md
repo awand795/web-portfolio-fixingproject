@@ -229,7 +229,7 @@ vercel
 ## Author
 
 **Awanda**
-- Website: [awanda.eu.org](https://awanda.eu.org)
+- Website: [awanda.web.id](https://awanda.web.id)
 - Email: awand795@gmail.com
 - GitHub: [@awand795](https://github.com/awand795)
 - LinkedIn: [/in/awanda](https://linkedin.com/in/awanda)

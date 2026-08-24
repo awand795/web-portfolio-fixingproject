@@ -216,14 +216,14 @@ const Socmed = () => {
               className="flex justify-center gap-4 mb-6"
             >
               <a
-                href="https://awanda.eu.org"
+                href="https://awanda.web.id"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`flex items-center gap-1.5 text-xs font-mono tracking-wide transition-colors
                   ${darkTheme ? 'text-neutral-500 hover:text-indigo-400' : 'text-neutral-500 hover:text-indigo-600'}`}
               >
                 <Globe size={11} />
-                awanda.eu.org
+                awanda.web.id
               </a>
               <a
                 href="mailto:awand795@gmail.com"

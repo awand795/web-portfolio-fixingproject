@@ -67,7 +67,7 @@ Run these to verify performance:
 
 2. **PageSpeed Insights**
    - https://pagespeed.web.dev/
-   - Enter your URL: https://awanda.eu.org
+   - Enter your URL: https://awanda.web.id
 
 3. **WebPageTest**
    - https://www.webpagetest.org/
