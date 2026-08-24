@@ -8,7 +8,7 @@ const id: Record<string, string> = {
 
     // Hero
     'hero.greeting': "Hei, saya",
-    'hero.title': 'Software Developer',
+    'hero.title': 'Software Engineer',
     'hero.description': "Saya ngoding. Aplikasi web, Android — fullstack. Saya suka bikin sesuatu dari nol, dari database sampai tampilannya. Sesimpel itu.",
     'hero.downloadCv': 'Unduh CV',
     'hero.getInTouch': 'Hubungi Saya',
@@ -51,7 +51,7 @@ const id: Record<string, string> = {
     'contact.location': 'Medan, Sumatera Utara, Indonesia',
 
     // Social page
-    'social.title': 'Software Developer & UI/UX Designer',
+    'social.title': 'Software Engineer & UI/UX Designer',
     'social.copyright': 'Hak Cipta',
     'social.madeWith': 'Dibuat Dengan ❤️ Oleh Awanda',
     'social.backToHome': 'Kembali ke Beranda',

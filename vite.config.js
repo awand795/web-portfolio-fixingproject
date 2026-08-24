@@ -13,7 +13,7 @@ export default defineConfig({
       injectRegister: 'inline',
       includeAssets: ['favicon.svg', 'og-image.svg'],
       manifest: {
-        name: 'Awanda - Software Developer',
+        name: 'Awanda - Software Engineer',
         short_name: 'Awanda Portfolio',
         description: 'I code stuff. Web apps, Android apps — fullstack. Simple as that.',
         theme_color: '#7c3aed',

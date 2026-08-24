@@ -205,7 +205,7 @@ const Socmed = () => {
             >
               <h1 className="font-display font-black text-xl mb-1.5 tracking-tight">Awanda</h1>
               <p className={`text-[10px] font-mono tracking-widest uppercase ${darkTheme ? 'text-indigo-400' : 'text-indigo-600'}`}>
-                Software Developer
+                Software Engineer
               </p>
             </motion.div>
 

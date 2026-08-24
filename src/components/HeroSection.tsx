@@ -182,7 +182,7 @@ const HeroSection = ({ darkTheme }: HeroSectionProps) => {
             >
               <img
                 src={picture}
-                alt="Awanda — Software Developer"
+                alt="Awanda — Software Engineer"
                 fetchPriority="high"
                 width={380}
                 height={380}
