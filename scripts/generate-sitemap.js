@@ -20,6 +20,11 @@ const staticRoutes = [
     changefreq: 'weekly'
   },
   {
+    url: '/about',
+    priority: '0.9',
+    changefreq: 'monthly'
+  },
+  {
     url: '/blog',
     priority: '0.9',
     changefreq: 'daily'

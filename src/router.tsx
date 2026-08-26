@@ -5,6 +5,7 @@ import ScrollToTop from './Component/ScrollToTop';
 
 const App = lazy(() => import('./app'));
 const Socmed = lazy(() => import('./socmedlink/socmed'));
+const About = lazy(() => import('./pages/About'));
 const BlogList = lazy(() => import('./pages/BlogList'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const AdminLogin = lazy(() => import('./pages/AdminLogin'));
@@ -19,6 +20,7 @@ const Router = () => {
         <Suspense fallback={<LoadingSpinner />}>
           <Routes>
             <Route path='/' element={<App/>}/>
+            <Route path='/about' element={<About/>}/>
             <Route path='/socmed' element={<Socmed/>}/>
             <Route path='/blog' element={<BlogList/>}/>
             <Route path='/blog/:slug' element={<BlogPost/>}/>

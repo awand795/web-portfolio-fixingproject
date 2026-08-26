@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet-async';
 import NavBar from './Component/NavBar';
 import PWAInstallPrompt from './Component/PWAInstallPrompt';
 import HeroSection from './components/HeroSection';
-import AboutSection from './components/AboutSection';
 import SkillsSection from './components/SkillsSection';
 import ContactSection from './components/ContactSection';
 import BackToTop from './components/BackToTop';
@@ -94,10 +93,6 @@ const App = () => {
 
           <div ref={sentinelRef} />
           <HeroSection darkTheme={darkTheme} />
-
-          <Divider darkTheme={darkTheme} />
-
-          <AboutSection darkTheme={darkTheme} />
 
           <Divider darkTheme={darkTheme} />
 
