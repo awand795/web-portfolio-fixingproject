@@ -8,7 +8,7 @@ dotenv.config();
 const { Client } = pg;
 
 // Configuration
-const SITE_URL = 'https://awanda.web.id';
+const SITE_URL = 'https://awanda.eu.org';
 const OUTPUT_DIR = 'dist';
 const OUTPUT_FILE = 'sitemap.xml';
 

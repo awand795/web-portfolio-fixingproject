@@ -18,7 +18,7 @@ jobs:
           echo "========================================================"
 
           # Ping the /api/posts endpoint which executes a SELECT query on Aiven PostgreSQL
-          RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}\nTIME_TOTAL:%{time_total}s" https://awanda.web.id/api/posts)
+          RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}\nTIME_TOTAL:%{time_total}s" https://awanda.eu.org/api/posts)
           
           HTTP_CODE=$(echo "$RESPONSE" | grep "HTTP_STATUS" | cut -d':' -f2)
           TIME_TOTAL=$(echo "$RESPONSE" | grep "TIME_TOTAL" | cut -d':' -f2)
@@ -35,7 +35,8 @@ jobs:
       - name: Ping Blog & Homepage Endpoints
         run: |
           echo "Pinging Homepage & Blog Pages..."
-          curl -s -o /dev/null -w "Homepage Status: %{http_code}\n" https://awanda.web.id/
-          curl -s -o /dev/null -w "Blog Page Status: %{http_code}\n" https://awanda.web.id/blog
-          curl -s -o /dev/null -w "Sitemap Status: %{http_code}\n" https://awanda.web.id/sitemap.xml
+          curl -s -o /dev/null -w "EU.org Homepage Status: %{http_code}\n" https://awanda.eu.org/
+          curl -s -o /dev/null -w "EU.org Blog Status: %{http_code}\n" https://awanda.eu.org/blog
+          curl -s -o /dev/null -w "EU.org Sitemap Status: %{http_code}\n" https://awanda.eu.org/sitemap.xml
+          curl -s -o /dev/null -w "Web.id Status: %{http_code}\n" https://awanda.web.id/ || true
           echo "🎉 All endpoints refreshed and keep-alive signal sent successfully!"

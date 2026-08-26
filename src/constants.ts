@@ -1,1 +1,2 @@
-export const siteUrl = 'https://awanda.web.id';
+export const siteUrl = 'https://awanda.eu.org';
+

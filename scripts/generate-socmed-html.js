@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const SITE_URL = 'https://awanda.web.id';
+const SITE_URL = 'https://awanda.eu.org';
 const DIST_DIR = 'dist';
 
 function generateSocmedHtml() {
