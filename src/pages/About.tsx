@@ -57,6 +57,7 @@ export default function About() {
               },
               "knowsAbout": ["Fullstack Web Development", "React", "TypeScript", "PostgreSQL", "Laravel", "Spring Boot", "Flutter", "Android", "Cloud Architecture"],
               "sameAs": [
+                "https://www.wikidata.org/wiki/Q141181387",
                 "https://github.com/awand795",
                 "https://linkedin.com/in/awanda",
                 "https://instagram.com/adnawaa"
