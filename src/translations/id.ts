@@ -1,6 +1,7 @@
 const id: Record<string, string> = {
     // Nav
     'nav.home': 'Beranda',
+    'nav.about': 'Tentang',
     'nav.projects': 'Proyek',
     'nav.skills': 'Keahlian',
     'nav.blog': 'Blog',

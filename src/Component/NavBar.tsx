@@ -69,6 +69,7 @@ const NavBar = ({ darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme }: Na
 
   const menuItems: MenuItem[] = [
     { name: t('nav.home'), target: '/', scrollTo: null, section: 'home' },
+    { name: t('nav.about') || 'About', target: '/', scrollTo: 'about', section: 'about' },
     { name: t('nav.projects'), target: '/', scrollTo: 'project', section: 'project' },
     { name: t('nav.skills'), target: '/', scrollTo: 'skill', section: 'skill' },
     { name: t('nav.blog') || 'Blog', target: '/blog', scrollTo: null, section: 'blog' },
@@ -79,7 +80,7 @@ const NavBar = ({ darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme }: Na
   useEffect(() => {
     if (isSocmedPage) { setActiveSection('social'); return; }
     if (location.pathname.startsWith('/blog')) { setActiveSection('blog'); return; }
-    const sectionIds = ['home', 'project', 'skill', 'contact'];
+    const sectionIds = ['home', 'about', 'project', 'skill', 'contact'];
     const observers: IntersectionObserver[] = [];
     sectionIds.forEach((id) => {
       const el = document.getElementById(id === 'home' ? 'home' : id);
