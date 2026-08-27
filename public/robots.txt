@@ -1,8 +1,8 @@
 # robots.txt for Awanda Portfolio
-# https://awanda.eu.org
+# https://awanda.web.id
 
 User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://awanda.eu.org/sitemap.xml
+Sitemap: https://awanda.web.id/sitemap.xml
