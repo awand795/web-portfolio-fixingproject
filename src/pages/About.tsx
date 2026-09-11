@@ -49,6 +49,17 @@ export default function About() {
                 "name": "Darkotech",
                 "url": "https://darkotech.id"
               },
+              "alumniOf": [
+                {
+                  "@type": "CollegeOrUniversity",
+                  "name": "STMIK Kaputama",
+                  "sameAs": "https://kaputama.ac.id"
+                },
+                {
+                  "@type": "HighSchool",
+                  "name": "SMA Negeri 1 Kuala"
+                }
+              ],
               "address": {
                 "@type": "PostalAddress",
                 "addressLocality": "Medan",
@@ -231,6 +242,147 @@ export default function About() {
                   <p className="text-xs text-neutral-400 leading-relaxed">
                     Pengalaman pengguna mulus di desktop, tablet, dan mobile melalui React SPA, PWA, dan Flutter.
                   </p>
+                </div>
+              </div>
+            </div>
+
+            {/* ── Experience & Education Section (LinkedIn & Career Journey) ── */}
+            <div>
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-3">
+                <div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider mb-2 border bg-indigo-500/10 border-indigo-500/30 text-indigo-400">
+                    <Briefcase size={12} />
+                    <span>Career &amp; Education</span>
+                  </div>
+                  <h2 className="text-2xl sm:text-3xl font-bold font-display tracking-tight">
+                    {language === 'id' ? 'Pengalaman Kerja & Pendidikan' : 'Experience & Education'}
+                  </h2>
+                </div>
+                <p className="text-xs font-mono text-neutral-500">
+                  // Verified Career Journey
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                {/* ── Work Experience ── */}
+                <div className={`p-6 sm:p-8 rounded-3xl border ${darkTheme ? 'bg-[#0e0e14]/90 border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'}`}>
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="p-2.5 rounded-2xl bg-indigo-600/10 border border-indigo-500/20 text-indigo-400">
+                      <Briefcase size={20} />
+                    </div>
+                    <div>
+                      <h3 className="font-display font-bold text-lg">
+                        {language === 'id' ? 'Pengalaman Kerja' : 'Work Experience'}
+                      </h3>
+                      <p className="text-xs font-mono text-neutral-500">Professional Engineering Roles</p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-6 relative border-l-2 border-indigo-500/20 ml-3 pl-5">
+                    {/* Item 1 */}
+                    <div className="relative">
+                      <span className="absolute -left-[27px] top-1.5 w-3 h-3 rounded-full bg-indigo-500 ring-4 ring-indigo-500/20" />
+                      <div className="flex flex-wrap items-center justify-between gap-1 mb-1">
+                        <h4 className="font-bold text-sm sm:text-base font-display">Software Engineer</h4>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                          {language === 'id' ? 'Sekarang' : 'Present'}
+                        </span>
+                      </div>
+                      <p className="text-xs font-medium text-indigo-400 mb-2">Darkotech</p>
+                      <p className={`text-xs leading-relaxed ${darkTheme ? 'text-neutral-400' : 'text-neutral-600'}`}>
+                        {language === 'id'
+                          ? 'Perancangan arsitektur aplikasi fullstack, pemodelan database relasional (PostgreSQL, MySQL), perakitan API serverless, dan pengembangan frontend/mobile menggunakan React 19, TypeScript, dan Flutter.'
+                          : 'Full-stack application architecture, relational schema modeling (PostgreSQL, MySQL), resilient serverless APIs, and frontend/mobile development using React 19, TypeScript, and Flutter.'}
+                      </p>
+                    </div>
+
+                    {/* Item 2 */}
+                    <div className="relative">
+                      <span className="absolute -left-[27px] top-1.5 w-3 h-3 rounded-full bg-neutral-600 ring-4 ring-neutral-700/20" />
+                      <div className="flex flex-wrap items-center justify-between gap-1 mb-1">
+                        <h4 className="font-bold text-sm sm:text-base font-display">Guru Mapel Informatika</h4>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-neutral-800 text-neutral-300">
+                          2023 – {language === 'id' ? 'Sekarang' : 'Present'}
+                        </span>
+                      </div>
+                      <p className="text-xs font-medium text-indigo-400 mb-2">SMA Negeri 1 Salapian &amp; SMA Negeri 1 Kuala</p>
+                      <p className={`text-xs leading-relaxed ${darkTheme ? 'text-neutral-400' : 'text-neutral-600'}`}>
+                        {language === 'id'
+                          ? 'Mengajarkan algoritma dan dasar-dasar pemrograman dengan Bahasa C, serta dasar-dasar analisis data menggunakan Python.'
+                          : 'Instructing algorithms, fundamental programming in C, and introductory data analysis with Python.'}
+                      </p>
+                    </div>
+
+                    {/* Item 3 */}
+                    <div className="relative">
+                      <span className="absolute -left-[27px] top-1.5 w-3 h-3 rounded-full bg-neutral-600 ring-4 ring-neutral-700/20" />
+                      <div className="flex flex-wrap items-center justify-between gap-1 mb-1">
+                        <h4 className="font-bold text-sm sm:text-base font-display">IT Programmer</h4>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-neutral-800 text-neutral-300">
+                          2023
+                        </span>
+                      </div>
+                      <p className="text-xs font-medium text-indigo-400 mb-2">RS Murni Teguh Memorial Hospitals</p>
+                      <p className={`text-xs leading-relaxed ${darkTheme ? 'text-neutral-400' : 'text-neutral-600'}`}>
+                        {language === 'id'
+                          ? 'Mengimplementasi tampilan UI/UX Web RS Murni Teguh Memorial Hospitals dari desain dan meningkatkan responsivitas web.'
+                          : 'Implemented hospital web UI/UX based on design specifications and optimized front-end responsiveness.'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* ── Education ── */}
+                <div className={`p-6 sm:p-8 rounded-3xl border ${darkTheme ? 'bg-[#0e0e14]/90 border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'}`}>
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="p-2.5 rounded-2xl bg-indigo-600/10 border border-indigo-500/20 text-indigo-400">
+                      <GraduationCap size={20} />
+                    </div>
+                    <div>
+                      <h3 className="font-display font-bold text-lg">
+                        {language === 'id' ? 'Pendidikan' : 'Education'}
+                      </h3>
+                      <p className="text-xs font-mono text-neutral-500">Academic Background</p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-6 relative border-l-2 border-indigo-500/20 ml-3 pl-5">
+                    {/* Item 1 */}
+                    <div className="relative">
+                      <span className="absolute -left-[27px] top-1.5 w-3 h-3 rounded-full bg-indigo-500 ring-4 ring-indigo-500/20" />
+                      <div className="flex flex-wrap items-center justify-between gap-1 mb-1">
+                        <h4 className="font-bold text-sm sm:text-base font-display">Sarjana Teknik Informatika (S.Kom)</h4>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                          2018 – 2022
+                        </span>
+                      </div>
+                      <p className="text-xs font-medium text-indigo-400 mb-2">STMIK Kaputama</p>
+                      <p className={`text-xs leading-relaxed ${darkTheme ? 'text-neutral-400' : 'text-neutral-600'}`}>
+                        {language === 'id'
+                          ? 'Fokus pada Rekayasa Perangkat Lunak, Struktur Data & Algoritma, Basis Data Relasional, serta Pemrograman Berorientasi Objek.'
+                          : 'Focused on Software Engineering, Data Structures & Algorithms, Relational Databases, and Object-Oriented Programming.'}
+                      </p>
+                    </div>
+
+                    {/* Item 2 */}
+                    <div className="relative">
+                      <span className="absolute -left-[27px] top-1.5 w-3 h-3 rounded-full bg-neutral-600 ring-4 ring-neutral-700/20" />
+                      <div className="flex flex-wrap items-center justify-between gap-1 mb-1">
+                        <h4 className="font-bold text-sm sm:text-base font-display">
+                          {language === 'id' ? 'Sekolah Menengah Atas' : 'Senior High School'}
+                        </h4>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-neutral-800 text-neutral-300">
+                          2015 – 2018
+                        </span>
+                      </div>
+                      <p className="text-xs font-medium text-indigo-400 mb-2">SMA Negeri 1 Kuala</p>
+                      <p className={`text-xs leading-relaxed ${darkTheme ? 'text-neutral-400' : 'text-neutral-600'}`}>
+                        {language === 'id'
+                          ? 'Peminatan Matematika & Ilmu Pengetahuan Alam (MIPA).'
+                          : 'Major in Mathematics and Natural Sciences (MIPA).'}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

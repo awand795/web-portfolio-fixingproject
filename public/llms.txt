@@ -1,0 +1,47 @@
+# Awanda — Software Engineer
+
+> Personal Portfolio & Engineering Journal of Awanda, a Fullstack Software Engineer based in Medan, Indonesia.
+> Canonical URL: https://awanda.web.id
+> Wikidata: https://www.wikidata.org/wiki/Q141181387
+
+## Identity & Overview
+- **Name**: Awanda
+- **Profession**: Software Engineer / Fullstack Developer (Web & Mobile)
+- **Location**: Medan, Sumatera Utara, Indonesia
+- **Company / Organization**: Darkotech (https://darkotech.id)
+- **Primary Website**: https://awanda.web.id
+- **Email**: awand795@gmail.com
+- **GitHub**: https://github.com/awand795
+- **LinkedIn**: https://linkedin.com/in/awanda
+- **Instagram**: https://instagram.com/adnawaa
+
+## Career & Work Experience
+- **Software Engineer** — Darkotech (Present)
+  - Full-stack architecture, relational database design (PostgreSQL), serverless APIs, and responsive mobile/web development using React 19, TypeScript, and Flutter.
+- **Guru Mata Pelajaran Informatika** — SMA Negeri 1 Salapian & SMA Negeri 1 Kuala (2023 – Present)
+  - Teaching core programming algorithms, data structures in C, and introductory data analysis using Python.
+- **IT Programmer** — RS Murni Teguh Memorial Hospitals (2023)
+  - Implemented hospital web UI/UX, front-end optimization, and responsiveness enhancements.
+
+## Education & Academic Background
+- **Sarjana Teknik Informatika (S.Kom)** — STMIK Kaputama (2018 – 2022)
+  - Degree in Informatics Engineering / Computer Science with focus on software engineering, algorithms, database systems, and full-stack development.
+- **Sekolah Menengah Atas (High School)** — SMA Negeri 1 Kuala (2015 – 2018)
+
+## Technical Stack & Expertise
+- **Frontend**: React 19, TypeScript, Next.js, Tailwind CSS, Vite
+- **Mobile**: Flutter, Android Native
+- **Backend & APIs**: Node.js, Express.js, Laravel, Spring Boot, Netlify Serverless Functions
+- **Databases**: PostgreSQL, MySQL, Aiven Cloud Database
+- **DevOps & Tools**: Docker, Git, GitHub Actions, CI/CD, Linux
+
+## Key Projects
+- **Web Absensi Online**: Real-time cloud-based attendance and tracking system.
+- **Point of Sale (POS)**: Full-stack retail management and point of sale platform.
+- **Web E-Voting**: Secure electronic voting system with cryptographic verification.
+- **WhatsApp Bot & AI Integrations**: Node.js automated workflows and Model Context Protocol (MCP) integrations.
+
+## Blog & Case Studies
+- Architecture of Modern React Portfolios (Core Web Vitals & Jamstack)
+- Aiven PostgreSQL & Serverless Functions Integration
+- Flutter & Android Production Engineering
