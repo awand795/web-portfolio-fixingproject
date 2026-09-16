@@ -62,8 +62,9 @@ const App = () => {
     <>
       <Helmet>
         <title>Awanda — Software Engineer</title>
+        <meta name="description" content="Awanda adalah Software Engineer asal Medan, Indonesia yang berfokus pada Fullstack Web, Mobile (Flutter & Android), dan Cloud Architecture di Darkotech." />
         <meta property="og:title" content="Awanda — Software Engineer" />
-        <meta property="og:description" content="I code stuff. Web apps, Android apps — fullstack. I enjoy building things from the ground up, from the database to the UI. Simple as that." />
+        <meta property="og:description" content="Awanda adalah Software Engineer asal Medan, Indonesia yang berfokus pada Fullstack Web, Mobile (Flutter & Android), dan Cloud Architecture di Darkotech." />
         <meta property="og:url" content={siteUrl} />
         <meta property="og:image" content={`${siteUrl}/awanda-profile.jpg`} />
         <meta property="og:image:secure_url" content={`${siteUrl}/awanda-profile.jpg`} />
@@ -75,7 +76,7 @@ const App = () => {
         <meta property="og:site_name" content="Awanda Portfolio" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content="Awanda — Software Engineer" />
-        <meta name="twitter:description" content="I code stuff. Web apps, Android apps — fullstack. I enjoy building things from the ground up, from the database to the UI. Simple as that." />
+        <meta name="twitter:description" content="Awanda adalah Software Engineer asal Medan, Indonesia yang berfokus pada Fullstack Web, Mobile (Flutter & Android), dan Cloud Architecture di Darkotech." />
         <meta name="twitter:image" content={`${siteUrl}/awanda-profile.jpg`} />
         <link rel="canonical" href={siteUrl} />
       </Helmet>
