@@ -94,9 +94,9 @@ export default function About() {
         <NavBar />
 
         {/* ── Main Content ── */}
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-20 w-full">
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-20 w-full">
           {/* Breadcrumbs */}
-          <div className="flex items-center gap-2 text-xs font-mono text-neutral-400 mb-8">
+          <div className="flex items-center gap-2 text-xs font-mono text-neutral-400 mb-6 sm:mb-8">
             <Link to="/" className="hover:text-white transition-colors">Home</Link>
             <ChevronRight size={12} className="text-neutral-600" />
             <span className="text-neutral-300 font-medium">About</span>
