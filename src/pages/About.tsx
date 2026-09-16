@@ -285,7 +285,7 @@ export default function About() {
                       <div className="flex flex-wrap items-center justify-between gap-1 mb-1">
                         <h4 className="font-bold text-sm sm:text-base font-display">Software Engineer</h4>
                         <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                          {language === 'id' ? 'Sekarang' : 'Present'}
+                          2026 – {language === 'id' ? 'Sekarang' : 'Present'}
                         </span>
                       </div>
                       <p className="text-xs font-medium text-indigo-400 mb-2">Darkotech</p>
@@ -302,7 +302,7 @@ export default function About() {
                       <div className="flex flex-wrap items-center justify-between gap-1 mb-1">
                         <h4 className="font-bold text-sm sm:text-base font-display">Guru Mapel Informatika</h4>
                         <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-neutral-800 text-neutral-300">
-                          2023 – {language === 'id' ? 'Sekarang' : 'Present'}
+                          2023 – 2026
                         </span>
                       </div>
                       <p className="text-xs font-medium text-indigo-400 mb-2">SMA Negeri 1 Salapian &amp; SMA Negeri 1 Kuala</p>

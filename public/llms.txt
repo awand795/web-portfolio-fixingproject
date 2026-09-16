@@ -16,9 +16,9 @@
 - **Instagram**: https://instagram.com/adnawaa
 
 ## Career & Work Experience
-- **Software Engineer** — Darkotech (Present)
+- **Software Engineer** — Darkotech (2026 – Present)
   - Full-stack architecture, relational database design (PostgreSQL), serverless APIs, and responsive mobile/web development using React 19, TypeScript, and Flutter.
-- **Guru Mata Pelajaran Informatika** — SMA Negeri 1 Salapian & SMA Negeri 1 Kuala (2023 – Present)
+- **Guru Mata Pelajaran Informatika** — SMA Negeri 1 Salapian & SMA Negeri 1 Kuala (2023 – 2026)
   - Teaching core programming algorithms, data structures in C, and introductory data analysis using Python.
 - **IT Programmer** — RS Murni Teguh Memorial Hospitals (2023)
   - Implemented hospital web UI/UX, front-end optimization, and responsiveness enhancements.
