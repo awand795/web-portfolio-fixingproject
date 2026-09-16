@@ -3,7 +3,6 @@
 > Personal Portfolio & Engineering Journal of Awanda, a Fullstack Software Engineer based in Medan, Indonesia.
 > Canonical URL: https://awanda.web.id
 > Full Biography & Profile: https://awanda.web.id/about
-> Wikidata: https://www.wikidata.org/wiki/Q141181387
 
 ## Identity & Overview
 - **Name**: Awanda

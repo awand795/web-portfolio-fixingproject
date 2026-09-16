@@ -106,7 +106,6 @@ export default function About() {
                 "System Design"
               ],
               "sameAs": [
-                "https://www.wikidata.org/wiki/Q141181387",
                 "https://github.com/awand795",
                 "https://linkedin.com/in/awanda",
                 "https://instagram.com/adnawaa",
