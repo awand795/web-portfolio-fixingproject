@@ -26,9 +26,9 @@ export default function About() {
     <>
       <Helmet>
         <title>About Awanda — Software Engineer | Portfolio & Journey</title>
-        <meta name="description" content="Pelajari lebih lanjut tentang Awanda, Software Engineer asal Medan, Indonesia. Latar belakang, filosofi rekayasa perangkat lunak, keahlian Fullstack & Mobile, serta pengalaman kerja." />
+        <meta name="description" content="Awanda adalah Software Engineer asal Medan, Indonesia. Profil profesional, keahlian Fullstack Web & Mobile (React, Flutter, PostgreSQL), riwayat karir di Darkotech, dan filosofi rekayasa perangkat lunak." />
         <meta property="og:title" content="About Awanda — Software Engineer" />
-        <meta property="og:description" content="Pelajari lebih lanjut tentang Awanda, Software Engineer asal Medan, Indonesia. Latar belakang, filosofi rekayasa perangkat lunak, keahlian Fullstack & Mobile, serta pengalaman kerja." />
+        <meta property="og:description" content="Awanda adalah Software Engineer asal Medan, Indonesia yang berfokus pada pembangunan sistem fullstack web, aplikasi mobile, dan arsitektur database di Darkotech." />
         <meta property="og:url" content={`${siteUrl}/about`} />
         <meta property="og:image" content={`${siteUrl}/awanda-profile.jpg`} />
         <link rel="canonical" href={`${siteUrl}/about`} />
@@ -38,16 +38,46 @@ export default function About() {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "AboutPage",
-            "name": "About Awanda",
+            "@id": `${siteUrl}/about#webpage`,
+            "name": "About Awanda — Software Engineer",
             "url": `${siteUrl}/about`,
+            "description": "Profil profesional resmi, keahlian rekayasa perangkat lunak, dan riwayat karir Awanda.",
             "mainEntity": {
               "@type": "Person",
+              "@id": `${siteUrl}/#person`,
               "name": "Awanda",
+              "alternateName": ["Awanda Software Engineer", "Awanda Developer", "Awanda Web", "Awanda Darkotech"],
               "jobTitle": "Software Engineer",
+              "description": "Awanda adalah seorang Software Engineer dan Fullstack Developer profesional asal Medan, Indonesia yang berkarir di Darkotech. Menguasai arsitektur fullstack web (React, TypeScript, Laravel, Spring Boot), pengembangan aplikasi mobile (Flutter, Android), pemodelan database relasional (PostgreSQL, MySQL), dan solusi cloud serverless.",
+              "disambiguatingDescription": "Software Engineer and Fullstack Developer based in Medan, Indonesia; working at Darkotech; alumnus of STMIK Kaputama.",
+              "url": siteUrl,
+              "image": `${siteUrl}/awanda-profile.jpg`,
+              "gender": "Male",
+              "birthDate": "2000-11-18",
+              "birthPlace": {
+                "@type": "Place",
+                "name": "Bangun Rakyat, Langkat"
+              },
+              "nationality": {
+                "@type": "Country",
+                "name": "Indonesia"
+              },
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Medan",
+                "addressRegion": "Sumatera Utara",
+                "addressCountry": "ID"
+              },
               "worksFor": {
                 "@type": "Organization",
                 "name": "Darkotech",
                 "url": "https://darkotech.id"
+              },
+              "hasOccupation": {
+                "@type": "Occupation",
+                "name": "Software Engineer",
+                "occupationalCategory": "15-1252.00",
+                "skills": ["Fullstack Web Development", "Flutter", "Android", "React", "TypeScript", "PostgreSQL", "Laravel", "Spring Boot", "Cloud Architecture"]
               },
               "alumniOf": [
                 {
@@ -60,18 +90,27 @@ export default function About() {
                   "name": "SMA Negeri 1 Kuala"
                 }
               ],
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Medan",
-                "addressRegion": "Sumatera Utara",
-                "addressCountry": "ID"
-              },
-              "knowsAbout": ["Fullstack Web Development", "React", "TypeScript", "PostgreSQL", "Laravel", "Spring Boot", "Flutter", "Android", "Cloud Architecture"],
+              "knowsAbout": [
+                "Software Engineering",
+                "Fullstack Web Development",
+                "Mobile App Development",
+                "Flutter",
+                "Android",
+                "React",
+                "TypeScript",
+                "PostgreSQL",
+                "MySQL",
+                "Laravel",
+                "Spring Boot",
+                "Cloud Architecture",
+                "System Design"
+              ],
               "sameAs": [
                 "https://www.wikidata.org/wiki/Q141181387",
                 "https://github.com/awand795",
                 "https://linkedin.com/in/awanda",
-                "https://instagram.com/adnawaa"
+                "https://instagram.com/adnawaa",
+                "https://facebook.com/awandd6"
               ]
             }
           })}
@@ -141,8 +180,8 @@ export default function About() {
 
               <p className={`text-base sm:text-lg leading-relaxed mb-6 font-medium ${darkTheme ? 'text-neutral-300' : 'text-neutral-700'}`}>
                 {language === 'id' 
-                  ? 'Fullstack Software Engineer yang berfokus pada pembangunan sistem digital performa tinggi, arsitektur basis data cloud, dan aplikasi web & mobile modern.'
-                  : 'Fullstack Software Engineer focused on crafting high-performance digital systems, scalable cloud architectures, and modern web & mobile applications.'}
+                  ? 'Awanda adalah Software Engineer dan Fullstack Developer asal Medan, Indonesia, yang berfokus pada pembangunan sistem digital performa tinggi, arsitektur basis data cloud, dan aplikasi web & mobile modern di Darkotech.'
+                  : 'Awanda is a Software Engineer and Fullstack Developer based in Medan, Indonesia, specializing in high-performance digital systems, scalable cloud architectures, and modern web & mobile applications at Darkotech.'}
               </p>
 
               {/* Quick Info Badges */}
