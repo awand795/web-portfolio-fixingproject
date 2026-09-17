@@ -23,7 +23,7 @@ jobs:
 
           if [ -n "$AIVEN_API_TOKEN" ] && [ -n "$AIVEN_PROJECT" ] && [ -n "$AIVEN_SERVICE" ]; then
             AIVEN_STATUS=$(curl -s -H "Authorization: aivenv1 ${AIVEN_API_TOKEN}" "https://api.aiven.io/v1/project/${AIVEN_PROJECT}/service/${AIVEN_SERVICE}" || echo "{}")
-            STATE=$(echo "$AIVEN_STATUS" | grep -o '"state":"[^"]*' | head -1 | cut -d'"' -f4)
+            STATE=$(echo "$AIVEN_STATUS" | grep -o '"state":"[^"]*' | head -1 | cut -d'"' -f4 | tr '[:lower:]' '[:upper:]')
             echo "Aiven Service '${AIVEN_SERVICE}' State: $STATE"
 
             if [ "$STATE" != "RUNNING" ]; then
