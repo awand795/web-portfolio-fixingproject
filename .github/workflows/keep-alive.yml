@@ -2,15 +2,45 @@ name: Keep Aiven Database & Website Alive 24/7
 
 on:
   schedule:
-    # Run twice every hour at off-peak minutes (17 and 47) to bypass GitHub Actions scheduler congestion
-    - cron: '17,47 * * * *'
+    # Run every 15 minutes (96 times a day) to maintain continuous database activity
+    - cron: '*/15 * * * *'
   workflow_dispatch:
 
 jobs:
   keep_alive:
-    name: Ping Aiven Database & Web Endpoints
+    name: Keep Aiven Database & Endpoints Active
     runs-on: ubuntu-latest
     steps:
+      - name: Verify & Ensure Aiven Cloud Service State
+        env:
+          AIVEN_API_TOKEN: ${{ secrets.AIVEN_API_TOKEN }}
+          AIVEN_PROJECT: ${{ secrets.AIVEN_PROJECT }}
+          AIVEN_SERVICE: ${{ secrets.AIVEN_SERVICE }}
+        run: |
+          echo "========================================================"
+          echo "🔍 Checking Aiven Cloud Database Service Health..."
+          echo "========================================================"
+
+          if [ -n "$AIVEN_API_TOKEN" ] && [ -n "$AIVEN_PROJECT" ] && [ -n "$AIVEN_SERVICE" ]; then
+            AIVEN_STATUS=$(curl -s -H "Authorization: aivenv1 ${AIVEN_API_TOKEN}" "https://api.aiven.io/v1/project/${AIVEN_PROJECT}/service/${AIVEN_SERVICE}" || echo "{}")
+            STATE=$(echo "$AIVEN_STATUS" | grep -o '"state":"[^"]*' | head -1 | cut -d'"' -f4)
+            echo "Aiven Service '${AIVEN_SERVICE}' State: $STATE"
+
+            if [ "$STATE" != "RUNNING" ]; then
+              echo "⚠️ Aiven service is currently '$STATE'! Forcing power-on now..."
+              POWER_RES=$(curl -s -X PUT "https://api.aiven.io/v1/project/${AIVEN_PROJECT}/service/${AIVEN_SERVICE}" \
+                -H "Authorization: aivenv1 ${AIVEN_API_TOKEN}" \
+                -H "Content-Type: application/json" \
+                -d '{"powered": true}')
+              echo "Power-on dispatch result: $POWER_RES"
+              sleep 10
+            else
+              echo "✅ Aiven Cloud Service is RUNNING smoothly in the cloud."
+            fi
+          else
+            echo "ℹ️ Aiven API secrets not configured. Proceeding directly to HTTP endpoint ping."
+          fi
+
       - name: Ping Aiven Database via Netlify Functions
         env:
           AIVEN_API_TOKEN: ${{ secrets.AIVEN_API_TOKEN }}
@@ -21,9 +51,8 @@ jobs:
           echo "🚀 Pinging Awanda Blog API (Forces Aiven DB Query)..."
           echo "========================================================"
 
-          # Ping the /api/posts endpoint with retries
           TMP_RES=$(mktemp)
-          HTTP_CODE=$(curl -s -L --retry 3 --retry-delay 2 --max-time 15 -w "%{http_code}" -o "$TMP_RES" https://awanda.web.id/api/posts || curl -s -L --retry 2 -w "%{http_code}" -o "$TMP_RES" https://awanda.eu.org/api/posts || echo "000")
+          HTTP_CODE=$(curl -s -L --retry 3 --retry-delay 2 --max-time 20 -w "%{http_code}" -o "$TMP_RES" https://awanda.web.id/api/posts || curl -s -L --retry 2 -w "%{http_code}" -o "$TMP_RES" https://awanda.eu.org/api/posts || echo "000")
 
           echo "Database API Status: HTTP $HTTP_CODE"
 
@@ -35,17 +64,13 @@ jobs:
             head -n 5 "$TMP_RES" || true
             echo ""
 
-            # If Aiven API secrets are configured, automatically trigger power-on!
             if [ -n "$AIVEN_API_TOKEN" ] && [ -n "$AIVEN_PROJECT" ] && [ -n "$AIVEN_SERVICE" ]; then
-              echo "🔄 Aiven API token detected! Sending automatic 'power-on' request to Aiven..."
-              AIVEN_RES=$(curl -s -X PUT "https://api.aiven.io/v1/project/${AIVEN_PROJECT}/service/${AIVEN_SERVICE}" \
+              echo "🔄 Triggering Aiven API power-on fallback..."
+              curl -s -X PUT "https://api.aiven.io/v1/project/${AIVEN_PROJECT}/service/${AIVEN_SERVICE}" \
                 -H "Authorization: aivenv1 ${AIVEN_API_TOKEN}" \
                 -H "Content-Type: application/json" \
-                -d '{"powered": true}')
-              echo "Aiven API Response: $AIVEN_RES"
-              echo "✅ Power-on command sent to Aiven service '${AIVEN_SERVICE}'."
-            else
-              echo "ℹ️ Tip: To enable automatic self-healing/wake-up when Aiven is powered off, add AIVEN_API_TOKEN, AIVEN_PROJECT, and AIVEN_SERVICE to GitHub Secrets."
+                -d '{"powered": true}'
+              echo "✅ Power-on command sent to Aiven service."
             fi
           fi
           rm -f "$TMP_RES"
