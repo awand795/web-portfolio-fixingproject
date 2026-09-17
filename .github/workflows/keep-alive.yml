@@ -2,8 +2,8 @@ name: Keep Aiven Database & Website Alive 24/7
 
 on:
   schedule:
-    # Run every 1 hour (24 times a day)
-    - cron: '0 * * * *'
+    # Run twice every hour at off-peak minutes (17 and 47) to bypass GitHub Actions scheduler congestion
+    - cron: '17,47 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -12,25 +12,43 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Ping Aiven Database via Netlify Functions
+        env:
+          AIVEN_API_TOKEN: ${{ secrets.AIVEN_API_TOKEN }}
+          AIVEN_PROJECT: ${{ secrets.AIVEN_PROJECT }}
+          AIVEN_SERVICE: ${{ secrets.AIVEN_SERVICE }}
         run: |
           echo "========================================================"
           echo "🚀 Pinging Awanda Blog API (Forces Aiven DB Query)..."
           echo "========================================================"
 
-          # Ping the /api/posts endpoint which executes a SELECT query on Aiven PostgreSQL
-          RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}\nTIME_TOTAL:%{time_total}s" https://awanda.web.id/api/posts || curl -s -w "\nHTTP_STATUS:%{http_code}\nTIME_TOTAL:%{time_total}s" https://awanda.eu.org/api/posts)
-          
-          HTTP_CODE=$(echo "$RESPONSE" | grep "HTTP_STATUS" | cut -d':' -f2)
-          TIME_TOTAL=$(echo "$RESPONSE" | grep "TIME_TOTAL" | cut -d':' -f2)
-          
+          # Ping the /api/posts endpoint with retries
+          TMP_RES=$(mktemp)
+          HTTP_CODE=$(curl -s -L --retry 3 --retry-delay 2 --max-time 15 -w "%{http_code}" -o "$TMP_RES" https://awanda.web.id/api/posts || curl -s -L --retry 2 -w "%{http_code}" -o "$TMP_RES" https://awanda.eu.org/api/posts || echo "000")
+
           echo "Database API Status: HTTP $HTTP_CODE"
-          echo "Database Response Time: $TIME_TOTAL"
-          
+
           if [ "$HTTP_CODE" -eq 200 ]; then
             echo "✅ Aiven PostgreSQL is ACTIVE, RESPONSIVE, and ALIVE!"
           else
-            echo "⚠️ Warning: Returned HTTP $HTTP_CODE"
+            echo "⚠️ Warning: Database returned HTTP $HTTP_CODE"
+            echo "Response snippet:"
+            head -n 5 "$TMP_RES" || true
+            echo ""
+
+            # If Aiven API secrets are configured, automatically trigger power-on!
+            if [ -n "$AIVEN_API_TOKEN" ] && [ -n "$AIVEN_PROJECT" ] && [ -n "$AIVEN_SERVICE" ]; then
+              echo "🔄 Aiven API token detected! Sending automatic 'power-on' request to Aiven..."
+              AIVEN_RES=$(curl -s -X PUT "https://api.aiven.io/v1/project/${AIVEN_PROJECT}/service/${AIVEN_SERVICE}" \
+                -H "Authorization: aivenv1 ${AIVEN_API_TOKEN}" \
+                -H "Content-Type: application/json" \
+                -d '{"powered": true}')
+              echo "Aiven API Response: $AIVEN_RES"
+              echo "✅ Power-on command sent to Aiven service '${AIVEN_SERVICE}'."
+            else
+              echo "ℹ️ Tip: To enable automatic self-healing/wake-up when Aiven is powered off, add AIVEN_API_TOKEN, AIVEN_PROJECT, and AIVEN_SERVICE to GitHub Secrets."
+            fi
           fi
+          rm -f "$TMP_RES"
 
       - name: Ping Blog & Homepage Endpoints
         run: |

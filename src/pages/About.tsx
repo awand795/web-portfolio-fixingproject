@@ -129,19 +129,21 @@ export default function About() {
         </div>
 
         {/* Global Navigation */}
-        <NavBar />
+        <header className="relative z-50 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <NavBar />
+        </header>
 
         {/* ── Main Content ── */}
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-20 w-full">
+        <main id="main-content" className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-1 sm:pt-2 pb-20 w-full">
           {/* Breadcrumbs */}
-          <div className="flex items-center gap-2 text-xs font-mono text-neutral-400 mb-6 sm:mb-8">
+          <div className="flex items-center gap-2 text-xs font-mono text-neutral-400 mb-3 sm:mb-4">
             <Link to="/" className="hover:text-white transition-colors">Home</Link>
             <ChevronRight size={12} className="text-neutral-600" />
             <span className="text-neutral-300 font-medium">About</span>
           </div>
 
           {/* ── Top Hero Profile Header ── */}
-          <div className="grid md:grid-cols-12 gap-8 items-center mb-16">
+          <div className="grid md:grid-cols-12 gap-8 items-center mb-12 sm:mb-16">
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -471,7 +473,7 @@ export default function About() {
               </div>
             </div>
           </div>
-        </div>
+        </main>
 
         {/* Global Footer */}
         <Footer />
