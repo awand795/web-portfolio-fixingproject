@@ -2,8 +2,8 @@ name: Keep Aiven Database & Website Alive 24/7
 
 on:
   schedule:
-    # Run every 15 minutes (96 times a day) to maintain continuous database activity
-    - cron: '*/15 * * * *'
+    # Run every 5 minutes (up to 288 times a day) for continuous 24/7 keep-alive
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -18,13 +18,13 @@ jobs:
           AIVEN_SERVICE: ${{ secrets.AIVEN_SERVICE }}
         run: |
           echo "========================================================"
-          echo "🔍 Checking Aiven Cloud Database Service Health..."
+          echo "🔍 Step 1: Checking Aiven Cloud Infrastructure Status..."
           echo "========================================================"
 
           if [ -n "$AIVEN_API_TOKEN" ] && [ -n "$AIVEN_PROJECT" ] && [ -n "$AIVEN_SERVICE" ]; then
             AIVEN_STATUS=$(curl -s -H "Authorization: aivenv1 ${AIVEN_API_TOKEN}" "https://api.aiven.io/v1/project/${AIVEN_PROJECT}/service/${AIVEN_SERVICE}" || echo "{}")
             STATE=$(echo "$AIVEN_STATUS" | jq -r '.service.state // empty' | tr '[:lower:]' '[:upper:]')
-            echo "Aiven Service '${AIVEN_SERVICE}' Cloud State: $STATE"
+            echo "Aiven Cloud Service '${AIVEN_SERVICE}' State: $STATE"
 
             if [ "$STATE" = "RUNNING" ]; then
               echo "✅ Aiven Cloud Service is RUNNING smoothly in the cloud."
@@ -39,7 +39,35 @@ jobs:
               sleep 15
             fi
           else
-            echo "ℹ️ Aiven API secrets not configured. Proceeding directly to HTTP endpoint ping."
+            echo "ℹ️ Aiven API secrets not configured. Proceeding directly to database query."
+          fi
+
+      - name: Direct Native PostgreSQL Connection (if DB Password Configured)
+        env:
+          AIVEN_DB_PASSWORD: ${{ secrets.AIVEN_DB_PASSWORD }}
+          AIVEN_PROJECT: ${{ secrets.AIVEN_PROJECT }}
+          AIVEN_SERVICE: ${{ secrets.AIVEN_SERVICE }}
+        run: |
+          if [ -n "$AIVEN_DB_PASSWORD" ]; then
+            echo "========================================================"
+            echo "⚡ Step 2: Direct Native PostgreSQL TCP Connection..."
+            echo "========================================================"
+            
+            DB_HOST="pg-c937fcb-awand795-fbb1.h.aivencloud.com"
+            DB_PORT="25789"
+            DB_USER="avnadmin"
+            DB_NAME="defaultdb"
+
+            if ! command -v psql &> /dev/null; then
+              sudo apt-get update -qq && sudo apt-get install -y -qq postgresql-client
+            fi
+
+            PGPASSWORD="$AIVEN_DB_PASSWORD" psql "host=$DB_HOST port=$DB_PORT user=$DB_USER dbname=$DB_NAME sslmode=require" -c "SELECT NOW() as direct_keep_alive_time, COUNT(*) as total_posts FROM posts;"
+            if [ $? -eq 0 ]; then
+              echo "✅ DIRECT NATIVE POSTGRESQL PING SUCCESSFUL!"
+            else
+              echo "⚠️ Direct native psql returned non-zero exit code, proceeding to API check."
+            fi
           fi
 
       - name: Ping Aiven Database via Netlify Functions
@@ -49,7 +77,7 @@ jobs:
           AIVEN_SERVICE: ${{ secrets.AIVEN_SERVICE }}
         run: |
           echo "========================================================"
-          echo "🚀 Pinging Awanda Blog API (Forces Aiven DB Query)..."
+          echo "🚀 Step 3: Pinging Awanda Blog API (Forces Aiven DB Query)..."
           echo "========================================================"
 
           TMP_RES=$(mktemp)
