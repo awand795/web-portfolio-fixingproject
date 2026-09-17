@@ -158,8 +158,10 @@ export default function BlogPost() {
   if (!post) {
     return (
       <div className={`${bg} min-h-screen flex flex-col justify-between`}>
-        <NavBar />
-        <div className="flex flex-col items-center justify-center px-4 py-36 text-center">
+        <header className="relative z-50 max-w-4xl mx-auto px-4 sm:px-6 w-full">
+          <NavBar />
+        </header>
+        <div className="flex flex-col items-center justify-center px-4 py-20 sm:py-24 text-center">
           <h1 className="text-2xl font-bold font-display mb-2">Artikel Tidak Ditemukan</h1>
           <p className="text-neutral-500 mb-6 text-sm">Artikel yang Anda cari mungkin telah dihapus atau belum dipublikasikan.</p>
           <Link
@@ -266,12 +268,14 @@ export default function BlogPost() {
         </div>
 
         {/* Global Navigation */}
-        <NavBar />
+        <header className="relative z-50 max-w-4xl mx-auto px-4 sm:px-6 w-full">
+          <NavBar />
+        </header>
 
         {/* ── Article Content Area ── */}
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 pt-28 sm:pt-36 pb-20 w-full">
+        <main id="main-content" className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 pt-4 sm:pt-6 pb-20 w-full">
           {/* Breadcrumbs */}
-          <div className="flex items-center gap-2 text-xs font-mono text-neutral-400 mb-8">
+          <div className="flex items-center gap-2 text-xs font-mono text-neutral-400 mb-4 sm:mb-6">
             <Link to="/" className="hover:text-white transition-colors">Home</Link>
             <ChevronRight size={12} className="text-neutral-600" />
             <Link to="/blog" className="hover:text-white transition-colors">Blog</Link>
@@ -451,7 +455,7 @@ export default function BlogPost() {
               </div>
             </div>
           </div>
-        </div>
+        </main>
 
         {/* Global Footer */}
         <Footer />
