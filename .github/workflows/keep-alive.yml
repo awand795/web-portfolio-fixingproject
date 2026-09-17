@@ -23,19 +23,20 @@ jobs:
 
           if [ -n "$AIVEN_API_TOKEN" ] && [ -n "$AIVEN_PROJECT" ] && [ -n "$AIVEN_SERVICE" ]; then
             AIVEN_STATUS=$(curl -s -H "Authorization: aivenv1 ${AIVEN_API_TOKEN}" "https://api.aiven.io/v1/project/${AIVEN_PROJECT}/service/${AIVEN_SERVICE}" || echo "{}")
-            STATE=$(echo "$AIVEN_STATUS" | grep -o '"state":"[^"]*' | head -1 | cut -d'"' -f4 | tr '[:lower:]' '[:upper:]')
-            echo "Aiven Service '${AIVEN_SERVICE}' State: $STATE"
+            STATE=$(echo "$AIVEN_STATUS" | jq -r '.service.state // empty' | tr '[:lower:]' '[:upper:]')
+            echo "Aiven Service '${AIVEN_SERVICE}' Cloud State: $STATE"
 
-            if [ "$STATE" != "RUNNING" ]; then
+            if [ "$STATE" = "RUNNING" ]; then
+              echo "✅ Aiven Cloud Service is RUNNING smoothly in the cloud."
+            else
               echo "⚠️ Aiven service is currently '$STATE'! Forcing power-on now..."
               POWER_RES=$(curl -s -X PUT "https://api.aiven.io/v1/project/${AIVEN_PROJECT}/service/${AIVEN_SERVICE}" \
                 -H "Authorization: aivenv1 ${AIVEN_API_TOKEN}" \
                 -H "Content-Type: application/json" \
                 -d '{"powered": true}')
               echo "Power-on dispatch result: $POWER_RES"
-              sleep 10
-            else
-              echo "✅ Aiven Cloud Service is RUNNING smoothly in the cloud."
+              echo "⏳ Waiting 15 seconds for cloud resources to spin up..."
+              sleep 15
             fi
           else
             echo "ℹ️ Aiven API secrets not configured. Proceeding directly to HTTP endpoint ping."
@@ -59,19 +60,36 @@ jobs:
           if [ "$HTTP_CODE" -eq 200 ]; then
             echo "✅ Aiven PostgreSQL is ACTIVE, RESPONSIVE, and ALIVE!"
           else
-            echo "⚠️ Warning: Database returned HTTP $HTTP_CODE"
+            echo "❌ CRITICAL: Database query failed with HTTP $HTTP_CODE!"
             echo "Response snippet:"
-            head -n 5 "$TMP_RES" || true
+            head -n 10 "$TMP_RES" || true
             echo ""
 
+            # If Aiven API secrets are configured, attempt auto-recovery power-on
             if [ -n "$AIVEN_API_TOKEN" ] && [ -n "$AIVEN_PROJECT" ] && [ -n "$AIVEN_SERVICE" ]; then
-              echo "🔄 Triggering Aiven API power-on fallback..."
-              curl -s -X PUT "https://api.aiven.io/v1/project/${AIVEN_PROJECT}/service/${AIVEN_SERVICE}" \
+              echo "🔄 Attempting automatic power-on healing via Aiven REST API..."
+              AIVEN_HEAL_RES=$(curl -s -X PUT "https://api.aiven.io/v1/project/${AIVEN_PROJECT}/service/${AIVEN_SERVICE}" \
                 -H "Authorization: aivenv1 ${AIVEN_API_TOKEN}" \
                 -H "Content-Type: application/json" \
-                -d '{"powered": true}'
-              echo "✅ Power-on command sent to Aiven service."
+                -d '{"powered": true}')
+              echo "Aiven API Response: $AIVEN_HEAL_RES"
+              echo "⏳ Waiting 20 seconds for PostgreSQL to accept connections..."
+              sleep 20
+
+              echo "🔄 Re-testing database query after auto-recovery..."
+              RETRY_CODE=$(curl -s -L --max-time 15 -w "%{http_code}" -o "$TMP_RES" https://awanda.web.id/api/posts || echo "000")
+              echo "Re-test HTTP Status: $RETRY_CODE"
+
+              if [ "$RETRY_CODE" -eq 200 ]; then
+                echo "🎉 Auto-recovery SUCCESSFUL! Aiven PostgreSQL is now back online!"
+                rm -f "$TMP_RES"
+                exit 0
+              fi
             fi
+
+            rm -f "$TMP_RES"
+            echo "💥 FATAL: Aiven PostgreSQL is DOWN and unreachable! Failing workflow to alert maintainer."
+            exit 1
           fi
           rm -f "$TMP_RES"
 
