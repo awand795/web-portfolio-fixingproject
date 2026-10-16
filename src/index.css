@@ -30,15 +30,17 @@
 }
 
 @layer components {
-  /* High-end Dotted Grid Background */
+  /* High-end Dotted Grid Background — editorial subtle */
   .bg-grid-pattern-dark {
-    background-size: 24px 24px;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
   }
   
   .bg-grid-pattern-light {
-    background-size: 24px 24px;
-    background-image: radial-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
   }
 
   .text-gradient {

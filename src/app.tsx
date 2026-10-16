@@ -35,7 +35,7 @@ const BackgroundCanvas = ({ darkTheme }: BackgroundCanvasProps) => {
 };
 
 const Divider = ({ darkTheme }: { darkTheme: boolean }) => (
-  <div className={`w-full h-px my-16 ${darkTheme ? 'bg-white/[0.06]' : 'bg-black/[0.06]'}`} />
+  <div className={`w-full h-px my-8 ${darkTheme ? 'bg-white/[0.06]' : 'bg-black/[0.06]'}`} />
 );
 
 const App = () => {
@@ -84,11 +84,11 @@ const App = () => {
       <a className="skip-link" href="#main-content">Skip to main content</a>
       <BackgroundCanvas darkTheme={darkTheme} />
 
-      <header className="relative z-50 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header className="relative z-50 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <NavBar darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
       </header>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <main id="main-content">
 
