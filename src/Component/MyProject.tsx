@@ -88,11 +88,13 @@ const BrowserChrome = ({ darkTheme }: { darkTheme: boolean }) => (
 );
 
 const CardMedia = React.memo(({ project, darkTheme, large }: { project: Project; darkTheme: boolean; large?: boolean }) => {
-  const height = large ? 'h-56 sm:h-64' : 'h-44';
+  const wrapper = large
+    ? 'relative w-full aspect-video lg:aspect-auto lg:h-full lg:min-h-[320px] overflow-hidden bg-neutral-900'
+    : 'relative w-full aspect-[16/10] overflow-hidden bg-neutral-900';
 
   if (project.media?.type === 'video') {
     return (
-      <div className={`relative ${height} overflow-hidden bg-black`}>
+      <div className={wrapper}>
         <video
           src={project.media.src}
           poster={project.media.poster}
@@ -101,7 +103,7 @@ const CardMedia = React.memo(({ project, darkTheme, large }: { project: Project;
           autoPlay
           playsInline
           preload="metadata"
-          className="w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent pointer-events-none" />
         <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2 py-1 rounded-full bg-neutral-950/70 border border-white/10 backdrop-blur-md">
@@ -112,9 +114,9 @@ const CardMedia = React.memo(({ project, darkTheme, large }: { project: Project;
     );
   }
 
-  // Editorial poster for projects without media — equal visual weight
+  // Editorial poster for projects without media — equal visual weight, same ratio as video
   return (
-    <div className={`relative ${height} overflow-hidden flex flex-col ${darkTheme ? 'bg-neutral-900/40' : 'bg-neutral-100'}`}>
+    <div className={`${wrapper} flex flex-col ${darkTheme ? 'bg-neutral-900/40' : 'bg-neutral-100'}`}>
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ background: `radial-gradient(120% 100% at 100% 0%, ${project.accent}26 0%, transparent 55%)` }}
@@ -145,16 +147,12 @@ const ProjectCard = ({ project, darkTheme, large }: { project: Project; darkThem
   const { t } = useLanguage();
 
   return (
-    <a
-      href={project.githubUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={`${t('projects.viewProject')} ${project.title}`}
+    <article
       className={`group relative flex flex-col h-full rounded-3xl border overflow-hidden transition-all duration-300 hover:-translate-y-1
         ${darkTheme
           ? 'bg-[#0e0f12] border-neutral-800/80 hover:border-neutral-700 hover:shadow-[0_24px_60px_rgba(0,0,0,0.45)]'
           : 'bg-white border-neutral-200 hover:border-neutral-300 hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)]'
-        } ${large ? 'lg:col-span-2 lg:grid lg:grid-cols-2' : ''}`}
+        } ${large ? 'lg:grid lg:grid-cols-2 lg:items-stretch' : ''}`}
     >
       <CardMedia project={project} darkTheme={darkTheme} large={large} />
 
@@ -164,17 +162,17 @@ const ProjectCard = ({ project, darkTheme, large }: { project: Project; darkThem
             {String(project.id).padStart(2, '0')} //
           </span>
           {project.demoUrl ? (
-            <span
-              role="link"
-              tabIndex={0}
-              onClick={(e) => { e.stopPropagation(); window.open(project.demoUrl, '_blank', 'noopener'); }}
-              onKeyDown={(e) => { if (e.key === 'Enter') window.open(project.demoUrl, '_blank', 'noopener'); }}
+            <a
+              href={project.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
               className="inline-flex items-center gap-1 text-xs font-semibold hover:underline"
               style={{ color: project.accent }}
             >
               <Globe size={12} />
               {t('projects.liveDemo')}
-            </span>
+            </a>
           ) : (
             <span className={`text-[10px] font-mono tracking-widest uppercase ${darkTheme ? 'text-neutral-600' : 'text-neutral-400'}`}>
               GitHub Repo
@@ -183,7 +181,9 @@ const ProjectCard = ({ project, darkTheme, large }: { project: Project; darkThem
         </div>
 
         <h3 className={`font-display font-bold tracking-tight mb-2 ${large ? 'text-2xl' : 'text-lg'} ${darkTheme ? 'text-neutral-50' : 'text-neutral-950'}`}>
-          {project.title}
+          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" aria-label={`${t('projects.viewProject')} ${project.title}`} className="hover:underline decoration-indigo-500/50 underline-offset-4">
+            {project.title}
+          </a>
         </h3>
 
         <p className={`text-sm font-medium mb-2 ${darkTheme ? 'text-neutral-300' : 'text-neutral-700'}`}>
@@ -207,14 +207,19 @@ const ProjectCard = ({ project, darkTheme, large }: { project: Project; darkThem
 
         <div className={`flex items-center justify-between text-xs font-semibold border-t pt-4 mt-auto
           ${darkTheme ? 'border-neutral-800/80' : 'border-neutral-100'}`}>
-          <span className={`flex items-center gap-1.5 font-mono tracking-wider uppercase ${darkTheme ? 'text-neutral-400' : 'text-neutral-600'}`}>
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`flex items-center gap-1.5 font-mono tracking-wider uppercase hover:underline ${darkTheme ? 'text-neutral-400' : 'text-neutral-600'}`}
+          >
             <Github size={13} />
             {t('projects.viewProject').toUpperCase()}
-          </span>
+          </a>
           <ArrowUpRight size={16} className="text-neutral-400 group-hover:text-indigo-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
         </div>
       </div>
-    </a>
+    </article>
   );
 };
 

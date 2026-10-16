@@ -35,8 +35,8 @@ const HeroSection = ({ darkTheme }: HeroSectionProps) => {
   };
 
   return (
-    <section id="home" className="pt-14 pb-16 lg:pt-20 lg:pb-24">
-      <div ref={containerRef} className="w-full grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-14 items-center">
+    <section id="home" className="pt-10 pb-12 lg:pt-14 lg:pb-16">
+      <div ref={containerRef} className="w-full grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-14 items-center">
 
         {/* Text content side */}
         <motion.div
@@ -45,9 +45,9 @@ const HeroSection = ({ darkTheme }: HeroSectionProps) => {
           animate="visible"
           className="order-2 lg:order-1 text-center lg:text-left"
         >
-          {/* Availability pill — editorial, calm */}
-          <motion.div variants={itemVariants} className="inline-flex items-center gap-2 mb-5">
-            <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-[11px] font-mono tracking-widest uppercase
+          {/* Availability pill — editorial tight, smaller */}
+          <motion.div variants={itemVariants} className="inline-flex items-center gap-2 mb-4">
+            <span className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full border text-[10px] font-mono tracking-widest uppercase
               ${darkTheme
                 ? 'bg-neutral-900/70 border-neutral-800 text-neutral-300'
                 : 'bg-white border-neutral-200 text-neutral-600 shadow-sm'}`}
@@ -58,38 +58,47 @@ const HeroSection = ({ darkTheme }: HeroSectionProps) => {
           </motion.div>
 
           {/* Name — solid editorial, period accent */}
-          <div className="mb-3">
+          <div className="mb-2">
             <TextReveal>
               <h1
                 className={`font-display font-black leading-[0.95] tracking-tighter ${darkTheme ? 'text-neutral-50' : 'text-neutral-950'}`}
-                style={{ fontSize: 'clamp(3.5rem, 8vw, 6rem)' }}
+                style={{ fontSize: 'clamp(3rem, 7vw, 5rem)' }}
               >
                 Awanda<span className="text-indigo-500">.</span>
               </h1>
             </TextReveal>
           </div>
 
-          {/* Role */}
-          <motion.div variants={itemVariants} className="mb-5">
+          {/* Role + single-line meta (opsi A: lokasi + status satu baris) */}
+          <motion.div variants={itemVariants} className="mb-4">
             <p className={`flex items-center justify-center lg:justify-start gap-3 text-xs sm:text-sm font-mono tracking-widest uppercase
               ${darkTheme ? 'text-neutral-400' : 'text-neutral-500'}`}
             >
               <span className={`hidden sm:inline-block h-px w-8 ${darkTheme ? 'bg-neutral-700' : 'bg-neutral-300'}`} aria-hidden="true" />
               {t('hero.title')}
             </p>
+            <p className={`mt-2 flex items-center justify-center lg:justify-start gap-2 text-[11px] font-mono tracking-widest uppercase
+              ${darkTheme ? 'text-neutral-500' : 'text-neutral-500'}`}>
+              <span>{t('hero.photoCaption')}</span>
+              <span aria-hidden="true">•</span>
+              <span className={`inline-flex items-center gap-1.5 ${darkTheme ? 'text-emerald-400' : 'text-emerald-600'}`}>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                {t('hero.photoStatus')}
+              </span>
+            </p>
           </motion.div>
 
           {/* Description */}
           <motion.p
             variants={itemVariants}
-            className={`text-base sm:text-lg leading-relaxed mb-8 max-w-[540px] mx-auto lg:mx-0
+            className={`text-base sm:text-lg leading-relaxed mb-5 max-w-[540px] mx-auto lg:mx-0
               ${darkTheme ? 'text-neutral-400' : 'text-neutral-600'}`}
           >
             {t('hero.description')}
           </motion.p>
 
-          {/* CTAs — editorial: solid + ghost */}
-          <motion.div variants={itemVariants} className="flex flex-wrap gap-3 mb-10 justify-center lg:justify-start items-center">
+          {/* CTAs — editorial: solid + ghost, closer to description */}
+          <motion.div variants={itemVariants} className="flex flex-wrap gap-3 mb-7 justify-center lg:justify-start items-center">
             <motion.a
               href="/files/CV Fullstack Developer - Awanda.pdf"
               target="_blank"
@@ -123,7 +132,7 @@ const HeroSection = ({ darkTheme }: HeroSectionProps) => {
           {/* Credible stats */}
           <motion.div
             variants={itemVariants}
-            className={`grid grid-cols-3 gap-4 py-6 border-t max-w-[540px] mx-auto lg:mx-0
+            className={`grid grid-cols-3 gap-4 py-5 border-t max-w-[540px] mx-auto lg:mx-0
               ${darkTheme ? 'border-neutral-900' : 'border-neutral-200'}`}
           >
             {[
@@ -144,7 +153,7 @@ const HeroSection = ({ darkTheme }: HeroSectionProps) => {
           </motion.div>
 
           {/* Proof strip */}
-          <motion.div variants={itemVariants} className="mt-6 flex items-center justify-center lg:justify-start gap-4">
+          <motion.div variants={itemVariants} className="mt-5 flex items-center justify-center lg:justify-start gap-4">
             <span className={`text-[10px] font-mono tracking-[0.2em] uppercase ${darkTheme ? 'text-neutral-600' : 'text-neutral-400'}`}>
               {t('hero.proofLabel')}
             </span>
@@ -163,14 +172,14 @@ const HeroSection = ({ darkTheme }: HeroSectionProps) => {
           </motion.div>
         </motion.div>
 
-        {/* Profile — editorial treatment, reuse existing photo */}
+        {/* Profile — fixed ratio 3/4, no layout shift, fade only */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.97 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
           className="flex justify-center lg:justify-end order-1 lg:order-2"
         >
-          <figure className="relative w-[280px] sm:w-[340px] lg:w-[380px]">
+          <figure className="relative w-[260px] sm:w-[320px] lg:w-[360px] xl:w-[380px]">
             {/* subtle glow */}
             <div
               className={`absolute -inset-6 rounded-[2rem] blur-3xl pointer-events-none ${darkTheme ? 'bg-indigo-500/[0.07]' : 'bg-indigo-500/[0.08]'}`}
@@ -178,15 +187,16 @@ const HeroSection = ({ darkTheme }: HeroSectionProps) => {
             />
             <div className={`relative overflow-hidden rounded-3xl border ${darkTheme
               ? 'border-neutral-800 bg-neutral-900 shadow-[0_24px_60px_rgba(0,0,0,0.5)]'
-              : 'border-neutral-200 bg-white shadow-[0_24px_50px_rgba(0,0,0,0.10)]'}`}
+              : 'border-neutral-200 bg-neutral-100 shadow-[0_24px_50px_rgba(0,0,0,0.10)]'}`}
             >
               <img
                 src={picture}
                 alt="Awanda — Software Engineer"
                 fetchPriority="high"
-                width={380}
-                height={460}
-                className="w-full h-[340px] sm:h-[400px] lg:h-[440px] object-cover object-top contrast-[1.03] saturate-[0.92]"
+                decoding="async"
+                width={360}
+                height={480}
+                className="w-full aspect-[3/4] h-auto object-cover object-center contrast-[1.03] saturate-[0.92]"
               />
               {/* duotone wash + bottom caption legibility */}
               <div className={`absolute inset-0 pointer-events-none ${darkTheme ? 'bg-gradient-to-t from-black/55 via-transparent to-indigo-950/10' : 'bg-gradient-to-t from-neutral-950/45 via-transparent to-transparent'}`} aria-hidden="true" />
