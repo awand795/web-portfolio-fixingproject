@@ -203,7 +203,7 @@ export default function BlogPost() {
               "@type": "TechArticle",
               "headline": post.title,
               "description": post.summary,
-              "image": post.cover_image ? [post.cover_image] : [`${siteUrl}/og-image.svg`],
+              "image": post.cover_image ? [post.cover_image] : [`${siteUrl}/og-image.jpg`],
               "datePublished": post.created_at,
               "dateModified": post.created_at,
               "author": {

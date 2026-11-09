@@ -16,10 +16,10 @@ const NotFound = () => {
             <meta property="og:title" content="404 — Page Not Found | Awanda" />
             <meta property="og:description" content="The page you're looking for doesn't exist." />
             <meta property="og:url" content={`${siteUrl}${window.location.pathname}`} />
-            <meta property="og:image" content={`${siteUrl}/awanda-profile.jpg`} />
-            <meta property="og:image:secure_url" content={`${siteUrl}/awanda-profile.jpg`} />
-            <meta property="og:image:width" content="300" />
-            <meta property="og:image:height" content="400" />
+            <meta property="og:image" content={`${siteUrl}/og-image.jpg`} />
+            <meta property="og:image:secure_url" content={`${siteUrl}/og-image.jpg`} />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
             <meta property="og:image:type" content="image/jpeg" />
             <meta property="og:type" content="website" />
             <meta name="robots" content="noindex" />

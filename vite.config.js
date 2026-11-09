@@ -11,7 +11,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'inline',
-      includeAssets: ['favicon.svg', 'og-image.svg'],
+      includeAssets: ['favicon.svg', 'og-image.jpg'],
       manifest: {
         name: 'Awanda - Software Engineer',
         short_name: 'Awanda Portfolio',

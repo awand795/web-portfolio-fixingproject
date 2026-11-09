@@ -126,21 +126,21 @@ const Socmed = () => {
         <meta property="og:title" content="Awanda — Social Links" />
         <meta property="og:description" content="Connect with me on GitHub, LinkedIn, Instagram, Facebook, and more." />
         <meta property="og:url" content={`${siteUrl}/socmed`} />
-        <meta property="og:image" content={`${siteUrl}/awanda-profile.jpg`} />
-        <meta property="og:image:secure_url" content={`${siteUrl}/awanda-profile.jpg`} />
-        <meta property="og:image:width" content="300" />
-        <meta property="og:image:height" content="400" />
+        <meta property="og:image" content={`${siteUrl}/og-image.jpg`} />
+        <meta property="og:image:secure_url" content={`${siteUrl}/og-image.jpg`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta property="og:image:type" content="image/jpeg" />
         <meta property="og:type" content="profile" />
         <meta property="og:locale" content="en_US" />
         <meta property="og:site_name" content="Awanda Portfolio" />
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Awanda — Social Links" />
         <meta name="twitter:description" content="Connect with me on GitHub, LinkedIn, Instagram, Facebook, and more." />
-        <meta name="twitter:image" content={`${siteUrl}/awanda-profile.jpg`} />
+        <meta name="twitter:image" content={`${siteUrl}/og-image.jpg`} />
         <link rel="canonical" href={`${siteUrl}/socmed`} />
       </Helmet>
-      <div className={`min-h-screen transition-colors duration-500 bg-grid-pattern relative overflow-x-hidden ${darkTheme ? 'bg-[#08080a] text-neutral-100' : 'bg-[#FAF9F6] text-neutral-900'}`}>
+      <div className={`min-h-screen transition-colors duration-500 relative overflow-x-hidden ${darkTheme ? 'bg-[#08080a] text-neutral-100' : 'bg-[#FAF9F6] text-neutral-900'}`}>
       {/* Dynamic Grid Background */}
       <div className={`absolute inset-0 pointer-events-none -z-10 ${darkTheme ? 'bg-grid-pattern-dark opacity-100' : 'bg-grid-pattern-light opacity-100'}`} />
 
@@ -178,7 +178,7 @@ const Socmed = () => {
               <div className="relative">
                 <div className={`
                   absolute inset-[-2px] rounded-full
-                  bg-gradient-to-br from-indigo-500/70 via-blue-500/50 to-emerald-450/60
+                  bg-gradient-to-br from-indigo-500/70 via-blue-500/50 to-emerald-400/60
                 `} />
                 <img
                   src={picture}

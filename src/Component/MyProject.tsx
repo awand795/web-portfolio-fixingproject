@@ -43,7 +43,7 @@ const projects: Project[] = [
     demoUrl: 'https://bikin-absensi.vercel.app',
     tags: ['PHP', 'MySQL'],
     accent: '#3b82f6',
-    media: { type: 'video', src: '/absensi-preview.mp4' },
+    media: { type: 'video', src: '/absensi-preview.mp4', poster: '/absensi-poster.jpg' },
   },
   {
     id: 5,
@@ -87,6 +87,52 @@ const BrowserChrome = ({ darkTheme }: { darkTheme: boolean }) => (
   </div>
 );
 
+// Loads and plays the clip only when the card approaches the viewport, and pauses it
+// once scrolled away, so the projects section no longer pulls ~2 MB of video on first paint.
+const LazyVideo = React.memo(({ src, poster, className }: { src: string; poster?: string; className?: string }) => {
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+  const [armed, setArmed] = React.useState(false);
+  const [visible, setVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    const node = videoRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setVisible(entry.isIntersecting);
+        if (entry.isIntersecting) setArmed(true);
+      },
+      { threshold: 0.01 }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  React.useEffect(() => {
+    const node = videoRef.current;
+    if (!node) return;
+    if (!visible) {
+      node.pause();
+      return;
+    }
+    const played = node.play();
+    if (played) played.catch(() => {});
+  }, [visible, armed]);
+
+  return (
+    <video
+      ref={videoRef}
+      src={armed ? src : undefined}
+      poster={poster}
+      muted
+      loop
+      playsInline
+      preload="none"
+      className={className}
+    />
+  );
+});
+
 const CardMedia = React.memo(({ project, darkTheme, large }: { project: Project; darkTheme: boolean; large?: boolean }) => {
   const wrapper = large
     ? 'relative w-full aspect-video lg:aspect-auto lg:h-full lg:min-h-[360px] overflow-hidden'
@@ -95,14 +141,9 @@ const CardMedia = React.memo(({ project, darkTheme, large }: { project: Project;
   if (project.media?.type === 'video') {
     return (
       <div className={`${wrapper} bg-neutral-900`}>
-        <video
+        <LazyVideo
           src={project.media.src}
           poster={project.media.poster}
-          muted
-          loop
-          autoPlay
-          playsInline
-          preload="metadata"
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent pointer-events-none" />

@@ -66,18 +66,18 @@ const App = () => {
         <meta property="og:title" content="Awanda — Software Engineer" />
         <meta property="og:description" content="Awanda adalah Software Engineer asal Medan, Indonesia yang berfokus pada Fullstack Web, Mobile (Flutter & Android), dan Cloud Architecture di Darkotech." />
         <meta property="og:url" content={siteUrl} />
-        <meta property="og:image" content={`${siteUrl}/awanda-profile.jpg`} />
-        <meta property="og:image:secure_url" content={`${siteUrl}/awanda-profile.jpg`} />
-        <meta property="og:image:width" content="300" />
-        <meta property="og:image:height" content="400" />
+        <meta property="og:image" content={`${siteUrl}/og-image.jpg`} />
+        <meta property="og:image:secure_url" content={`${siteUrl}/og-image.jpg`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta property="og:image:type" content="image/jpeg" />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="en_US" />
         <meta property="og:site_name" content="Awanda Portfolio" />
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Awanda — Software Engineer" />
         <meta name="twitter:description" content="Awanda adalah Software Engineer asal Medan, Indonesia yang berfokus pada Fullstack Web, Mobile (Flutter & Android), dan Cloud Architecture di Darkotech." />
-        <meta name="twitter:image" content={`${siteUrl}/awanda-profile.jpg`} />
+        <meta name="twitter:image" content={`${siteUrl}/og-image.jpg`} />
         <link rel="canonical" href={siteUrl} />
       </Helmet>
       <div className={`${bg} min-h-screen transition-colors duration-500 relative overflow-x-hidden`}>

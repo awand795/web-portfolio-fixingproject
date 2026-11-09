@@ -29,7 +29,7 @@ export default function About() {
         <meta property="og:title" content="About Awanda — Software Engineer" />
         <meta property="og:description" content="Awanda adalah Software Engineer asal Medan, Indonesia yang berfokus pada pembangunan sistem fullstack web, aplikasi mobile, dan arsitektur database di Darkotech." />
         <meta property="og:url" content={`${siteUrl}/about`} />
-        <meta property="og:image" content={`${siteUrl}/awanda-profile.jpg`} />
+        <meta property="og:image" content={`${siteUrl}/og-image.jpg`} />
         <link rel="canonical" href={`${siteUrl}/about`} />
 
         {/* JSON-LD ProfilePage for AI and Google Knowledge Graph */}
