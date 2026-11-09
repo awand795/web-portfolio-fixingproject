@@ -12,6 +12,7 @@ import { Twitter, Linkedin } from '../icons/SocialIcons';
 import NavBar from '../Component/NavBar';
 import Footer from '../Component/Footer';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 import { siteUrl } from '../constants';
 import avatarImg from '../image/imgprofile.webp';
 
@@ -29,6 +30,7 @@ interface Post {
 
 // Custom code block with Copy button & macOS tab design
 function CodeBlock({ node, inline, className, children, ...props }: any) {
+  const { language } = useLanguage();
   const [copied, setCopied] = useState(false);
   const match = /language-(\w+)/.exec(className || '');
   const codeContent = String(children).replace(/\n$/, '');
@@ -58,12 +60,12 @@ function CodeBlock({ node, inline, className, children, ...props }: any) {
             {copied ? (
               <>
                 <Check size={12} className="text-emerald-400" />
-                <span className="text-emerald-400 font-medium">Copied!</span>
+                <span className="text-emerald-400 font-medium">{language === 'id' ? 'Tersalin!' : 'Copied!'}</span>
               </>
             ) : (
               <>
                 <Copy size={12} />
-                <span>Copy</span>
+                <span>{language === 'id' ? 'Salin' : 'Copy'}</span>
               </>
             )}
           </button>
@@ -90,6 +92,7 @@ export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { darkTheme } = useTheme();
+  const { language } = useLanguage();
 
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
@@ -162,14 +165,20 @@ export default function BlogPost() {
           <NavBar />
         </header>
         <div className="flex flex-col items-center justify-center px-4 py-20 sm:py-24 text-center">
-          <h1 className="text-2xl font-bold font-display mb-2">Artikel Tidak Ditemukan</h1>
-          <p className="text-neutral-500 mb-6 text-sm">Artikel yang Anda cari mungkin telah dihapus atau belum dipublikasikan.</p>
+          <h1 className="text-2xl font-bold font-display mb-2">
+            {language === 'id' ? 'Artikel Tidak Ditemukan' : 'Article Not Found'}
+          </h1>
+          <p className="text-neutral-500 mb-6 text-sm">
+            {language === 'id'
+              ? 'Artikel yang Anda cari mungkin telah dihapus atau belum dipublikasikan.'
+              : 'The article you are looking for may have been removed or not published yet.'}
+          </p>
           <Link
             to="/blog"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-600/20"
           >
             <ArrowLeft size={16} />
-            Kembali ke Katalog Blog
+            {language === 'id' ? 'Kembali ke Katalog Blog' : 'Back to Blog Catalog'}
           </Link>
         </div>
         <Footer />
@@ -177,7 +186,7 @@ export default function BlogPost() {
     );
   }
 
-  const dateFormatted = new Date(post.created_at).toLocaleDateString('id-ID', {
+  const dateFormatted = new Date(post.created_at).toLocaleDateString(language === 'id' ? 'id-ID' : 'en-US', {
     day: 'numeric',
     month: 'long',
     year: 'numeric'
@@ -276,7 +285,7 @@ export default function BlogPost() {
         <main id="main-content" className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 pt-4 sm:pt-6 pb-20 w-full">
           {/* Breadcrumbs */}
           <div className="flex items-center gap-2 text-xs font-mono text-neutral-400 mb-4 sm:mb-6">
-            <Link to="/" className="hover:text-white transition-colors">Home</Link>
+            <Link to="/" className="hover:text-white transition-colors">{language === 'id' ? 'Beranda' : 'Home'}</Link>
             <ChevronRight size={12} className="text-neutral-600" />
             <Link to="/blog" className="hover:text-white transition-colors">Blog</Link>
             <ChevronRight size={12} className="text-neutral-600" />
@@ -326,11 +335,11 @@ export default function BlogPost() {
               </div>
               <div className="flex items-center gap-1.5">
                 <Clock size={13} className="text-neutral-500" />
-                <span>{readingTime} min read</span>
+                <span>{readingTime} {language === 'id' ? 'menit baca' : 'min read'}</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <Eye size={13} className="text-neutral-500" />
-                <span>{post.views} views</span>
+                <span>{post.views} {language === 'id' ? 'tayangan' : 'views'}</span>
               </div>
             </div>
           </div>
@@ -377,11 +386,13 @@ export default function BlogPost() {
               />
               <div className="flex-1 text-center sm:text-left">
                 <div className="inline-flex items-center gap-1.5 text-xs font-mono text-indigo-400 mb-1 font-bold">
-                  <span>TENTANG PENULIS</span>
+                  <span>{language === 'id' ? 'TENTANG PENULIS' : 'ABOUT THE AUTHOR'}</span>
                 </div>
                 <h3 className="text-xl font-bold font-display mb-1.5">Awanda</h3>
                 <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed mb-5">
-                  Fullstack Software Engineer yang berfokus pada arsitektur web modern, sistem basis data cloud, dan pengembangan aplikasi mobile. Menulis catatan teknis seputar arsitektur dan best practices.
+                  {language === 'id'
+                    ? 'Fullstack Software Engineer yang berfokus pada arsitektur web modern, sistem basis data cloud, dan pengembangan aplikasi mobile. Menulis catatan teknis seputar arsitektur dan best practices.'
+                    : 'Fullstack Software Engineer focused on modern web architecture, cloud database systems, and mobile app development. Writes technical notes on architecture and best practices.'}
                 </p>
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5">
                   <a
@@ -404,7 +415,7 @@ export default function BlogPost() {
                     to="/"
                     className="text-xs font-mono px-3.5 py-1.5 rounded-xl bg-indigo-600/20 border border-indigo-500/30 text-indigo-400 hover:bg-indigo-600/30 transition-colors"
                   >
-                    Portofolio
+                    {language === 'id' ? 'Portofolio' : 'Portfolio'}
                   </Link>
                 </div>
               </div>
@@ -414,7 +425,7 @@ export default function BlogPost() {
             <div className="mt-8 pt-6 border-t border-neutral-800/60 flex flex-col sm:flex-row items-center justify-between gap-4">
               <span className="text-xs font-mono text-neutral-400 flex items-center gap-2">
                 <Share2 size={14} className="text-indigo-400" />
-                <span>Bagikan tulisan ini:</span>
+                <span>{language === 'id' ? 'Bagikan tulisan ini:' : 'Share this article:'}</span>
               </span>
 
               <div className="flex items-center gap-2">
@@ -423,7 +434,7 @@ export default function BlogPost() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2.5 rounded-xl border border-neutral-800 hover:border-indigo-500 hover:text-indigo-400 text-neutral-400 transition-colors"
-                  title="Share to Twitter / X"
+                  title={language === 'id' ? 'Bagikan ke Twitter / X' : 'Share to Twitter / X'}
                 >
                   <Twitter size={15} />
                 </a>
@@ -432,7 +443,7 @@ export default function BlogPost() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2.5 rounded-xl border border-neutral-800 hover:border-indigo-500 hover:text-indigo-400 text-neutral-400 transition-colors"
-                  title="Share to LinkedIn"
+                  title={language === 'id' ? 'Bagikan ke LinkedIn' : 'Share to LinkedIn'}
                 >
                   <Linkedin size={15} />
                 </a>
@@ -441,14 +452,14 @@ export default function BlogPost() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2.5 rounded-xl border border-neutral-800 hover:border-indigo-500 hover:text-indigo-400 text-neutral-400 transition-colors"
-                  title="Share to WhatsApp"
+                  title={language === 'id' ? 'Bagikan ke WhatsApp' : 'Share to WhatsApp'}
                 >
                   <MessageCircle size={15} />
                 </a>
                 <button
                   onClick={copyToClipboard}
                   className="p-2.5 rounded-xl border border-neutral-800 hover:border-indigo-500 hover:text-indigo-400 text-neutral-400 transition-colors"
-                  title="Copy link"
+                  title={language === 'id' ? 'Salin tautan' : 'Copy link'}
                 >
                   {copied ? <Check size={15} className="text-emerald-400" /> : <Copy size={15} />}
                 </button>

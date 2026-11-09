@@ -28,7 +28,7 @@ interface Post {
 
 export default function BlogList() {
   const { darkTheme } = useTheme();
-  const { t } = useLanguage();
+  const { language } = useLanguage();
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -142,7 +142,7 @@ export default function BlogList() {
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono tracking-widest uppercase mb-5 border bg-indigo-500/10 border-indigo-500/25 text-indigo-400 backdrop-blur-xl"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Engineering Publications</span>
+              <span>{language === 'id' ? 'Publikasi Rekayasa' : 'Engineering Publications'}</span>
             </motion.div>
 
             <motion.h1
@@ -151,7 +151,11 @@ export default function BlogList() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight font-display mb-5 leading-[1.12]"
             >
-              Thoughts on <span className="text-gradient">building & scaling</span> software.
+              {language === 'id' ? (
+                <>Catatan tentang <span className="text-gradient">membangun & menskalakan</span> perangkat lunak.</>
+              ) : (
+                <>Thoughts on <span className="text-gradient">building & scaling</span> software.</>
+              )}
             </motion.h1>
 
             <motion.p
@@ -160,7 +164,9 @@ export default function BlogList() {
               transition={{ duration: 0.5, delay: 0.15 }}
               className={`text-sm sm:text-base leading-relaxed ${darkTheme ? 'text-neutral-400' : 'text-neutral-600'}`}
             >
-              Catatan praktis arsitektur perangkat lunak, optimalisasi basis data relasional, dan studi kasus pengembangan web modern oleh Awanda.
+              {language === 'id'
+                ? 'Catatan praktis arsitektur perangkat lunak, optimalisasi basis data relasional, dan studi kasus pengembangan web modern oleh Awanda.'
+                : 'Practical notes on software architecture, relational database optimization, and modern web development case studies by Awanda.'}
             </motion.p>
           </div>
 
@@ -181,7 +187,7 @@ export default function BlogList() {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Cari artikel, topik, atau kata kunci..."
+                  placeholder={language === 'id' ? 'Cari artikel, topik, atau kata kunci...' : 'Search articles, topics, or keywords...'}
                   className={`w-full pl-11 pr-14 py-3 rounded-2xl text-sm border outline-none transition-all
                     ${darkTheme 
                       ? 'bg-neutral-900/80 border-neutral-800 text-white placeholder:text-neutral-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20' 
@@ -211,7 +217,7 @@ export default function BlogList() {
                       : darkTheme ? 'text-neutral-400 hover:text-white bg-neutral-900/60' : 'text-neutral-600 bg-neutral-100 hover:text-black'}`}
                 >
                   <Sparkles size={13} />
-                  <span>Terbaru</span>
+                  <span>{language === 'id' ? 'Terbaru' : 'Latest'}</span>
                 </button>
 
                 <button
@@ -222,7 +228,7 @@ export default function BlogList() {
                       : darkTheme ? 'text-neutral-400 hover:text-white bg-neutral-900/60' : 'text-neutral-600 bg-neutral-100 hover:text-black'}`}
                 >
                   <Flame size={13} />
-                  <span>Populer</span>
+                  <span>{language === 'id' ? 'Populer' : 'Popular'}</span>
                 </button>
               </div>
             </div>
@@ -240,7 +246,7 @@ export default function BlogList() {
                       ? 'bg-neutral-200 text-black dark:bg-white dark:text-black font-bold'
                       : darkTheme ? 'text-neutral-400 hover:text-white bg-neutral-900/60 border border-neutral-800' : 'text-neutral-600 bg-neutral-100 border border-neutral-200'}`}
                 >
-                  Semua ({posts.length})
+                  {language === 'id' ? 'Semua' : 'All'} ({posts.length})
                 </button>
                 {allTags.map((tag) => (
                   <button
@@ -273,15 +279,19 @@ export default function BlogList() {
               <div className={`text-center py-24 rounded-3xl border max-w-3xl mx-auto
                 ${darkTheme ? 'bg-[#0f0f14]/60 border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'}`}>
                 <BookOpen className="mx-auto text-indigo-400 mb-4" size={48} />
-                <h3 className="text-2xl font-bold font-display mb-2">Belum ada artikel yang cocok</h3>
+                <h3 className="text-2xl font-bold font-display mb-2">
+                  {language === 'id' ? 'Belum ada artikel yang cocok' : 'No matching articles yet'}
+                </h3>
                 <p className="text-sm text-neutral-400 max-w-md mx-auto mb-6">
-                  Tidak menemukan tulisan dengan kata kunci "{searchQuery}". Coba gunakan istilah lain atau reset filter.
+                  {language === 'id'
+                    ? `Tidak menemukan tulisan dengan kata kunci "${searchQuery}". Coba gunakan istilah lain atau reset filter.`
+                    : `No article matches "${searchQuery}". Try another keyword or reset the filters.`}
                 </p>
                 <button
                   onClick={() => { setSearchQuery(''); setSelectedTag(null); }}
                   className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-mono font-semibold transition-all shadow-lg shadow-indigo-600/20"
                 >
-                  Tampilkan Semua Artikel
+                  {language === 'id' ? 'Tampilkan Semua Artikel' : 'Show All Articles'}
                 </button>
               </div>
             ) : (
@@ -311,7 +321,7 @@ export default function BlogList() {
                           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                           <div className="absolute top-4 left-4">
                             <span className="px-3.5 py-1.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-indigo-600 text-white shadow-lg shadow-indigo-600/40">
-                              ⭐ Highlighted Article
+                              {language === 'id' ? '⭐ Artikel Pilihan' : '⭐ Highlighted Article'}
                             </span>
                           </div>
                         </div>
@@ -351,7 +361,7 @@ export default function BlogList() {
                               <div className="text-xs">
                                 <div className="font-bold text-neutral-200">Awanda</div>
                                 <div className="text-[10px] font-mono text-neutral-500">
-                                  {new Date(featuredPost.created_at).toLocaleDateString('id-ID', {
+                                  {new Date(featuredPost.created_at).toLocaleDateString(language === 'id' ? 'id-ID' : 'en-US', {
                                     day: 'numeric',
                                     month: 'short',
                                     year: 'numeric'
@@ -361,7 +371,7 @@ export default function BlogList() {
                             </div>
 
                             <div className="flex items-center gap-1.5 text-xs font-mono text-indigo-400 font-bold group-hover:translate-x-1 transition-transform">
-                              <span>Baca Artikel</span>
+                              <span>{language === 'id' ? 'Baca Artikel' : 'Read Article'}</span>
                               <ArrowRight size={15} />
                             </div>
                           </div>
@@ -375,7 +385,7 @@ export default function BlogList() {
                 {listPosts.length > 0 && (
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                     {listPosts.map((post, idx) => {
-                      const dateFormatted = new Date(post.created_at).toLocaleDateString('id-ID', {
+                      const dateFormatted = new Date(post.created_at).toLocaleDateString(language === 'id' ? 'id-ID' : 'en-US', {
                         day: 'numeric',
                         month: 'short',
                         year: 'numeric'
@@ -405,7 +415,7 @@ export default function BlogList() {
                               />
                               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                                 <span className="text-xs font-mono font-medium text-white flex items-center gap-1">
-                                  Buka Tulisan <ArrowUpRight size={13} />
+                                  {language === 'id' ? 'Buka Tulisan' : 'Open Article'} <ArrowUpRight size={13} />
                                 </span>
                               </div>
                             </div>
@@ -443,7 +453,7 @@ export default function BlogList() {
                                 </div>
                                 <div className="flex items-center gap-1.5 text-neutral-400">
                                   <Eye size={12} />
-                                  <span>{post.views} views</span>
+                                  <span>{post.views} {language === 'id' ? 'tayangan' : 'views'}</span>
                                 </div>
                               </div>
                             </div>
@@ -461,10 +471,12 @@ export default function BlogList() {
                     <MessageSquare size={22} />
                   </div>
                   <h3 className="text-2xl font-bold font-display tracking-tight mb-2">
-                    Ingin Berdiskusi atau Berkolaborasi?
+                    {language === 'id' ? 'Ingin Berdiskusi atau Berkolaborasi?' : 'Want to Discuss or Collaborate?'}
                   </h3>
                   <p className={`text-xs sm:text-sm max-w-xl mx-auto mb-6 leading-relaxed ${darkTheme ? 'text-neutral-400' : 'text-neutral-600'}`}>
-                    Saya selalu terbuka untuk mendiskusikan arsitektur sistem, lowongan kerja fullstack/mobile, atau eksplorasi teknologi baru.
+                    {language === 'id'
+                      ? 'Saya selalu terbuka untuk mendiskusikan arsitektur sistem, lowongan kerja fullstack/mobile, atau eksplorasi teknologi baru.'
+                      : "I'm always open to discussing system architecture, fullstack/mobile roles, or exploring new technology."}
                   </p>
                   <div className="flex flex-wrap items-center justify-center gap-3">
                     <a
@@ -472,7 +484,7 @@ export default function BlogList() {
                       className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold flex items-center gap-2 transition-all shadow-lg shadow-indigo-600/25"
                     >
                       <Mail size={14} />
-                      <span>Kirim Email</span>
+                      <span>{language === 'id' ? 'Kirim Email' : 'Send Email'}</span>
                     </a>
                     <a
                       href="https://linkedin.com/in/awanda"
@@ -481,7 +493,7 @@ export default function BlogList() {
                       className={`px-5 py-2.5 rounded-xl border text-xs font-semibold transition-all
                         ${darkTheme ? 'border-neutral-700 bg-neutral-900 text-neutral-200 hover:text-white hover:border-neutral-600' : 'border-neutral-300 bg-white text-neutral-700 hover:text-black shadow-sm'}`}
                     >
-                      Hubungkan di LinkedIn
+                      {language === 'id' ? 'Hubungkan di LinkedIn' : 'Connect on LinkedIn'}
                     </a>
                   </div>
                 </div>

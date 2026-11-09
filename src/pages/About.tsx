@@ -151,7 +151,7 @@ export default function About() {
                 />
                 <div className="absolute -bottom-2 -right-2 px-3 py-1 rounded-xl bg-[#0e0e14] border border-neutral-800 text-[11px] font-mono text-emerald-400 flex items-center gap-1.5 shadow-xl">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>Available</span>
+                  <span>{language === 'id' ? 'Tersedia' : 'Available'}</span>
                 </div>
               </div>
             </motion.div>
@@ -164,11 +164,11 @@ export default function About() {
             >
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono tracking-wider uppercase mb-3 border bg-indigo-500/10 border-indigo-500/30 text-indigo-400">
                 <User size={12} />
-                <span>Biography &amp; Background</span>
+                <span>{language === 'id' ? 'Biografi & Latar Belakang' : 'Biography & Background'}</span>
               </div>
 
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black font-display tracking-tight mb-4 leading-tight">
-                Hi, I'm <span className="text-gradient">Awanda</span>.
+                {language === 'id' ? 'Halo, saya' : "Hi, I'm"} <span className="text-gradient">Awanda</span>.
               </h1>
 
               <p className={`text-base sm:text-lg leading-relaxed mb-6 font-medium ${darkTheme ? 'text-neutral-300' : 'text-neutral-700'}`}>
@@ -207,7 +207,9 @@ export default function About() {
                   <h2 className="font-display font-bold text-xl sm:text-2xl">
                     {language === 'id' ? 'Kisah & Perjalanan Saya' : 'My Story & Journey'}
                   </h2>
-                  <p className="text-xs font-mono text-neutral-500">From Curiosity to Scalable Systems</p>
+                  <p className="text-xs font-mono text-neutral-500">
+                    {language === 'id' ? 'Dari Rasa Penasaran ke Sistem yang Skalabel' : 'From Curiosity to Scalable Systems'}
+                  </p>
                 </div>
               </div>
 
@@ -237,9 +239,13 @@ export default function About() {
                   <div className="p-3 rounded-2xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 w-fit mb-4">
                     <Zap className="w-5 h-5" />
                   </div>
-                  <h3 className="font-bold font-display text-base mb-2">Performance First</h3>
+                  <h3 className="font-bold font-display text-base mb-2">
+                    {language === 'id' ? 'Performa Utama' : 'Performance First'}
+                  </h3>
                   <p className="text-xs text-neutral-400 leading-relaxed">
-                    Optimasi Core Web Vitals, sub-second latency, dan arsitektur data efisien tanpa komputasi berlebih.
+                    {language === 'id'
+                      ? 'Optimasi Core Web Vitals, sub-second latency, dan arsitektur data efisien tanpa komputasi berlebih.'
+                      : 'Core Web Vitals optimization, sub-second latency, and efficient data architecture without wasted computation.'}
                   </p>
                 </div>
 
@@ -248,9 +254,13 @@ export default function About() {
                   <div className="p-3 rounded-2xl bg-blue-500/10 text-blue-400 border border-blue-500/20 w-fit mb-4">
                     <Layers className="w-5 h-5" />
                   </div>
-                  <h3 className="font-bold font-display text-base mb-2">Clean Architecture</h3>
+                  <h3 className="font-bold font-display text-base mb-2">
+                    {language === 'id' ? 'Arsitektur Bersih' : 'Clean Architecture'}
+                  </h3>
                   <p className="text-xs text-neutral-400 leading-relaxed">
-                    Pemisahan lapisan presentasi, logika bisnis, dan lapisan data yang teruji dan mudah dipelihara (*maintainable*).
+                    {language === 'id'
+                      ? 'Pemisahan lapisan presentasi, logika bisnis, dan lapisan data yang teruji dan mudah dipelihara (*maintainable*).'
+                      : 'Testable, maintainable separation between presentation, business logic, and data layers.'}
                   </p>
                 </div>
 
@@ -259,9 +269,13 @@ export default function About() {
                   <div className="p-3 rounded-2xl bg-purple-500/10 text-purple-400 border border-purple-500/20 w-fit mb-4">
                     <Database className="w-5 h-5" />
                   </div>
-                  <h3 className="font-bold font-display text-base mb-2">Data Integrity</h3>
+                  <h3 className="font-bold font-display text-base mb-2">
+                    {language === 'id' ? 'Integritas Data' : 'Data Integrity'}
+                  </h3>
                   <p className="text-xs text-neutral-400 leading-relaxed">
-                    Desain skema relasional yang konsisten, transaksi atomik, dan connection pooling yang aman.
+                    {language === 'id'
+                      ? 'Desain skema relasional yang konsisten, transaksi atomik, dan connection pooling yang aman.'
+                      : 'Consistent relational schema design, atomic transactions, and safely pooled connections.'}
                   </p>
                 </div>
 
@@ -270,9 +284,13 @@ export default function About() {
                   <div className="p-3 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 w-fit mb-4">
                     <Smartphone className="w-5 h-5" />
                   </div>
-                  <h3 className="font-bold font-display text-base mb-2">Cross-Platform</h3>
+                  <h3 className="font-bold font-display text-base mb-2">
+                    {language === 'id' ? 'Lintas Platform' : 'Cross-Platform'}
+                  </h3>
                   <p className="text-xs text-neutral-400 leading-relaxed">
-                    Pengalaman pengguna mulus di desktop, tablet, dan mobile melalui React SPA, PWA, dan Flutter.
+                    {language === 'id'
+                      ? 'Pengalaman pengguna mulus di desktop, tablet, dan mobile melalui React SPA, PWA, dan Flutter.'
+                      : 'Smooth user experience on desktop, tablet, and mobile through React SPA, PWA, and Flutter.'}
                   </p>
                 </div>
               </div>
@@ -284,14 +302,14 @@ export default function About() {
                 <div>
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider mb-2 border bg-indigo-500/10 border-indigo-500/30 text-indigo-400">
                     <Briefcase size={12} />
-                    <span>Career &amp; Education</span>
+                    <span>{language === 'id' ? 'Karier & Pendidikan' : 'Career & Education'}</span>
                   </div>
                   <h2 className="text-2xl sm:text-3xl font-bold font-display tracking-tight">
                     {language === 'id' ? 'Pengalaman Kerja & Pendidikan' : 'Experience & Education'}
                   </h2>
                 </div>
                 <p className="text-xs font-mono text-neutral-500">
-                  // Verified Career Journey
+                  {language === 'id' ? '// Perjalanan Karier Terverifikasi' : '// Verified Career Journey'}
                 </p>
               </div>
 
@@ -306,7 +324,9 @@ export default function About() {
                       <h3 className="font-display font-bold text-lg">
                         {language === 'id' ? 'Pengalaman Kerja' : 'Work Experience'}
                       </h3>
-                      <p className="text-xs font-mono text-neutral-500">Professional Engineering Roles</p>
+                      <p className="text-xs font-mono text-neutral-500">
+                        {language === 'id' ? 'Peran Rekayasa Profesional' : 'Professional Engineering Roles'}
+                      </p>
                     </div>
                   </div>
 
@@ -332,7 +352,9 @@ export default function About() {
                     <div className="relative">
                       <span className="absolute -left-[27px] top-1.5 w-3 h-3 rounded-full bg-neutral-600 ring-4 ring-neutral-700/20" />
                       <div className="flex flex-wrap items-center justify-between gap-1 mb-1">
-                        <h4 className="font-bold text-sm sm:text-base font-display">Guru Mapel Informatika</h4>
+                        <h4 className="font-bold text-sm sm:text-base font-display">
+                          {language === 'id' ? 'Guru Mapel Informatika' : 'Informatics Teacher'}
+                        </h4>
                         <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-neutral-800 text-neutral-300">
                           2023 – 2026
                         </span>
@@ -374,7 +396,9 @@ export default function About() {
                       <h3 className="font-display font-bold text-lg">
                         {language === 'id' ? 'Pendidikan' : 'Education'}
                       </h3>
-                      <p className="text-xs font-mono text-neutral-500">Academic Background</p>
+                      <p className="text-xs font-mono text-neutral-500">
+                        {language === 'id' ? 'Latar Belakang Akademik' : 'Academic Background'}
+                      </p>
                     </div>
                   </div>
 
@@ -383,7 +407,9 @@ export default function About() {
                     <div className="relative">
                       <span className="absolute -left-[27px] top-1.5 w-3 h-3 rounded-full bg-indigo-500 ring-4 ring-indigo-500/20" />
                       <div className="flex flex-wrap items-center justify-between gap-1 mb-1">
-                        <h4 className="font-bold text-sm sm:text-base font-display">Sarjana Teknik Informatika (S.Kom)</h4>
+                        <h4 className="font-bold text-sm sm:text-base font-display">
+                          {language === 'id' ? 'Sarjana Teknik Informatika (S.Kom)' : 'Bachelor of Computer Science (S.Kom)'}
+                        </h4>
                         <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
                           2018 – 2022
                         </span>
@@ -450,7 +476,7 @@ export default function About() {
                     ${darkTheme ? 'border-neutral-700 bg-neutral-900 text-neutral-200 hover:text-white hover:border-neutral-600' : 'border-neutral-300 bg-white text-neutral-700 hover:text-black shadow-sm'}`}
                 >
                   <Linkedin size={14} />
-                  <span>LinkedIn Profile</span>
+                  <span>{language === 'id' ? 'Profil LinkedIn' : 'LinkedIn Profile'}</span>
                 </a>
                 <a
                   href="https://github.com/awand795"
@@ -460,7 +486,7 @@ export default function About() {
                     ${darkTheme ? 'border-neutral-700 bg-neutral-900 text-neutral-200 hover:text-white hover:border-neutral-600' : 'border-neutral-300 bg-white text-neutral-700 hover:text-black shadow-sm'}`}
                 >
                   <Github size={14} />
-                  <span>GitHub Profile</span>
+                  <span>{language === 'id' ? 'Profil GitHub' : 'GitHub Profile'}</span>
                 </a>
               </div>
             </div>
