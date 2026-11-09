@@ -43,7 +43,7 @@ const projects: Project[] = [
     demoUrl: 'https://bikin-absensi.vercel.app',
     tags: ['PHP', 'MySQL'],
     accent: '#3b82f6',
-    media: { type: 'video', src: '/absensi-preview.mp4', poster: '/absensi-wide.png' },
+    media: { type: 'video', src: '/absensi-preview.mp4' },
   },
   {
     id: 5,
@@ -89,12 +89,12 @@ const BrowserChrome = ({ darkTheme }: { darkTheme: boolean }) => (
 
 const CardMedia = React.memo(({ project, darkTheme, large }: { project: Project; darkTheme: boolean; large?: boolean }) => {
   const wrapper = large
-    ? 'relative w-full aspect-video lg:aspect-auto lg:h-full lg:min-h-[320px] overflow-hidden bg-neutral-900'
-    : 'relative w-full aspect-[16/10] overflow-hidden bg-neutral-900';
+    ? 'relative w-full aspect-video lg:aspect-auto lg:h-full lg:min-h-[360px] overflow-hidden'
+    : 'relative w-full aspect-[16/10] overflow-hidden';
 
   if (project.media?.type === 'video') {
     return (
-      <div className={wrapper}>
+      <div className={`${wrapper} bg-neutral-900`}>
         <video
           src={project.media.src}
           poster={project.media.poster}
@@ -148,15 +148,15 @@ const ProjectCard = ({ project, darkTheme, large }: { project: Project; darkThem
 
   return (
     <article
-      className={`group relative flex flex-col h-full rounded-3xl border overflow-hidden transition-all duration-300 hover:-translate-y-1
+      className={`group relative flex flex-col h-full w-full min-w-0 rounded-3xl border overflow-hidden transition-all duration-300 hover:-translate-y-1
         ${darkTheme
           ? 'bg-[#0e0f12] border-neutral-800/80 hover:border-neutral-700 hover:shadow-[0_24px_60px_rgba(0,0,0,0.45)]'
           : 'bg-white border-neutral-200 hover:border-neutral-300 hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)]'
-        } ${large ? 'lg:grid lg:grid-cols-2 lg:items-stretch' : ''}`}
+        } ${large ? 'lg:grid lg:grid-cols-[1.35fr_1fr] lg:items-stretch' : ''}`}
     >
       <CardMedia project={project} darkTheme={darkTheme} large={large} />
 
-      <div className="flex flex-col flex-1 p-6">
+      <div className={`flex flex-col flex-1 min-w-0 ${large ? 'p-6 lg:p-8' : 'p-6'}`}>
         <div className="flex items-center justify-between mb-3">
           <span className="text-[11px] font-mono font-bold tracking-widest" style={{ color: project.accent }}>
             {String(project.id).padStart(2, '0')} //
@@ -189,7 +189,7 @@ const ProjectCard = ({ project, darkTheme, large }: { project: Project; darkThem
         <p className={`text-sm font-medium mb-2 ${darkTheme ? 'text-neutral-300' : 'text-neutral-700'}`}>
           {t(`projects.outcome.${project.id}`)}
         </p>
-        <p className={`text-sm leading-relaxed mb-5 line-clamp-2 ${darkTheme ? 'text-neutral-500' : 'text-neutral-500'}`}>
+        <p className={`text-sm leading-relaxed mb-5 ${large ? 'line-clamp-4' : 'line-clamp-2'} ${darkTheme ? 'text-neutral-500' : 'text-neutral-500'}`}>
           {t(`projects.desc.${project.id}`)}
         </p>
 
@@ -265,7 +265,7 @@ const MyProject = ({ darkTheme }: MyProjectProps) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.6, delay: (i % 3) * 0.08, ease: [0.16, 1, 0.3, 1] }}
-            className={project.featured ? 'md:col-span-2 lg:col-span-2' : ''}
+            className={project.featured ? 'md:col-span-2 lg:col-span-3' : ''}
           >
             <ProjectCard project={project} darkTheme={darkTheme} large={project.featured} />
           </motion.div>
