@@ -52,7 +52,7 @@ const skillCategories: SkillCategory[] = [
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } }
 };
 const stagger = { visible: { transition: { staggerChildren: 0.08 } } };
 
@@ -105,7 +105,7 @@ const SkillsSection = ({ darkTheme }: SkillsSectionProps) => {
       >
         <motion.div variants={fadeUp} className="mb-14">
           <p className={`text-[10px] font-mono font-bold tracking-[0.25em] uppercase mb-3 ${darkTheme ? 'text-indigo-400' : 'text-indigo-600'}`}>
-            // CAPABILITIES & TECH STACK
+            <span className="text-indigo-500">//</span> {t('skills.kicker')}
           </p>
           <h2 className="font-display font-black text-4xl sm:text-5xl text-gradient mb-4">
             {t('skills.title') || 'Expertise Matrix'}
@@ -138,7 +138,7 @@ const SkillsSection = ({ darkTheme }: SkillsSectionProps) => {
                   {category.label}
                 </span>
                 <h3 className={`font-display font-bold text-lg tracking-tight
-                  ${darkTheme ? 'text-neutral-200' : 'text-neutral-850'}`}>
+                  ${darkTheme ? 'text-neutral-200' : 'text-neutral-800'}`}>
                   {category.title}
                 </h3>
               </div>

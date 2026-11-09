@@ -48,6 +48,7 @@ const en: Record<string, string> = {
     'projects.desc.6': 'A web/Node.js-based WhatsApp bot supporting automated message management, API integration, and interactive features for real-time communication efficiency and group management.',
 
     // Skills
+    'skills.kicker': 'CAPABILITIES & TECH STACK',
     'skills.title': 'Skills & Expertise',
     'skills.description.before': 'I build across',
     'skills.description.mid': '— from',
@@ -55,8 +56,12 @@ const en: Record<string, string> = {
     'skills.description.after': 'and everything in between. Backend APIs, databases, mobile UIs — I handle the full stack.',
 
     // Contact
+    'contact.kicker': 'CONNECT WITH ME',
     'contact.title': "Let's Connect",
     'contact.cta': "Got a project in mind? Let's work together!",
+    'contact.emailLabel': 'EMAIL ADDRESS',
+    'contact.phoneLabel': 'PHONE NUMBER',
+    'contact.locationLabel': 'LOCATION',
 
     // Footer
     'footer.builtWith': 'Built with React & lots of ☕',

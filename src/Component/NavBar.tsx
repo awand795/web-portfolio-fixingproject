@@ -96,7 +96,7 @@ const NavBar = ({ darkTheme: propDarkTheme, setDarkTheme: propSetDarkTheme }: Na
       observers.push(observer);
     });
     return () => observers.forEach((o) => o.disconnect());
-  }, [isSocmedPage]);
+  }, [isSocmedPage, location.pathname]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);

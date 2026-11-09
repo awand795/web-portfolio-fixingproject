@@ -31,7 +31,7 @@ const socials: Social[] = [
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } }
 };
 
 const SocialButton = memo(({ href, label, icon: Icon, darkTheme }: SocialButtonProps) => (
@@ -71,7 +71,7 @@ const ContactSection = ({ darkTheme }: ContactSectionProps) => {
         {/* Left Column: CTA & Socials */}
         <motion.div variants={fadeUp}>
           <p className={`text-[10px] font-mono font-bold tracking-[0.25em] uppercase mb-3 ${darkTheme ? 'text-indigo-400' : 'text-indigo-600'}`}>
-            // CONNECT WITH ME
+            <span className="text-indigo-500">//</span> {t('contact.kicker')}
           </p>
           <h2 className="font-display font-black text-4xl sm:text-5xl text-gradient mb-6">
             {t('contact.title')}
@@ -104,8 +104,8 @@ const ContactSection = ({ darkTheme }: ContactSectionProps) => {
               <Mail size={16} className="text-white" />
             </div>
             <div>
-              <p className="text-[9px] font-mono tracking-widest text-neutral-500 uppercase">EMAIL ADDRESS</p>
-              <p className={`text-sm font-semibold transition-colors group-hover:text-indigo-400 ${darkTheme ? 'text-neutral-200' : 'text-neutral-850'}`}>
+              <p className="text-[9px] font-mono tracking-widest text-neutral-500 uppercase">{t('contact.emailLabel')}</p>
+              <p className={`text-sm font-semibold transition-colors group-hover:text-indigo-400 ${darkTheme ? 'text-neutral-200' : 'text-neutral-800'}`}>
                 awand795@gmail.com
               </p>
             </div>
@@ -122,8 +122,8 @@ const ContactSection = ({ darkTheme }: ContactSectionProps) => {
               <Phone size={16} className="text-white" />
             </div>
             <div>
-              <p className="text-[9px] font-mono tracking-widest text-neutral-500 uppercase">PHONE NUMBER</p>
-              <p className={`text-sm font-semibold transition-colors group-hover:text-emerald-400 ${darkTheme ? 'text-neutral-200' : 'text-neutral-850'}`}>
+              <p className="text-[9px] font-mono tracking-widest text-neutral-500 uppercase">{t('contact.phoneLabel')}</p>
+              <p className={`text-sm font-semibold transition-colors group-hover:text-emerald-400 ${darkTheme ? 'text-neutral-200' : 'text-neutral-800'}`}>
                 +62 823-6285-1796
               </p>
             </div>
@@ -138,8 +138,8 @@ const ContactSection = ({ darkTheme }: ContactSectionProps) => {
               <MapPin size={16} className="text-white" />
             </div>
             <div>
-              <p className="text-[9px] font-mono tracking-widest text-neutral-500 uppercase">LOCATION</p>
-              <p className={`text-sm font-semibold ${darkTheme ? 'text-neutral-250' : 'text-neutral-800'}`}>
+              <p className="text-[9px] font-mono tracking-widest text-neutral-500 uppercase">{t('contact.locationLabel')}</p>
+              <p className={`text-sm font-semibold ${darkTheme ? 'text-neutral-200' : 'text-neutral-800'}`}>
                 {t('contact.location')}
               </p>
             </div>
@@ -153,12 +153,12 @@ const ContactSection = ({ darkTheme }: ContactSectionProps) => {
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className={`flex items-center gap-2 text-xs font-mono tracking-wider uppercase transition-colors 
-              ${darkTheme ? 'text-indigo-400 hover:text-indigo-300' : 'text-indigo-650 hover:text-indigo-805'}`}
+              ${darkTheme ? 'text-indigo-400 hover:text-indigo-300' : 'text-indigo-600 hover:text-indigo-800'}`}
           >
             <ArrowUp size={14} />
             {t('footer.backToTop')}
           </button>
-          <p className={`text-xs font-mono tracking-wide ${darkTheme ? 'text-neutral-600' : 'text-neutral-450'}`}>
+          <p className={`text-xs font-mono tracking-wide ${darkTheme ? 'text-neutral-600' : 'text-neutral-400'}`}>
             © {new Date().getFullYear()} Awanda. {t('footer.builtWith')}
           </p>
         </div>

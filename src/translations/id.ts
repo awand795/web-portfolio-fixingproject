@@ -48,6 +48,7 @@ const id: Record<string, string> = {
     'projects.desc.6': 'Bot WhatsApp berbasis web/Node.js yang mendukung manajemen pesan otomatis, integrasi API, dan fitur interaktif untuk meningkatkan efisiensi komunikasi serta manajemen grup secara real-time.',
 
     // Skills
+    'skills.kicker': 'KAPABILITAS & TECH STACK',
     'skills.title': 'Keahlian & Kompetensi',
     'skills.description.before': 'Saya ngoding di',
     'skills.description.mid': '— dari',
@@ -55,8 +56,12 @@ const id: Record<string, string> = {
     'skills.description.after': 'dan semuanya di antaranya. Backend API, database, UI mobile — saya tangani full stack.',
 
     // Contact
+    'contact.kicker': 'HUBUNGI SAYA',
     'contact.title': 'Mari Terhubung',
     'contact.cta': 'Punya proyek? Mari bekerja sama!',
+    'contact.emailLabel': 'ALAMAT EMAIL',
+    'contact.phoneLabel': 'NOMOR TELEPON',
+    'contact.locationLabel': 'LOKASI',
 
     // Footer
     'footer.builtWith': 'Dibangun dengan React & banyak ☕',
